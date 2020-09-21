@@ -16,9 +16,9 @@
 								<div class="row col-mb-30">
 									<div class="col-6 col-lg-3 widget_links">
 										<ul>
-											<li><a href="index.php">Home</a></li>
-											<li><a href="about-us.php">About</a></li>
-											<li><a href="#">Stories</a></li>
+											<li><a href="{{ URL::to('/')}}">Home</a></li>
+											<li><a href="{{ URL::to('/about')}}">About</a></li>
+											<li><a href="{{ URL::to('/blogs')}}">Stories</a></li>
 											<li><a href="#">FAQs</a></li>
 											<li><a href="#">Q&A</a></li>
 										</ul>
@@ -126,11 +126,11 @@
 							<!-- <div class="copyrights-menu copyright-links clearfix">
 								<a href="#">Home</a><a href="#">About</a><a href="#">Members</a><a href="#">Stories</a><a href="#">FAQs</a><a href="#">Contact</a>
 							</div> -->
-							Copyrights © 2020 All Rights Reserved by Finest 50.
+							Copyrights © 2020 All Rights Reserved by Finest 50. 
 						</div>
 
 						<div class="col-12 col-lg-auto text-center text-lg-right">
-							<a href="#" class="social-icon inline-block si-small si-borderless mb-0 si-facebook">
+							<a href="#"  class="social-icon inline-block si-small si-borderless mb-0 si-facebook">
 								<i class="icon-facebook"></i>
 								<i class="icon-facebook"></i>
 							</a>
