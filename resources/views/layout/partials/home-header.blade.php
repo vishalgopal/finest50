@@ -18,11 +18,11 @@
 						</div><!-- .top-links end -->
 
 						<ul id="top-social" class="d-md-none d-none d-lg-block">
-							<li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span></a></li>
-							<li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span></a></li>
-							<li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
-							<li><a href="#" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
-							<li><a href="#" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
+							<li><a href="#" target="_blank" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span></a></li>
+							<li><a href="#" target="_blank" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span></a></li>
+							<li><a href="#" target="_blank" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
+							<li><a href="#" target="_blank" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
+							<li><a href="#" target="_blank" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
 							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91 9898989898</span></a></li>
 							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@finest50.com</span></a></li>
 						</ul><!-- #top-social end -->
