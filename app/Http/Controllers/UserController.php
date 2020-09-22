@@ -115,31 +115,18 @@ class UserController extends Controller
     public function userFollow(Request $request){
         if (Auth::check())
         {
-            $user = User::find(Auth::id());
-            $answer = Answer::find($request->answerid);
-            $user->toggleLike($answer); 
-            if (Auth::user()->hasLiked($answer)){
-            if ($answer->likers()->count() > 1){
-                $total = $answer->likers()->count() - 1;
-                $likecpy = 'you and '. $total  .' more <i class="icon-thumbs-up"></i> this';
-            }
-            else{
-                $likecpy = 'you  <i class="icon-thumbs-up"></i> this    ';
-            }
-        }
-            else{
-                if($answer->likers()->count() > 0){
-                    $likecpy = $answer->likers()->count().' <i class="icon-thumbs-up"></i>';
-                }
-                else { 
-                    $likecpy = 'Be the first one to  <i class="icon-thumbs-up"></i> this';
-                }
-            }
-
-            $arr = array('msg' => 'Successfully stored', 'status' =>  $user->hasLiked($answer), 'count'=> $answer->likers()->count(),'likecpy' => $likecpy);
+            $member1 = User::find(Auth::id());
+            $member2 = User::find($request->member_id);
+            $member1->toggleFollow($member2); 
+            $userupdate = User::where('id', $request->member_id)
+            ->update(['followers' => $member2->followers()->count()]);
+            $arr = array('msg' => 'Success', 'status' =>  $member1->isFollowing($member2), 'count'=> $member2->followers()->count());
             return Response()->json($arr);
         }
+        else{
+            return "Login Required";
+            $arr = array('msg' => 'Failure', 'status' =>  'Login Required', 'count'=> $member2->followings()->count());
+        }
     }
-    
 
 }

@@ -50,7 +50,7 @@ Route::get('member/{username}', 'UserController@profile')->name('profile');
 Route::post('member/question', 'UserController@askQuestion')->name('ask.question')->middleware('auth');
 Route::post('member/consultation', 'UserController@bookConsultation')->name('book.consutation')->middleware('auth');
 Route::post('member/review', 'UserController@rateReview')->name('rate.review')->middleware('auth');
-Route::post('member/folloe', 'UserController@userFollow')->middleware('auth')->middleware('auth');
+Route::post('member/follow', 'UserController@userFollow')->middleware('auth')->middleware('auth');
 
 
 // Blog

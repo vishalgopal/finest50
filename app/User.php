@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\Permission\Traits\HasRoles;
 use Overtrue\LaravelLike\Traits\Liker;
+use Overtrue\LaravelFollow\Followable;
+
 /**
  * @property int $id
  * @property int $category_id
@@ -50,7 +52,8 @@ class User extends Authenticatable
     use Sluggable;
     use HasRoles;
     use Liker;
-    
+    use Followable;
+
     /**
      * @var array
      */

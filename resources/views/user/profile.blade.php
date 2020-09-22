@@ -59,12 +59,12 @@
                                     <div class="d-flex flex-column align-items-center">
                                         @if(Auth::user())
                                             <a href="#" class="position-relative follow-btn">
-                                                <div class="btn btn-follow">Follow {{ $user->followers }}</div>
+                                                <div class="btn btn-follow followbtn">Follow {{ $user->followers }}</div>
                                             </a>
                                         @else
                                             <a href="{{ URL::to('login') }}"
                                                 class="position-relative">
-                                                <div class="btn btn-follow">Follow {{ $user->followers }}</div>
+                                                <div class="btn btn-follow followbtn">Follow {{ $user->followers }}</div>
                                             </a>
                                         @endif
                                         @if(Auth::user())
@@ -115,8 +115,8 @@
                                             <a class="dropdown-item" target="_blank"
                                                 href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ Request::url() }}&amp;title={{ $user->name }}">Linkedin</a>
                                         </div>
-                                        <button type="button" class="btn btn-outline-dark"><i class="icon-bookmark"></i>
-                                            Save</button>
+                                        {{-- <button type="button" class="btn btn-outline-dark"><i class="icon-bookmark"></i>
+                                            Save</button> --}}
                                     </div>
 
 
@@ -644,9 +644,8 @@
         return false;
     }
 
-    $('.likebtn').click(function () {
-        $answerid = $(this).data('ansid');
-        $btnLike = $(this);
+    $('.follow-btn').click(function () {
+        $member_id = $('#uid').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -654,17 +653,17 @@
         });
         $.ajax({
             type: 'post',
-            url: APP_URL + '/user/follow',
+            url: APP_URL + '/member/follow',
             data: {
-                answerid: $answerid
+                member_id: $member_id
             },
             success: function (response) {
                 if (response.status) {
-                    $btnLike.removeClass("btn-outline-dark").addClass("btn-primary");
+                    $('.followbtn').html('Unfollow');
                 } else {
-                    $btnLike.addClass("btn-outline-dark").removeClass("btn-primary");
+                    $('.followbtn').html('Follow');
                 }
-                $('#like-' + $answerid).html(response.likecpy);
+                // $('#like-' + $answerid).html(response.likecpy);
             }
         });
     });
