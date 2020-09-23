@@ -120,7 +120,8 @@ class UserController extends Controller
             $member1->toggleFollow($member2); 
             $userupdate = User::where('id', $request->member_id)
             ->update(['followers' => $member2->followers()->count()]);
-            $arr = array('msg' => 'Success', 'status' =>  $member1->isFollowing($member2), 'count'=> $member2->followers()->count());
+            $count = thousandsCurrencyFormat($member2->followers()->count());
+            $arr = array('msg' => 'Success', 'status' =>  $member1->isFollowing($member2), 'count'=> $count);
             return Response()->json($arr);
         }
         else{

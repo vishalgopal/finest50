@@ -125,7 +125,7 @@
                                             class="feature-box hover-effect shadow-sm fbox-center fbox-bg fbox-light fbox-lg fbox-effect">
                                             <div class="fbox-icon">
                                                     <i><img src="{{ $member->avatar }}"
-                                                            class="border-0 bg-transparent shadow-sm" style="z-index: 2;"
+                                                            class="border-0 bg-transparent shadow-sm" height="128" width="128" style="z-index: 2;"
                                                             alt="{{ $member->name }}"></i>
                                             </div>
                                             <div class="fbox-content">
@@ -136,9 +136,19 @@
                                                 <p class="text-dark"><strong>{{ $member->followers }}</strong> Followers</p>
                                                 <p class="text-dark mt-0"><strong>{{ $member->stories }}</strong> Stories
                                                 </p>
-                                                <a href="{{ URL::to('/member/' . $member->slug) }}">
-                                                    <div class="btn btn-follow">Follow</div>
-                                                </a>
+                                                @if (Auth::user())
+                                                    <a class="follow-btn" data-uid="{{ $member->id }}">
+                                                    @if (Auth::user()->isFollowing($member))
+                                                        <div class="btn btn-follow ">Unfollow</div>
+                                                    @else 
+                                                        <div class="btn btn-follow ">Follow</div>
+                                                    @endif
+                                                    </a>
+                                                @else
+                                                    <a href="{{ URL::to('/login') }}"><div class="btn btn-follow ">Follow</div></a>   
+                                                @endif
+
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -498,6 +508,29 @@
 
             return false;
         }
-
+        $('.follow-btn').click(function () {
+        $member_id = $(this).data('uid');
+        currentbtn = $(this);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: APP_URL + '/member/follow',
+            data: {
+                member_id: $member_id
+            },
+            success: function (response) {
+                if (response.status) {
+                    $(currentbtn).html('<div class="btn btn-follow ">Unfollow</div>');
+                } else {
+                    $(currentbtn).html('<div class="btn btn-follow ">Follow</div>');
+                }
+                // $('#like-' + $answerid).html(response.likecpy);
+            }
+        });
+    });
     </script>
 @endsection

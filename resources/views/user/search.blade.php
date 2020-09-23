@@ -106,18 +106,14 @@
                                             </div>
                                             <div class="product-price">{{ $user->qualification }}</div>
                                             <div class="product-rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star-half-full"></i>
+                                                {!! $user->rating !!}
                                             </div>
 
                                             <p class="mt-2 mb-2 d-none d-lg-block">{{ $user->short_description }}</p>
                                             <div class="number-section">
                                                 <div>
                                                     <div class="d-flex mb-2">
-                                                        <p class="text-dark my-0"><strong>{{ $user->followers }}</strong>
+                                                    <p class="text-dark my-0" id="followers-{{ $user->id }}"><strong>{{ $user->followers }}</strong>
                                                             Followers</p>
                                                         <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0"><strong>{{ $user->stories }}</strong>
@@ -128,9 +124,17 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ URL::to('member/' . $user->slug) }}">
+                                                    @if (Auth::user())
+                                                    <a class="follow-btn" data-uid="{{ $user->id }}">
+                                                    @if (Auth::user()->isFollowing($user))
+                                                        <div class="btn btn-follow mt-0 btn-outline-dark">Unfollow</div>
+                                                    @else 
                                                         <div class="btn btn-follow mt-0 btn-outline-dark">Follow</div>
+                                                    @endif
                                                     </a>
+                                                @else
+                                                    <a href="{{ URL::to('/login') }}"><div class="btn btn-follow ">Follow</div></a>   
+                                                @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -307,7 +311,31 @@
 
             return false;
         }
-
+        $('.follow-btn').click(function () {
+        $member_id = $(this).data('uid');
+        currentbtn = $(this);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: APP_URL + '/member/follow',
+            data: {
+                member_id: $member_id
+            },
+            success: function (response) {
+                if (response.status) {
+                    $(currentbtn).html('<div class="btn btn-follow ">Unfollow</div>');
+                } else {
+                    $(currentbtn).html('<div class="btn btn-follow ">Follow</div>');
+                }
+                $('#followers-'+$member_id).html('<strong>' + response.count + '</strong> Follower(s) ')
+                // $('#like-' + $answerid).html(response.likecpy);
+            }
+        });
+    });
     </script>
 
 @endsection

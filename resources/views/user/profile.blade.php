@@ -659,9 +659,9 @@
             },
             success: function (response) {
                 if (response.status) {
-                    $('.followbtn').html('Unfollow');
+                    $('.followbtn').html('Unfollow ' + response.count);
                 } else {
-                    $('.followbtn').html('Follow');
+                    $('.followbtn').html('Follow ' + response.count);
                 }
                 // $('#like-' + $answerid).html(response.likecpy);
             }
