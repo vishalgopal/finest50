@@ -20,6 +20,7 @@ class Consultation extends Model
     /**
      * @var array
      */
+    public $timestamps = true;
     protected $fillable = ['user_id', 'member_id', 'comment', 'consultation_datetime', 'created_at', 'updated_at'];
 
     /**

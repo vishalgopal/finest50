@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Upvote extends Model
 {
+    public $timestamps = true;
     /**
      * @var array
      */

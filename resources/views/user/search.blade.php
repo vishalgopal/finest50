@@ -8,7 +8,7 @@
 @section('content')
     <!-- Page Title
       ============================================= -->
-    <section class="search-title">
+    {{-- <section class="search-title">
         <div class="container clearfix">
             <div class="col-md-8 offset-md-2">
                 <div class="shadow">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- #page-title end -->
 
     <!-- Content
@@ -52,7 +52,7 @@
                         <div class="search-filter">
 
                             <a href="Javascript:void(0);" class="badge badge-pill badge-light" id="btn-apply-filter"
-                                onclick="$('.all-filters').toggle()">Narrow your search, Apply Filters <i
+                                onclick="$('.all-filters').toggle()">Change Category<i
                                     class="icon-angle-down1"></i></a>
 
                             <ul class="all-filters" style="display: none;">
@@ -80,8 +80,8 @@
                                     <a class="dropdown-item" href="{{ Request::url() }}">None</a>
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=rating' }}">Highest Rated</a>
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=reviews' }}">Most Reviewed</a>
-                                    <a class="dropdown-item" href="{{ Request::url().'?sortby=followers' }}">Followers</a>
-                                    <a class="dropdown-item" href="{{ Request::url().'?sortby=stories' }}">Stories</a>
+                                    <a class="dropdown-item" href="{{ Request::url().'?sortby=follower' }}">Followers</a>
+                                    <a class="dropdown-item" href="{{ Request::url().'?sortby=stories' }}">Blogs</a>
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=answers' }}">Answers</a>
                                 </div>
 
@@ -113,11 +113,12 @@
                                             <div class="number-section">
                                                 <div>
                                                     <div class="d-flex mb-2">
-                                                    <p class="text-dark my-0" id="followers-{{ $user->id }}"><strong>{{ $user->followers }}</strong>
+                                                    <p class="text-dark my-0" id="followers-{{ $user->id }}"><strong>{{ $user->follower }}</strong>
                                                             Followers</p>
                                                         <p class="mx-3 mb-0">|</p>
-                                                        <p class="text-dark my-0"><strong>{{ $user->stories }}</strong>
-                                                            Stories</p>
+                                                        <p class="text-dark my-0">
+                                                            <a href="{{ URL::to('member/' . $user->slug . '/blogs') }}"><strong>{{ $user->stories }}</strong>
+                                                            Blogs</a></p>
                                                         <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0"><strong>{{ $user->answers }}</strong>
                                                             Answers</p>

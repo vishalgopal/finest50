@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Overtrue\LaravelLike\Traits\Likeable;
+use Laravel\Scout\Searchable;
 
 /**
  * @property int $id
@@ -20,6 +21,8 @@ use Overtrue\LaravelLike\Traits\Likeable;
 class Category extends Model
 {
     use Likeable;
+    use Searchable;
+    public $timestamps = true;
     /**
      * @var array
      */

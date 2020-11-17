@@ -10,6 +10,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\Permission\Traits\HasRoles;
 use Overtrue\LaravelLike\Traits\Liker;
 use Overtrue\LaravelFollow\Followable;
+use Laravel\Scout\Searchable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @property int $id
@@ -48,16 +50,18 @@ use Overtrue\LaravelFollow\Followable;
  */
 class User extends Authenticatable 
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
     use Sluggable;
     use HasRoles;
     use Liker;
     use Followable;
-
+    use Searchable;
+    public $timestamps = true;
+    public $asYouType = true;
     /**
      * @var array
      */
-    protected $fillable = ['response_time', 'response_rate', 'responses','display_mobile','display_email', 'images', 'videos','designation', 'company_name', 'qualification' ,'category_id', 'name', 'slug', 'email', 'mobile', 'otp_mobile', 'otp_email', 'email_verified_at', 'mobile_verified_at', 'password', 'avatar', 'provider', 'provider_id', 'access_token', 'remember_token', 'followers', 'stories', 'answers', 'country', 'state', 'city', 'pincode', 'address1', 'address2', 'short_description', 'long_description', 'created_at', 'updated_at'];
+    protected $fillable = ['latitude','longitude','response_time', 'response_rate', 'responses','display_mobile','display_email', 'images', 'videos','designation', 'company_name', 'qualification' ,'category_id', 'name', 'slug', 'email', 'mobile', 'otp_mobile', 'otp_email', 'email_verified_at', 'mobile_verified_at', 'password', 'avatar', 'provider', 'provider_id', 'access_token', 'remember_token', 'follower', 'stories', 'answers', 'country', 'state', 'city', 'pincode', 'address1', 'address2', 'short_description', 'long_description', 'created_at', 'updated_at'];
     
     /**
      * The attributes that should be hidden for arrays.
@@ -67,7 +71,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'otp_mobile', 'otp_email', 'email_verified_at', 'mobile_verified_at', 'access_token' , 'created_at', 'updated_at'
     ];
+    // TNT Search
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
 
+        // Customize array...
+
+        return $array;
+    }
     // Mutator
     public function getAvatarAttribute($value)
     {
@@ -88,7 +100,7 @@ class User extends Authenticatable
         
     }
 
-    public function getFollowersAttribute($value)
+    public function getFollowerAttribute($value)
     {
         return thousandsCurrencyFormat($value);
     }

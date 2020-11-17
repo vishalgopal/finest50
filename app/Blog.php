@@ -2,9 +2,11 @@
 
 namespace App;
 use App\Comments;
-
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Overtrue\LaravelLike\Traits\Likeable;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -21,12 +23,41 @@ use Overtrue\LaravelLike\Traits\Likeable;
 class Blog extends Model
 {
     use Likeable;
+    use Searchable;
+    use Sluggable;
+    use SoftDeletes;
+    
+    protected $touches = ['category'];
+    // public $asYouType = true;
+    public $timestamps = true;
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'user_id', 'title', 'slug', 'description', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'status', 'user_id', 'title', 'slug','image', 'description', 'created_at', 'updated_at'];
     protected $appends = array('comment_count');
 
+        /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        // $array = $this->transform($array);
+
+        // $array['category_name'] = $this->category['name'];
+        // $array['category_slug'] = $this->category->slug;
+        return $array;
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

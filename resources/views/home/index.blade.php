@@ -60,7 +60,7 @@
 
                     <div class="row mt-2">
 
-                        <!-- Course 
+                        <!-- Categories 
            ============================================= -->
                         @foreach ($blogs as $blog)
                             <div class="col-md-4 mb-5">
@@ -78,7 +78,7 @@
                                     <div
                                         class="card-footer py-3 d-flex justify-content-between align-items-center bg-white text-muted">
                                         <div class="badge alert-warning"><a
-                                                href="{{ URL::to('/category/' . $blog->category->slug) }}"
+                                                href="{{ URL::to('/blogs/' . $blog->category->slug) }}"
                                                 class="text-black-50">{{ $blog->category->title }}</a></div>
                                         <a href="{{ URL::to('/blog/' . $blog->slug) }}"
                                             class="text-dark position-relative"><i class="icon-line2-user"></i> <span
@@ -130,11 +130,11 @@
                                             </div>
                                             <div class="fbox-content">
                                                 <h3 class="mb-4 nott ls0"><a href="{{ URL::to('member/'.$member->slug) }}"
-                                                        class="text-dark">{{ $member->name }}</a><br><small
-                                                        class="subtitle nott color">{{ $member->category->title }}</small>
+                                                        class="text-dark">{{ $member->name }}</a><br>
+                                                        <small class="subtitle nott color"><a href="{{ URL::to('members/' . $member->category->slug) }}">{{ $member->category->title }}</a></small>
                                                 </h3>
-                                                <p class="text-dark"><strong>{{ $member->followers }}</strong> Followers</p>
-                                                <p class="text-dark mt-0"><strong>{{ $member->stories }}</strong> Stories
+                                                <p class="text-dark"><strong>{{ $member->follower }}</strong> Followers</p>
+                                            <p class="text-dark mt-0"><a href="{{ URL::to('member/' . $member->slug . '/blogs') }}"><strong>{{ $member->stories }}</strong> Stories</a>
                                                 </p>
                                                 @if (Auth::user())
                                                     <a class="follow-btn" data-uid="{{ $member->id }}">
@@ -438,7 +438,7 @@
                             <span class="text-black-50">Any Questions, feel free to call us now</span>
                         </div>
                         <div class="col-12 col-lg-auto mt-4 mt-lg-0">
-                            <a href="#" class="button button-xlarge button-rounded nott ls0 font-weight-bold m-0">Get in
+                            <a href="{{ URL::to('contact') }}" class="button button-xlarge button-rounded nott ls0 font-weight-bold m-0">Get in
                                 Touch</a>
                         </div>
                     </div>

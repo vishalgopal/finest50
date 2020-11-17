@@ -21,6 +21,26 @@ Route::get('/contact', function () {
     return view('pages.contact');
 });
 
+// Dashboard
+
+Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard')->middleware('auth');
+Route::get('/dashboard/blogs', 'DashboardController@blogs')->name('dashboard-blogs')->middleware('auth');
+Route::get('/dashboard/blog/create', 'DashboardController@newblog')->name('dashboard-newblog')->middleware('auth');
+Route::get('/dashboard/blog/edit/{slug}', 'DashboardController@editblog')->name('dashboard-editblog')->middleware('auth');
+Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard-comments')->middleware('auth');
+Route::get('/dashboard/reviews', 'DashboardController@reviews')->name('dashboard-reviews')->middleware('auth');
+Route::get('/dashboard/questions', 'DashboardController@questions')->name('dashboard-questions')->middleware('auth');
+Route::get('/dashboard/answers', 'DashboardController@answers')->name('dashboard-answers')->middleware('auth');
+Route::get('/dashboard/profile', 'DashboardController@profile')->name('dashboard-profile')->middleware('auth');
+Route::get('/dashboard/followers', 'DashboardController@followers')->name('dashboard-followers')->middleware('auth');
+Route::get('/dashboard/messages', 'DashboardController@messages')->name('dashboard-messages')->middleware('auth');
+Route::post('/user/flag', 'DashboardController@toggleFlag')->name('toggleflag')->middleware('auth');
+
+// City / State
+
+Route::post('/getState', 'FormController@getState');
+Route::post('/getCity', 'FormController@getCity');
+
 // Social Route
 Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('oauth/{driver}', 'Auth\LoginController@redirectToProvider')->name('social.oauth');
@@ -28,7 +48,27 @@ Route::get('oauth/{driver}/callback', 'Auth\LoginController@handleProviderCallba
 
 // Auth Route
 Auth::routes();
+// Custom Auth
+Route::get('signup', 'OtpAuthController@registerPage')->name('signup');
+Route::post('optregister', 'OtpAuthController@register');
 
+Route::post('optlogin', 'OtpAuthController@login')->name('optlogin');
+Route::post('verifyotp', 'OtpAuthController@verifyotp')->name('verifyotp');
+
+Route::get('signin', 'OtpAuthController@loginPage')->name('signin');
+Route::post('signin', 'OtpAuthController@loginWithOtp')->name('signinotp');
+
+Route::post('resendotp', 'OtpAuthController@resendOtp')->name('resendotp');
+
+
+// Route::get('loginWithOtp', function () {
+//     return view('auth/OtpLogin');
+// })->name('loginWithOtp');
+
+
+Route::post('sendOtp', 'OtpAuthController@sendOtp');
+
+// Home
 Route::get('/', 'HomeController@index')->name('home');
 include ('image.php');
 
@@ -40,22 +80,40 @@ Route::post('contact/submit', 'FormController@contactFrom');
 
 // QnA
 Route::get('question/{question}', 'QnAController@showQuestion')->name('question');
+Route::get('questions', 'QnAController@showAllQuestions')->name('questions');
 Route::post('answer/like', 'QnAController@likeAnswer')->middleware('auth');
+Route::delete('answer/delete/{answerid}', 'QnAController@deleteanswer')->middleware('auth');
+Route::post('answer/submit', 'QnAController@answerSubmit')->middleware('auth');
+Route::post('answer/answeredit', 'QnAController@answerEdit')->middleware('auth');
+
 
 
 // Users
 Route::get('members/{categories?}', 'UserController@search')->name('members');
 Route::get('member/{username}', 'UserController@profile')->name('profile');
+Route::get('member/{username}/blogs', 'BlogController@listMember')->name('memberblogs');
 
 Route::post('member/question', 'UserController@askQuestion')->name('ask.question')->middleware('auth');
 Route::post('member/consultation', 'UserController@bookConsultation')->name('book.consutation')->middleware('auth');
 Route::post('member/review', 'UserController@rateReview')->name('rate.review')->middleware('auth');
-Route::post('member/follow', 'UserController@userFollow')->middleware('auth')->middleware('auth');
+Route::post('member/follow', 'UserController@userFollow')->middleware('auth');
+
+Route::post('user/update', 'UserController@updateprofile')->middleware('auth');
+Route::post('user/updateimages', 'UserController@uploadUserImages')->middleware('auth');
 
 
 // Blog
 Route::get('blogs/{categories?}', 'BlogController@list')->name('blogs');
 Route::get('blog/{blogslug?}', 'BlogController@single')->name('blog');
-Route::post('comment/submit', 'BlogController@storeComment');
+Route::post('blog/like', 'BlogController@likeBlog')->middleware('auth');
+Route::post('blog/save', 'BlogController@saveblog')->middleware('auth');
+Route::post('blog/update/{blogid}', 'BlogController@updateblog')->middleware('auth');
+Route::delete('blog/delete/{blogid}', 'BlogController@deleteblog')->middleware('auth');
 
+Route::post('comment/submit', 'BlogController@storeComment');
+Route::delete('comment/delete/{commentid}', 'BlogController@deletecomment')->middleware('auth');
+
+//Search
+
+Route::get('search/{type}/{query}', 'SearchController@ajaxcall')->name('search');
 

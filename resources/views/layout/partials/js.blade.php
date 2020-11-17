@@ -16,10 +16,24 @@
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('js/parsley.min.js') }}"></script>
+<script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 
 
 <script>
-    var APP_URL = {!! json_encode(url('/')) !!}
+    var APP_URL = {!!json_encode(url('/')) !!}
+    $(document).ready(function() {
+
+        $('.cd-search-trigger, .cd-search-suggestions').click(function(e) {
+            if ($(e.target).attr('id') != 'close-btn') {
+                $('.cd-search-suggestions').show();
+                event.stopPropagation();
+            }
+        });
+        $('body').click(function() {
+            $('.cd-search-suggestions').hide();
+        });
+
+    });
     $(function() {
         $('#widget-newsletter-form').parsley();
     });
@@ -40,7 +54,7 @@
                 });
                 $.ajax({
                     type: 'post',
-                    url: APP_URL+'home/newsletter',
+                    url: APP_URL + 'home/newsletter',
                     data: {
                         email: email,
                         source: source
@@ -67,5 +81,40 @@
 
         return false;
     }
+    // function search(event){
+    //     alert('search')
+    //     // event.preventDefault();
+    //     $type = $('#type').val();   
+    //     $query = $('#query').val();
+    //     $location = $('#location').val();
+    //     if ($query.length > 2 ){
+    //         alert($query);
+    //         window.location.href = APP_URL + "/search/" + $type + "/" + $query + "/" +"?location=" + $location;
+    //     }
+    //     else{
+
+    //     }
+    // }
+
+    // your function
+var search = function(event) {
+        event.preventDefault();
+        $type = $('#type').val();   
+        $query = $('#query').val();
+        $location = $('#location').val();
+        if ($query.length > 2 ){
+            window.location.href = APP_URL + "/search/" + $type + "/" + $query + "/" +"?location=" + $location;
+        }
+        else{
+
+        }
+    // event.preventDefault();
+};
+
+// your form
+var form = document.getElementById("searchbar");
+
+// attach event listener
+form.addEventListener("submit", search, true);
 
 </script>

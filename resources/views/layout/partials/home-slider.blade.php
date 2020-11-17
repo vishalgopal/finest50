@@ -14,18 +14,49 @@
 								</div>
 								<div class="clear"></div>
 								<div class="input-group input-group-lg mt-1 home-searchbar">
+									<form id="searchbar" name="searchbar" class="w-100">
+										@csrf
+									<div class="input-group input-group-lg mt-1 home-searchbar">
+										<!-- desktop-category -->
+										<div class="form-group mb-0 category-select d-none d-lg-block">
+										<select id="type" name="type" class="form-control select2-single">
+											<option value="all" selected>All</option>
+											<option value="member">Members</option>
+											<option value="category">Categories</option>
+											<option value="blog">Blogs</option>
+											<option value="question">Questions</option>
+											<!-- <option value="ke">Accountant</option> -->
+										</select>
+										</div>
+										<!-- / -->
+			
+										<input class="form-control rounded border-0 main-search cd-search-trigger" name="query" id="query" type="search" placeholder="Search ends here.." aria-label="Search">
+										
+										<!-- mobile-category -->
+										<div class="form-group mb-0 category-select d-block d-lg-none">
+										<select id="single" class="form-control select2-single">
+											<option value="all">All</option>
+											<option value="members" selected>Members</option>
+											<option value="category" selected>Categories</option>
+											<option value="blog">Blogs</option>
+											<option value="question">Questions</option>
+										</select>
+										</div> 
+										<!-- / -->
+										
+										<div class="form-group mb-0">
+										<select class="form-control select2-single" name="location" id="location">
+											@foreach ($locations as $location)
+												<option value="{{ $location->title }}" >{{ $location->title }}</option>
+											@endforeach
+										</select>
+										</div>
+										<div class="input-group-append search-btn">
+											<button class="btn" type="submit"><i class="icon-line-search font-weight-bold"></i></button>
+										</div>
+									</div>
+									</form>
 									
-									<input class="form-control rounded border-0 main-search" type="search" placeholder="Search ends here.." aria-label="Search">
-									<div class="form-group">
-									<select id="single" class="form-control select2-single">
-										@foreach ($locations as $location)
-											<option value="{{ $location->city}}">{{ $location->title}}</option>
-										@endforeach
-									</select>
-									</div>
-									<div class="input-group-append search-btn">
-										<button class="btn" type="submit"><i class="icon-line-search font-weight-bold"></i></button>
-									</div>
 								</div>
 							</div>
 						</div>

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Lead extends Model
 {
+    public $timestamps = true;
     /**
      * @var array
      */

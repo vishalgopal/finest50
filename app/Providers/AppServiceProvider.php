@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $locations = Location::all();
+        // $userlocation = \Location::get(\Request::ip());
         View::share('locations',$locations);
         $categories = Category::where('parent',0)->with('children')->get();
         View::share('categories',$categories);

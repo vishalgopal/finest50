@@ -49,7 +49,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-12 form-group float-right">
+                                    <div class="col-12 form-group text-right">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                             {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember">
@@ -69,36 +69,36 @@
                                         @endif
                                     </div>
 
-                                    <div class="divider my-3 divider-rounded divider-center">&nbsp;&nbsp;or&nbsp;&nbsp;
+                                    <div class="divider mt-0 mb-3 divider-rounded divider-center">&nbsp;&nbsp;or&nbsp;&nbsp;
                                     </div>
 
                                     <div class="login-btns form-group">
-                                        <a href="{{ route('social.oauth', 'google') }}" class="btn btn-outline-dark"><img
+                                        <a href="{{ route('social.oauth', 'google') }}" class="btn btn-outline-dark text-left"><img
                                                 src="{{ asset('images/login/gmail.svg') }}">Log
                                             in with Google</a>
 
-                                        <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-outline-dark"><img
+                                        <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-outline-dark text-left"><img
                                                 src="{{ asset('images/login/facebook.svg') }}">Log
                                             in with Facebook</a>
 
                                     </div>
                                     <div class="login-btns form-group">
-                                        <a href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-outline-dark"><img
+                                        <a href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-outline-dark text-left"><img
                                                 src="{{ asset('images/login/linkedin.svg') }}">Log
                                             in with LinkedIn</a>
 
-                                        <a href="{{ route('social.oauth', 'twitter') }}" class="btn btn-outline-dark"><img
+                                        <a href="{{ route('social.oauth', 'twitter') }}" class="btn btn-outline-dark text-left"><img
                                                 src="{{ asset('images/login/twitter.svg') }}">Log
                                             in with Twitter</a>
 
                                     </div>
 
-                                    <div class="divider my-3"></div>
+                                    <div class="divider my-3 divider-rounded divider-center">&nbsp;&nbsp;or&nbsp;&nbsp;</div>
 
-                                    <div class="col-12 form-group">
+                                    <h4 class="mb-0">
                                         New to Finest 50? <a href="{{ route('register') }}"
                                             onclick="">Create account</a>
-                                    </div>
+                                    </h4>
 
                                 </div>
 

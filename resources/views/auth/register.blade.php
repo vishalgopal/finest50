@@ -78,12 +78,12 @@
                                         name="register-form-submit" value="register" type="submit">{{ __('Register') }}</button>
                                 </div>
 
-                                <div class="divider my-3"></div>
+                                <div class="divider my-3 divider-rounded divider-center">&nbsp;&nbsp;or&nbsp;&nbsp;</div>
 
-                                <div class="col-12 form-group">
+                                <h4 class="mb-0">
 
                                     Already have an account? <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </div>
+                                </h4>
 
                             </form>
                         </div>

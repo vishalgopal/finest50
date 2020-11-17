@@ -95,6 +95,51 @@
 												</a>
 											</div>
 										</div><!-- Post Single - Share End -->
+										<!-- Post Single - Like
+										============================================= -->
+										<div class="si-share border-0 d-flex justify-content-between align-items-center">
+											{{-- <i class="like-icon"></i>
+											<span class="like-txt">liked!</span> --}}
+											@if (Auth::user())
+                                                        @if (Auth::user()->hasLiked($blog))
+                                                            @if ($blog->likers()->count() > 1)
+                                                                <span id="like-{{ $blog->id }}">you and
+                                                                    {{ $blog->likers()->count() - 1 }} more <i
+                                                                        class="icon-thumbs-up"></i> this</span>
+                                                            @else
+                                                                <span id="like-{{ $blog->id }}">you <i
+                                                                        class="icon-thumbs-up"></i> this </span>
+                                                            @endif
+                                                            <button type="button" class="btn btn-sm btn-primary likebtn"
+                                                                data-blogid="{{ $blog->id }}"><i
+                                                                    class="icon-thumbs-up"></i>
+                                                                Like</button>
+                                                        @else
+                                                            @if ($blog->likers()->count() > 0)
+                                                                <span
+                                                                    id="like-{{ $blog->id }}">{{ $blog->likers()->count() }}
+                                                                    <i class="icon-thumbs-up"></i></span>
+                                                            @else
+                                                                <span id="like-{{ $blog->id }}">Be the first one to <i
+                                                                        class="icon-thumbs-up"></i> this</span>
+                                                            @endif
+                                                            <button type="button"
+                                                                class="btn btn-sm btn-outline-dark likebtn"
+                                                                data-blogid="{{ $blog->id }}"><i
+                                                                    class="icon-thumbs-up"></i>
+                                                                Like</button>
+                                                        @endif
+                                                    @else
+                                                        <span id="like-{{ $blog->id }}">{{ $blog->likers()->count() }}
+                                                            <i class="icon-thumbs-up"></i></span>
+                                                        <a type="button" class="btn btn-sm btn-outline-dark"
+                                                            href="{{ URL::to('login') }}"><i class="icon-thumbs-up"></i>
+                                                            Like</a>
+                                                    @endif
+											<div>
+											
+											</div>
+										</div><!-- Post Single - Like End -->
 
 									</div>
 								</div><!-- .entry end -->
@@ -482,7 +527,39 @@ function openmodal(val){
 
             return false;
         }
+		$(function() {
+			$( "i.like-icon" ).click(function() {
+			$( "i.like-icon,span.like-txt" ).toggleClass( "press", 1000 );
+			});
+		});
 
+
+		// Like Button
+
+		$('.likebtn').click(function() {
+            $blogid = $(this).data('blogid');
+            $btnLike = $(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: APP_URL + '/blog/like',
+                data: {
+                    blogid: $blogid
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $btnLike.removeClass("btn-outline-dark").addClass("btn-primary");
+                    } else {
+                        $btnLike.addClass("btn-outline-dark").removeClass("btn-primary");
+                    }
+                    $('#like-' + $blogid).html(response.likecpy);
+                }
+            });
+        });
     </script>
 
 @endsection

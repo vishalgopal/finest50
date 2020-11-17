@@ -16,6 +16,6 @@
 	<!-- / -->
 
 	<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}" type="text/css" />
-
+	<link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }} " type="text/css" >
 	<!-- custom css -->
 	<link rel="stylesheet" href="{{ asset('css/custom-2.css') }}" type="text/css" />

@@ -58,13 +58,17 @@
                                     <input type="hidden" id="uid" value="{{ $user->id }}">
                                     <div class="d-flex flex-column align-items-center">
                                         @if(Auth::user())
-                                            <a href="#" class="position-relative follow-btn">
-                                                <div class="btn btn-follow followbtn">Follow {{ $user->followers }}</div>
-                                            </a>
+                                        <a href="#" class="position-relative follow-btn">
+                                            @if (Auth::user()->isFollowing($user))
+                                                <div class="btn btn-follow followbtn">Unfollow <span class="badge badge-light">{{ $user->follower }}</span></div>
+                                            @else 
+                                                <div class="btn btn-follow followbtn">Follow <span class="badge badge-light">{{ $user->follower }}</span></div>
+                                            @endif
+                                            </a> 
                                         @else
                                             <a href="{{ URL::to('login') }}"
                                                 class="position-relative">
-                                                <div class="btn btn-follow followbtn">Follow {{ $user->followers }}</div>
+                                                <div class="btn btn-follow followbtn">Follow {{ $user->follower }}</div>
                                             </a>
                                         @endif
                                         @if(Auth::user())
@@ -93,7 +97,7 @@
 
                                     <p class="text-dark my-0"><strong>{{ $user->answers }}</strong> Questions Answered
                                     </p>
-                                    <p class="text-dark my-0"><strong>{{ $user->stories }}</strong> Stories</p>
+                                <p class="text-dark my-0"><a href="{{ URL::to('member/' . $user->slug  .'/blogs') }}"><strong>{{ $user->stories }}</strong> Blogs</a></p>
 
 
                                     <div class="btns">
@@ -514,7 +518,7 @@
                 });
                 $.ajax({
                     type: 'post',
-                    url: APP_URL + '/user/review',
+                    url: APP_URL + '/member/review',
                     data: {
                         rating: rating,
                         review: review,
@@ -527,8 +531,7 @@
                             swal("Thankyou!",
                                 "We have recieved your request, someone from our team will contact you shortly!",
                                 "success");
-                                $('#reviewformModal').modal('hide');
-
+                                $('.modal').modal('hide');
                         } else {
                             swal("Oops!", "Something went wrong, Please try again", "warning");
                         }
@@ -560,7 +563,7 @@
                 });
                 $.ajax({
                     type: 'post',
-                    url: APP_URL + '/user/question',
+                    url: APP_URL + '/member/question',
                     data: {
                         title: question,
                         member_id: member_id
@@ -571,11 +574,7 @@
                             swal("Thankyou!",
                                 "You have successfully submitted your Question, We'll notify as soon as Expert answers"
                             );
-                            $(".form-process").css({
-                                "display": "none"
-                            });
-                            $('#questionformModal').modal('hide');
-
+                            $('.modal').modal('hide');
                         } else {
                             swal("Oops!", "Something went wrong, Please try again", "warning");
                         }
@@ -609,7 +608,7 @@
                 });
                 $.ajax({
                     type: 'post',
-                    url: APP_URL + '/user/consultation',
+                    url: APP_URL + '/member/consultation',
                     data: {
                         comment: comment,
                         consultation_datetime: datetime,
@@ -624,8 +623,7 @@
                             $(".form-process").css({
                                 "display": "none"
                             });
-                            $('#consultationformModal').modal('hide');
-
+                            $('.modal').modal('hide');
                         } else {
                             swal("Oops!", "Something went wrong, Please try again", "warning");
                         }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Overtrue\LaravelLike\Traits\Likeable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -16,9 +17,12 @@ use Overtrue\LaravelLike\Traits\Likeable;
 class Answer extends Model
 {
     use Likeable;
+    use SoftDeletes;
+
     /**
      * @var array
      */
+    public $timestamps = true;
     protected $fillable = ['question_id', 'user_id', 'answer'];
 
     /**

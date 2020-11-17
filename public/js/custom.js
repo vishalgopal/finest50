@@ -40,3 +40,16 @@
 	$('.search-btn-inner').click(function(){
 		$('.mini-search').toggle();
 	});
+
+	// custom search box
+$('.cd-search-trigger, .cd-search-suggestions').click(function (e) {
+	if ($(e.target).attr('id') != 'close-btn') {
+		$('.cd-search-suggestions').show();
+		event.stopPropagation();
+	}
+});
+$('body').click(function () {
+	$('.cd-search-suggestions').hide();
+})
+
+// 

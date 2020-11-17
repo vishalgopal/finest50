@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Question;
 use App\Answer;
 use Auth;
+use DB;
 use App\User;
 class QnAController extends Controller
 {
@@ -23,6 +24,13 @@ class QnAController extends Controller
         return view('qa.question', compact('question','relatedQuestions'));
     }
 
+    public function showAllQuestions(){
+        $latestQuestions = Question::orderBy('created_at', 'desc')->with('answers')->with('user')->take(200)->paginate(20);
+        $mostAnswerQues = Question::orderBy('answers_count', 'desc')->take(200)->paginate(20);
+        $randomQuestions = Question::orderBy('created_at', 'desc')->inRandomOrder()->take(10)->get();
+        return view('qa.list', compact('latestQuestions','mostAnswerQues','randomQuestions'));
+    }
+
     public function likeAnswer(Request $request){
         if (Auth::check())
         {
@@ -30,6 +38,10 @@ class QnAController extends Controller
             $answer = Answer::find($request->answerid);
             $user->toggleLike($answer); 
             if (Auth::user()->hasLiked($answer)){
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($answer)
+                ->log(':causer.name Liked the Answer');
             if ($answer->likers()->count() > 1){
                 $total = $answer->likers()->count() - 1;
                 $likecpy = 'you and '. $total  .' more <i class="icon-thumbs-up"></i> this';
@@ -39,6 +51,10 @@ class QnAController extends Controller
             }
         }
             else{
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($answer)
+                ->log(':causer.name Uniked the Answer');
                 if($answer->likers()->count() > 0){
                     $likecpy = $answer->likers()->count().' <i class="icon-thumbs-up"></i>';
                 }
@@ -48,6 +64,80 @@ class QnAController extends Controller
             }
 
             $arr = array('msg' => 'Successfully stored', 'status' =>  $user->hasLiked($answer), 'count'=> $answer->likers()->count(),'likecpy' => $likecpy);
+            return Response()->json($arr);
+        }
+    }
+
+    public function deleteanswer(Request $request, $answerid){
+        if (Auth::check()){
+            $answer = Answer::find($answerid);
+            $check = Answer::where('id',$answerid)->where('user_id', Auth::id())->delete();
+            $question = Question::where('id', $request->question_id)
+                        ->update([
+                        'answers_count'=> DB::raw('answers_count-1'), 
+                        ]);
+            if ($check){
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($answer)
+                ->log(':causer.name deleted an Answer');
+                $arr = array('msg' => 'Successfully deleted', 'status' =>  'Deleted');
+                return Response()->json($arr);
+            }
+            else{
+                $arr = array('msg' => 'Failed', 'status' =>  'Failed');
+                return Response()->json($arr);
+            }
+        }
+    }
+
+    public function answerSubmit(Request $request){
+        if (Auth::check())
+        {   
+            // Modify Request
+            $user = User::find($request->member_id); 
+            $request->merge([
+                'user_id' => Auth::id(),
+            ]);
+            request()->validate([
+            'answer' => 'required',
+            'question_id' => 'required|numeric'
+            ]);
+            $data = $request->all();
+            $check = Answer::create($data);
+            $question = Question::where('id', $request->question_id)
+                        ->update([
+                        'answers_count'=> DB::raw('answers_count+1'), 
+                        ]);
+            $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
+            if($check){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($check)
+                ->log(':causer.name Answered a Question');
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+            }
+            return Response()->json($arr);
+        }
+    }
+    public function answerEdit(Request $request){
+        if (Auth::check())
+        {   
+            request()->validate([
+            'answer' => 'required',
+            'answer_id' => 'required|numeric'
+            ]);
+            $data = $request->all();
+            $check = Answer::find($request->answer_id)->update(['answer' => $request->answer]);
+            $answer = Answer::find($request->answer_id);
+            $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
+            if($check){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($answer)
+                ->log(':causer.name Modified the answer');
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+            }
             return Response()->json($arr);
         }
     }

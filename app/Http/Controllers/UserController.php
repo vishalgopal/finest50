@@ -10,18 +10,20 @@ use App\Consultation;
 use App\Question;
 use Auth;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function search(Request $request){
         $selectedCategories = [];
+        $location = NULL;
         $sortby = $request->sortby ?? 'featured';
-        $users = User::orderBy($sortby, 'desc')->paginate(20);
+        $users = User::orderBy($sortby, 'desc')->where('location',$location)->where('type','member')->paginate(20);
         if (isset($request->categories))
             {
                 $selectedCategories = explode(",",$request->categories);
                 $catids = Category::whereIn('slug',$selectedCategories)->select('id')->get();
-                $users = User::whereIn('category_id',$catids->pluck('id'))->orderBy($sortby, 'desc')->paginate(20);
+                $users = User::whereIn('category_id',$catids->pluck('id'))->where('location',$location)->where('type','member')->orderBy($sortby, 'desc')->paginate(20);
             }
         return view('user.search', compact('users','selectedCategories'));
     }
@@ -36,12 +38,12 @@ class UserController extends Controller
         {   
             // Modify Request
             $category = User::where('id',$request->member_id)->select('category_id')->first();
-            $slug = SlugService::createSlug(Question::class, 'slug', $request->title);
-
+            // $slug = SlugService::createSlug(Question::class, 'slug', $request->title);
+            $user = User::find($request->member_id); 
             $request->merge([
                 'user_id' => Auth::id(),
                 'category_id' => $category->category_id,
-                'slug' => $slug
+                // 'slug' => $slug
             ]);
             request()->validate([
             'title' => 'required',
@@ -49,10 +51,14 @@ class UserController extends Controller
             ]);
             
             $data = $request->all();
-            $check = Question::insert($data);
+            $check = Question::create($data);
 
             $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
             if($check){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log(':causer.name asked a Question');
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
@@ -64,6 +70,7 @@ class UserController extends Controller
         if (Auth::check())
         {   
             // Modify Request
+            $user = User::find($request->member_id); 
             $request->merge([
                 'user_id' => Auth::id(),
             ]);
@@ -73,9 +80,13 @@ class UserController extends Controller
             ]);
             
             $data = $request->all();
-            $check = Consultation::insert($data);
+            $check = Consultation::create($data);
             $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
             if($check){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log(':causer.name booked a Consulation');
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
@@ -95,9 +106,10 @@ class UserController extends Controller
             'rating' => 'required|numeric',
             'member_id' => 'required|numeric'
             ]);
-            
+            $user = User::find($request->member_id); 
             $data = $request->all();
-            $check = Review::insert($data);
+            $check = Review::create($data);
+            
             // User Avaerage Rating to User table
             $average = Review::where('member_id', $request->member_id)->avg('rating');
             $total = Review::where('member_id', $request->member_id)->count();
@@ -105,6 +117,10 @@ class UserController extends Controller
                         ->update(['rating' => $average, 'reviews' => $total]);
             $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
             if($check){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log(':causer.name wrote a Review');
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
@@ -119,7 +135,7 @@ class UserController extends Controller
             $member2 = User::find($request->member_id);
             $member1->toggleFollow($member2); 
             $userupdate = User::where('id', $request->member_id)
-            ->update(['followers' => $member2->followers()->count()]);
+            ->update(['follower' => $member2->followers()->count()]);
             $count = thousandsCurrencyFormat($member2->followers()->count());
             $arr = array('msg' => 'Success', 'status' =>  $member1->isFollowing($member2), 'count'=> $count);
             return Response()->json($arr);
@@ -129,5 +145,108 @@ class UserController extends Controller
             $arr = array('msg' => 'Failure', 'status' =>  'Login Required', 'count'=> $member2->followings()->count());
         }
     }
+    
+    public function updateprofile(Request $request){
+        $data = $request->except(['_token','profile_avatar_remove','new_password', 'new_password_confirm']);
+        if(isset($request->new_password) || isset($request->new_password)){
+            $this->validate($request, [
+                'new_password'          => 'required',
+                'new_password_confirm' => 'required|same:new_password'
+            ]);
+            $request->merge([
+                'password' => Hash::make($request->new_password),
+            ]);
+        }
+        dd($request->images);
+        if(isset($request->images)){
+        $this->validate($request, [
+            'images'=>'required',
+            ]);
+            if($request->hasFile('images'))
+                {
+                $allowedfileExtension=['jpg','png'];
+                $files = $request->file('images');
+                foreach($files as $file){
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+                if($check)
+                    {
+                    // $items= Item::create($request->all());
+                    foreach ($request->images as $image) {
+                        $uploadedimage = $request->image->store('public/images','public');
+                        // $data['image'] = $uploadedimage;
+                        // $filename = $image->store('images');
+                        // ItemDetail::create([
+                        // 'item_id' => $items->id,
+                        // 'filename' => $filename
+                        // ]);
 
+                    }
+                    echo "Upload Successfully";
+                }
+                else
+                {
+                    echo '<div class="alert alert-warning"><strong>Warning!</strong> Sorry Only Upload png , jpg , doc</div>';
+                }
+                }
+                }
+            }
+        if (Auth::check()){
+            $user = User::find(Auth::id());
+            $data = $request->except(['_token','profile_avatar_remove','new_password', 'new_password_confirm']);;
+            if ($files = $request->file('image')) {
+                $uploadedimage = $request->image->store('public/images','public');
+                $data['image'] = $uploadedimage;
+            }
+            $check = User::where('id',Auth::id())->update($data);
+            if ($check){
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log('User Details Modified');
+                $arr = array('msg' => 'Successfully modified', 'status' =>  'Modified');
+                return Response()->json($arr);
+            }
+            else{
+                $arr = array('msg' => 'Failed', 'status' =>  'Failed');
+                return Response()->json($arr);
+            }
+        }
+    }
+
+    public function uploadUserImages(Request $request)
+    {
+        dd($request);
+    $this->validate($request, [
+    'photos'=>'required',
+    ]);
+    if($request->hasFile('photos'))
+        {
+        $allowedfileExtension=['pdf','jpg','png','docx'];
+        $files = $request->file('photos');
+        foreach($files as $file){
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $check=in_array($extension,$allowedfileExtension);
+        //dd($check);
+        // if($check)
+        //     {
+        //     $items= Item::create($request->all());
+        //     foreach ($request->photos as $photo) {
+        //         $filename = $photo->store('photos');
+        //         ItemDetail::create([
+        //         'item_id' => $items->id,
+        //         'filename' => $filename
+        //         ]);
+        //     }
+        //     echo "Upload Successfully";
+        // }
+        // else
+        // {
+        //     echo '<div class="alert alert-warning"><strong>Warning!</strong> Sorry Only Upload png , jpg , doc</div>';
+        // }
+        }
+        }
+    }
 }

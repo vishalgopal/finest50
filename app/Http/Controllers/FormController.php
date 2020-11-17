@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\AskQuestion;
 use App\Newsletter;
 use App\Lead;
+use App\Country;
+use App\State;
+use App\City;
+
 
 class FormController extends Controller
 {
@@ -20,9 +24,11 @@ class FormController extends Controller
         ]);
          
         $data = $request->all();
-        $check = AskQuestion::insert($data);
+        $check = AskQuestion::create($data);
         $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
         if($check){ 
+            activity()
+                ->log('User asked a Question from homepage');
         $arr = array('msg' => 'Successfully stored', 'status' => true);
         }
         return Response()->json($arr);
@@ -42,6 +48,8 @@ class FormController extends Controller
         $check = Newsletter::insert($data);
         $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
         if($check){ 
+            activity()
+                ->log('User subscribed to Newsletter');
         $arr = array('msg' => 'Successfully stored', 'status' => true);
         }
         return Response()->json($arr);
@@ -62,12 +70,23 @@ class FormController extends Controller
         ]);
          
         $data = $request->all();
-        $check = Lead::insert($data);
+        $check = Lead::create($data);
         $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
         if($check){ 
         $arr = array('msg' => 'Successfully stored', 'status' => true);
         }
         return Response()->json($arr);
        
+    }
+
+    public function getState(Request $req){
+        $country = Country::where('country',$req->country)->first();
+        $states = State::where('country_id',$country->id)->get();
+        return $states;
+    }
+    public function getCity(Request $req){
+        $states = State::where('state',$req->state)->first();
+        $cities = City::where('state_id',$states->id)->get();
+        return $cities;
     }
 }

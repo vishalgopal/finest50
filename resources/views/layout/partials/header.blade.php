@@ -1,4 +1,83 @@
-		<!-- Top Bar
+<!-- overlay !-->
+<div id="search" class="fade">
+    <a href="#" class="close-btn" id="close-search">
+        <i class="icon-remove-sign"></i>
+    </a>
+    <!-- Page Title
+		============================================= -->
+		<section class="" style="width: 100%; max-width: 900px;">
+			<div class="container clearfix">
+				<div class="col-md-12 text-center">
+				<img src="{{ asset('images/Finest50-logo-black.svg') }}" style="max-width: 220px; padding-bottom: 30px;">
+					<div class="shadow br-8">					
+						<form id="searchbar" name="searchbar" id="searchbar">
+							@csrf
+						<div class="input-group input-group-lg mt-1 home-searchbar">
+							<!-- desktop-category -->
+							<div class="form-group mb-0 category-select">
+							<select id="type" name="type" class="form-control select2-single">
+								<option value="all" selected>All</option>
+								<option value="member">Members</option>
+								<option value="category">Categories</option>
+								<option value="blog">Blogs</option>
+								<option value="question">Questions</option>
+								<!-- <option value="ke">Accountant</option> -->
+							</select>
+							</div>
+							<!-- / -->
+
+							<input class="form-control rounded border-0 main-search cd-search-trigger" name="query" id="query" type="search" placeholder="Search ends here.." aria-label="Search">
+							
+							<!-- mobile-category -->
+							{{-- <div class="form-group mb-0 category-select d-block d-lg-none">
+							<select id="single" class="form-control select2-single">
+								<option value="all">All</option>
+								<option value="members" selected>Members</option>
+								<option value="category" selected>Categories</option>
+								<option value="blog">Blogs</option>
+								<option value="question">Questions</option>
+							</select>
+							</div> --}}
+							<!-- / -->
+							
+							<div class="form-group mb-0">
+							<select class="form-control select2-single" name="location" id="location">
+								@foreach ($locations as $location)
+									<option value="{{ $location->title }}" >{{ $location->title }}</option>
+								@endforeach
+							</select>
+							</div>
+							<div class="input-group-append search-btn">
+								<button class="btn" type="submit"><i class="icon-line-search font-weight-bold"></i></button>
+							</div>
+						</div>
+						</form>
+					</div>		
+					
+		<!-- suggestion  -->
+							
+		<!-- <div class="cd-search-suggestions mCustomScrollbar">
+			<ul>
+				<li><a href="#">Teacher</a><br>
+					<p><a href="#">in Members</a></p>
+					<p><a href="#">in Blog</a></p>
+				</li>
+				<li><a href="#">Teacher</a></li>
+				<li><a href="#">Teacher</a></li>
+				<li><a href="#">Teacher</a></li>
+			</ul>				
+		</div>  -->
+		<!-- .cd-search-suggestions -->
+
+
+				</div>
+			</div>
+		</section>
+		<!-- #page-title end -->
+    <!-- <input placeholder="type here" id="searchbox" type="search"/> -->
+</div>
+<!--- /overlay -->
+<!-- Top Bar
 		============================================= -->
 		<div class="position-relative header-inner">
 		<div id="top-bar" class="top-bar">
@@ -14,7 +93,7 @@
 						<div class="top-links">
 							<ul class="top-links-container">
 								<li class="top-links-item"><a href="#">Become a Member</a></li> 
-								<li class="top-links-item d-none d-sm-inline-block"><a href="#"><i class="icon-download-alt"></i> Download App</a></li>
+								<li class="top-links-item d-none d-sm-inline-block"><a href="{{ URL::to('registration')}}"><i class="icon-download-alt"></i> Download App</a></li>
 							</ul>
 						</div><!-- .top-links end -->
 
@@ -52,7 +131,7 @@
 						<div class="top-links">
 							<ul class="top-links-container">
 								<li class="top-links-item"><a href="#">Become a Member</a></li> 
-								<li class="top-links-item d-none d-sm-inline-block"><a href="#"><i class="icon-download-alt"></i> Download App</a></li>
+								<li class="top-links-item d-none d-sm-inline-block"><a href="{{ URL::to('registration')}}"><i class="icon-download-alt"></i> Download App</a></li>
 							</ul>
 						</div><!-- .top-links end -->
 
@@ -165,8 +244,9 @@
 
 					</div>
 
+
 					<div class="col col-auto d-none d-lg-block hide-search">
-						<a href="#"><div class="btn btn-outline-primary search-btn-inner"><i class="icon-line-search"></i></div></a>
+						<a href='#search'><div class="btn btn-outline-primary search-btn-inner"><i class="icon-line-search"></i></div></a>
 					</div>
 
 					<div class="col col-auto">
@@ -186,7 +266,7 @@
 				</div>	
 		</div>	
 
-		<div class="mini-search">
+ <!-- <div class="mini-search">
 			<div class="shadow">					
 					
 						<div class="input-group input-group-lg mt-1 home-searchbar">
@@ -204,7 +284,7 @@
 									</div>
 								</div>
 					</div>
-		</div>
+		</div> -->
 
 		</div>	
 

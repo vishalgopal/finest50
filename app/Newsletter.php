@@ -19,6 +19,7 @@ class Newsletter extends Model
     /**
      * @var array
      */
+    public $timestamps = true;
     protected $fillable = ['name', 'email', 'contact', 'source', 'subscribed', 'created_at', 'updated_at'];
 
 }

@@ -22,6 +22,7 @@ class Comment extends Model
      */
     protected $fillable = ['blog_id', 'user_id', 'comment', 'parent_id', 'created_at', 'updated_at'];
     protected $appends = array('userinfo');
+    public $timestamps = true;
     public function getUserinfoAttribute()
     {
         $user = User::select('name','slug','id','avatar')->where('id', $this->user_id)->first();
