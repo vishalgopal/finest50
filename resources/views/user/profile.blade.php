@@ -53,22 +53,22 @@
 
                         <div class="product no-bs">
                             <div class="grid-inner row ">
-                                <div class="product-image col-8 col-lg-5 col-xl-5">
+                                <div class="product-image col-12 col-lg-5 col-xl-5">
                                     <a href="#"><img src="{{ $user->avatar }}" alt=""></a>
                                     <input type="hidden" id="uid" value="{{ $user->id }}">
-                                    <div class="d-flex flex-column align-items-center">
+                                    <div class="d-flex">
                                         @if(Auth::user())
                                         <a href="#" class="position-relative follow-btn">
                                             @if (Auth::user()->isFollowing($user))
-                                                <div class="btn btn-follow followbtn">Unfollow <span class="badge badge-light">{{ $user->follower }}</span></div>
+                                                <div class="btn btn-follow followbtn mr-2">Unfollow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
                                             @else 
-                                                <div class="btn btn-follow followbtn">Follow <span class="badge badge-light">{{ $user->follower }}</span></div>
+                                                <div class="btn btn-follow followbtn mr-2">Follow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
                                             @endif
                                             </a> 
                                         @else
                                             <a href="{{ URL::to('login') }}"
                                                 class="position-relative">
-                                                <div class="btn btn-follow followbtn">Follow {{ $user->follower }}</div>
+                                                <div class="btn btn-follow followbtn mr-2">Follow {{ $user->follower }}</div>
                                             </a>
                                         @endif
                                         @if(Auth::user())
@@ -101,7 +101,7 @@
 
 
                                     <div class="btns">
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#reviewFormModal"><i
+                                        <a class="btn btn-primary text-light" data-toggle="modal" data-target="#reviewFormModal"><i
                                                 class="icon-star3"></i> Write a Review</a>
                                         <!-- <button type="button" class="btn btn-outline-dark"><i class="icon-camera"></i> Add a Photo</button> -->
                                         <button class="btn btn-outline-dark dropdown-toggle" type="button"
@@ -355,6 +355,42 @@
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
                 <!-- Modal Question End -->
+
+                <!-- Modal chat
+                       ============================================= -->
+
+                       <div class="modal fade" id="chatFormModal" tabindex="-1" role="dialog"
+                       aria-labelledby="chatFormModalLabel" aria-hidden="true">
+                       <div class="modal-dialog">
+                           <div class="modal-content">
+                               <div class="modal-header">
+                                   <h4 class="modal-title" id="chatFormModalLabel">Chat Now</h4>
+                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                               </div>
+                               <div class="modal-body">
+                                   <form class="row mb-0" id="chatform" name="chatform"
+                                       onsubmit="return chatformSubmit();" method="post">
+                                       <div class="w-100"></div>
+                                       <div class="col-12 mb-3">
+                                           <label for="chatform-chat">chat <small>*</small></label>
+                                           <textarea class="required form-control" id="chatform-chat"
+                                               name="chatform-chat" rows="6" cols="30"></textarea>
+                                       </div>
+   
+                                       <div class="col-12">
+                                           <button class="button button-3d m-0" type="submit" id="chatform-submit"
+                                               name="chatform-submit" value="submit">Initiate Chat</button>
+                                       </div>
+   
+                                   </form>
+                               </div>
+                               <div class="modal-footer">
+                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                               </div>
+                           </div><!-- /.modal-content -->
+                       </div><!-- /.modal-dialog -->
+                   </div><!-- /.modal -->
+                   <!-- Modal chat End -->
 
 
                 <!-- Modal Consultation

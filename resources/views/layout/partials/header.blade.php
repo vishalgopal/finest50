@@ -14,7 +14,7 @@
 							@csrf
 						<div class="input-group input-group-lg mt-1 home-searchbar">
 							<!-- desktop-category -->
-							<div class="form-group mb-0 category-select">
+							<div class="form-group mb-0 category-select d-none d-lg-block">
 							<select id="type" name="type" class="form-control select2-single">
 								<option value="all" selected>All</option>
 								<option value="member">Members</option>
@@ -29,7 +29,7 @@
 							<input class="form-control rounded border-0 main-search cd-search-trigger" name="query" id="query" type="search" placeholder="Search ends here.." aria-label="Search">
 							
 							<!-- mobile-category -->
-							{{-- <div class="form-group mb-0 category-select d-block d-lg-none">
+							 <div class="form-group mb-0 category-select d-block d-lg-none">
 							<select id="single" class="form-control select2-single">
 								<option value="all">All</option>
 								<option value="members" selected>Members</option>
@@ -37,7 +37,7 @@
 								<option value="blog">Blogs</option>
 								<option value="question">Questions</option>
 							</select>
-							</div> --}}
+							</div> 
 							<!-- / -->
 							
 							<div class="form-group mb-0">
@@ -48,7 +48,7 @@
 							</select>
 							</div>
 							<div class="input-group-append search-btn">
-								<button class="btn" type="submit"><i class="icon-line-search font-weight-bold"></i></button>
+								<a class="btn" href="javascript:search()"><i class="icon-line-search font-weight-bold"></i></a>
 							</div>
 						</div>
 						</form>
@@ -87,7 +87,7 @@
 			<div class="row justify-content-between">	
 
 					<div class="col-12 px-0 d-md-block d-lg-none">
-						<div class="d-flex justify-content-center">
+						<div class="d-flex justify-content-between">
 						<!-- Top Links
 						============================================= -->
 						<div class="top-links">
@@ -103,18 +103,27 @@
 							<li><a href="#" target="_blank" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
-							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91 9898989898</span></a></li>
-							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@finest50.com</span></a></li>
+							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span></a></li>
+							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span></a></li>
 						</ul><!-- #top-social end -->
 
 						@guest
 							<a href="{{ route('login') }}"><div class="btn login-btn mobile-btn">{{ __('Login') }}</div></a>
 						@else
-							<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<!-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 								<div class="btn login-btn mobile-btn">
 									{{ __('Logout') }}
 								</div>
-							</a>
+							</a> -->
+							<div class="dropdown d-md-block d-block d-lg-none">
+						<button class="btn btn-link text-dark dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Vishal
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userdropdownMenu2">
+							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+						</div>
+						</div>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>
@@ -141,8 +150,8 @@
 							<li><a href="#" target="_blank" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
-							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+919898989898</span></a></li>
-							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@finest50.com</span></a></li>
+							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span></a></li>
+							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span></a></li>
 						</ul><!-- #top-social end -->
 						</div>
 
@@ -245,7 +254,7 @@
 					</div>
 
 
-					<div class="col col-auto d-none d-lg-block hide-search">
+					<div class="col col-auto hide-search">
 						<a href='#search'><div class="btn btn-outline-primary search-btn-inner"><i class="icon-line-search"></i></div></a>
 					</div>
 
@@ -253,11 +262,20 @@
 						@guest
 							<a href="{{ route('login') }}"><div class="btn login-btn desktop-btn">{{ __('Login') }}</div></a>
 						@else
-							<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						<div class="dropdown float-right  d-md-none d-none d-lg-block">
+						<button class="btn btn-link text-dark username- dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Vishal
+						</button>
+						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
+							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+						</div>
+						</div>
+							<!-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 								<div class="btn login-btn desktop-btn">
 									{{ __('Logout') }}
 								</div>
-							</a>
+							</a> -->
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>

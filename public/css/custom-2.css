@@ -78,9 +78,9 @@
     padding-bottom: 10px
 }
 
-.slider-element .input-group-append .btn {
+.slider-element .input-group-append .btn, .home-searchbar .input-group-append .btn{
     background-color: transparent;
-    padding: 7px 15px
+    padding: 13px 15px
 }
 
 .course-categories .card a span {
@@ -442,6 +442,7 @@
 }
 .header-inner .header1{
     background-color: #ffffff; 
+    border-bottom: 1px solid #eee;
     padding: 10px 0;
     transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
@@ -482,6 +483,9 @@
     color: #ffffff; 
     border-color: #ffffff;
 }
+.sticky-header .username-{
+    color: #ffffff !important;  
+}
 .black-logo, .white-logo{
     transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
@@ -507,11 +511,11 @@
     border-radius: 0;
 }
 .home-searchbar .select2-selection--single, .home-searchbar select{
-    height: 52px;
-    line-height: 52px !important; 
+    height: 60px;
+    line-height: 60px !important; 
 }
 .home-searchbar .select2-selection__rendered{
-    line-height: 52px !important; 
+    line-height: 60px !important; 
 }
 .home-searchbar .select2-selection__rendered{  
     padding-left: 10px !important;
@@ -553,19 +557,19 @@
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow{
-    height: 52px;
+    height: 60px;
     right: 5px;
     width: 25px;
 }
 .home-searchbar .main-search{
-    height: 52px !important;  
-    line-height: 52px !important;  
+    height: 60px !important;  
+    line-height: 60px !important;  
     border-radius: 0 !important;
     font-size: 16px;
     border-right: 1px #ddd solid !important;
 }
 .home-searchbar .btn{
-    height: 52px;
+    height: 60px;
     background-color: #0259fe !important;
     color: #ffffff;
     border-radius: .8rem !important; 
@@ -606,12 +610,19 @@
     color: #ffffff;
     border-radius: 20px;
     margin-top: 15px;
-    padding: 5px 20px;
+    padding: 5px 15px;
     background-color: #0259fe;
     font-weight: 600;
 }
 .btn-follow:hover{
     color: #ffffff;
+}
+.btn-follow .badge{
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
 }
 .loginpage{
     background-color: #e8f0ff !important;
@@ -1419,8 +1430,19 @@ input:-internal-autofill-selected {
 .header-inner .header1 .inner-logo, .sticky-header .inner-logo {
     max-width: 120px !important;
 }
+.header-inner .search-btn-inner{
+    position: fixed;
+    top: 55px;
+    right: 55px;
+    font-size: 12px;
+    margin-top: 6px;
+    padding: 3px 10px;
+}
+.sticky-header .search-btn-inner {
+    top: 10px;
+}
 .sticky-header #primary-menu-trigger{
-    top: 0
+    top: 5px;
 }
 .sticky-header .svg-trigger path{
     stroke: #ffffff;
@@ -1556,10 +1578,12 @@ input:-internal-autofill-selected {
 .search-title .home-searchbar .form-group {
     width: calc(50% - 27px);
 }
-.vertical-middle .home-searchbar .form-group {
+.vertical-middle .home-searchbar .form-group, #search .home-searchbar .form-group {
     width: calc(50% - 27px);
 }
-
+#search .shadow {
+    box-shadow: none !important;
+}
 
 }
 
@@ -1730,7 +1754,7 @@ input:-internal-autofill-selected {
 .search-title .home-searchbar .form-group {
     width: calc(50% - 19px);
 }
-.vertical-middle .home-searchbar .form-group {
+.vertical-middle .home-searchbar .form-group, #search .home-searchbar .form-group {
     width: calc(50% - 27px);
 }
 .search-title .home-searchbar .search-btn{
@@ -1834,6 +1858,13 @@ input:-internal-autofill-selected {
     font-size: 12px;
     border-radius: 15px;
     padding: 5px 15px;
+}
+.all-filters li {
+    margin: 0 15px 10px 0;
+    width: 44%;
+}
+.all-filters li label {
+    font-size: 11px;
 }
 
 }

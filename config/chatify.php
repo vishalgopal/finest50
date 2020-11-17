@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'name' => env('CHATIFY_NAME', 'Finest 50 Messenger'),
+    'name' => env('CHATIFY_NAME', 'Chat'),
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     |
     */
     'user_avatar' => [
-        'folder' => 'img/large/users-avatar',
+        'folder' => 'users-avatar',
         'default' => 'avatar.png',
     ],
 
@@ -89,7 +89,7 @@ return [
     |
     */
     'attachments' => [
-        'folder' => 'img/large/attachments',
+        'folder' => 'attachments',
         // Below is the route name to download attachments.
         'route' => 'attachments.download',
     ],

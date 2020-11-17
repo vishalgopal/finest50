@@ -53,7 +53,7 @@
 
                             <a href="Javascript:void(0);" class="badge badge-pill badge-light" id="btn-apply-filter"
                                 onclick="$('.all-filters').toggle()">Change Category<i
-                                    class="icon-angle-down1"></i></a>
+                                    class="icon-angle-down1 ml-2"></i></a>
 
                             <ul class="all-filters" style="display: none;">
                                 @foreach ($categories as $category)

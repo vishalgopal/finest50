@@ -9,100 +9,11 @@
       ============================================= -->
     <section id="content">
         <div class="content-wrap" style="overflow: visible;">
-
-
-
-            <div class="container">
-
-                <div class="heading-block border-bottom-0 my-4 center">
-                    <h3>Popular Categories</h3>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
-                        Voluptatibus, perspiciatis placeat.</span>
-                </div>
-
-                <!-- Categories
-         ============================================= -->
-                <div class="row course-categories clearfix mb-4">
-                    @foreach ($categories as $category)
-                        <div class="col-lg-2 col-sm-3 col-6 mt-4">
-                            <div class="card hover-effect">
-                                <img class="card-img" src="img/small/{{ $category->image }}" alt="Card image">
-                                <a href="{{ URL::to('/members/' . $category->slug) }}" class="card-img-overlay rounded p-0"
-                                    style="background-color: rgba({{ rand(1, 251) }},{{ rand(1, 251) }},{{ rand(1, 251) }},0.8);">
-                                    <span><i class="icon-music1"></i>{{ $category->title }}</span>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-
-                </div>
-                <div class="clear"></div>
-                <div class="row justify-content-center">
-                    <a href="#" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
-                </div>
-
-            </div>
-
-            <!-- Section Courses
-        ============================================= -->
-            <div class="section topmargin-lg parallax pop-stories-bg">
-
-
-                <div class="container">
-
-                    <div class="heading-block border-bottom-0 mb-5 center">
-                        <h3>Popular Stories</h3>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
-                            Voluptatibus, perspiciatis placeat.</span>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="row mt-2">
-
-                        <!-- Categories 
-           ============================================= -->
-                        @foreach ($blogs as $blog)
-                            <div class="col-md-4 mb-5">
-                                <div class="card course-card hover-effect border-0">
-                                    <a href="{{ URL::to('/blog/' . $blog->slug) }}"><img class="card-img-top"
-                                            src="img/large/{{ $blog->image }}" alt="Card image cap"></a>
-                                    <div class="card-body">
-                                        <h4 class="card-title font-weight-bold mb-2"><a
-                                                href="{{ URL::to('/blog/' . $blog->slug) }}">{{ $blog->title }}</a></h4>
-                                        <p class="mb-2 card-title-sub text-uppercase font-weight-normal ls1"><a
-                                                href="{{ URL::to('/member/' . $blog->user->slug) }}"
-                                                class="text-black-50">{{ $blog->user->name }}</a></p>
-                                        <p class="card-text text-black-50 mb-1">{{ $blog->description }}</p>
-                                    </div>
-                                    <div
-                                        class="card-footer py-3 d-flex justify-content-between align-items-center bg-white text-muted">
-                                        <div class="badge alert-warning"><a
-                                                href="{{ URL::to('/blogs/' . $blog->category->slug) }}"
-                                                class="text-black-50">{{ $blog->category->title }}</a></div>
-                                        <a href="{{ URL::to('/blog/' . $blog->slug) }}"
-                                            class="text-dark position-relative"><i class="icon-line2-user"></i> <span
-                                                class="author-number">{{ $blog->likes }}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-
-                        <!-- Course End -->
-
-                    </div>
-                    <div class="row justify-content-center">
-                        <a href="{{ URL::to('/blog/') }}"
-                            class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
-                    </div>
-                </div>
-
-            </div>
+          
 
             <!-- Members Section
         ============================================= -->
-            <div class="section bg-transparent pop-members-bg">
+        <div class="section bg-transparent mt-0">
                 <div class="container">
 
                     <div class="heading-block border-bottom-0 mb-5 center">
@@ -123,11 +34,13 @@
                                     <div class="oc-item">
                                         <div
                                             class="feature-box hover-effect shadow-sm fbox-center fbox-bg fbox-light fbox-lg fbox-effect">
+                                            <a href="{{ URL::to('member/'.$member->slug) }}">
                                             <div class="fbox-icon">
                                                     <i><img src="{{ $member->avatar }}"
                                                             class="border-0 bg-transparent shadow-sm" height="128" width="128" style="z-index: 2;"
                                                             alt="{{ $member->name }}"></i>
                                             </div>
+                                            </a>
                                             <div class="fbox-content">
                                                 <h3 class="mb-4 nott ls0"><a href="{{ URL::to('member/'.$member->slug) }}"
                                                         class="text-dark">{{ $member->name }}</a><br>
@@ -168,10 +81,100 @@
                     </div>
                 </div>
             </div>
+            
+<!-- Categories -->
+            
+            <div class="section pop-stories-bg">
+            <div class="container">
+
+                <div class="heading-block border-bottom-0 my-4 center">
+                    <h3>Popular Categories</h3>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
+                        Voluptatibus, perspiciatis placeat.</span>
+                </div>
+
+                <div class="row course-categories clearfix mb-4">
+                    @foreach ($categories as $category)
+                        <div class="col-lg-2 col-sm-3 col-6 mt-4">
+                            <div class="card hover-effect">
+                                <img class="card-img" src="img/small/{{ $category->image }}" alt="Card image">
+                                <a href="{{ URL::to('/members/' . $category->slug) }}" class="card-img-overlay rounded p-0"
+                                    style="background-color: rgba({{ rand(1, 251) }},{{ rand(1, 251) }},{{ rand(1, 251) }},0.8);">
+                                    <span><i class="icon-music1"></i>{{ $category->title }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+                <div class="clear"></div>
+                <div class="row justify-content-center">
+                    <a href="#" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
+                </div>
+
+            </div>
+            </div>
+
+            <!-- Popular Stories
+        ============================================= -->
+            <div class="section topmargin-lg parallax">
+
+
+                <div class="container">
+
+                    <div class="heading-block border-bottom-0 mb-5 center">
+                        <h3>Popular Stories</h3>
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
+                            Voluptatibus, perspiciatis placeat.</span>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <div class="row mt-2">
+
+                        <!-- Categories 
+           ============================================= -->
+                        @foreach ($blogs as $blog)
+                            <div class="col-md-4 mb-5">
+                                <div class="card course-card hover-effect border-0 h-100">
+                                    <a href="{{ URL::to('/blog/' . $blog->slug) }}"><img class="card-img-top"
+                                            src="img/large/{{ $blog->image }}" alt="Card image cap"></a>
+                                    <div class="card-body">
+                                        <h4 class="card-title font-weight-bold mb-2"><a
+                                                href="{{ URL::to('/blog/' . $blog->slug) }}">{{ $blog->title }}</a></h4>
+                                        <p class="mb-2 card-title-sub text-uppercase font-weight-normal ls1"><a
+                                                href="{{ URL::to('/member/' . $blog->user->slug) }}"
+                                                class="text-black-50">{{ $blog->user->name }}</a></p>
+                                        <p class="card-text text-black-50 mb-1">{!! Str::limit(strip_tags($blog->description), 150, ' ...') !!}</p>
+                                    </div>
+                                    <div
+                                        class="card-footer py-3 d-flex justify-content-between align-items-center bg-white text-muted">
+                                        <div class="badge alert-warning"><a
+                                                href="{{ URL::to('/blogs/' . $blog->category->slug) }}"
+                                                class="text-black-50">{{ $blog->category->title }}</a></div>
+                                        <a href="{{ URL::to('/blog/' . $blog->slug) }}"
+                                            class="text-dark position-relative"><i class="icon-line2-user"></i> <span
+                                                class="author-number">{{ $blog->likes }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+
+                        <!-- Course End -->
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <a href="{{ URL::to('/blog/') }}"
+                            class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
+                    </div>
+                </div>
+
+            </div>
 
             <!-- Featues Section
         ============================================= -->
-            <div class="section mt-5 mb-0" style="padding: 80px 0; background-color:#f9f9f9">
+            <div class="section mt-5 mb-0 min-vh-100 d-flex align-items-center" style="padding: 80px 0; background-color:#f9f9f9">
 
 
                 <div class="container">
@@ -180,7 +183,7 @@
                         <div class="col-lg-8">
                             <div class="row light clearfix">
 
-                                <div id="tab" class="widget clearfix">
+                                <div id="tab" class="widget px-3 clearfix">
 
                                     <div class="tabs mb-0 clearfix ui-tabs ui-corner-all ui-widget ui-widget-content"
                                         id="sidebar-tabs">
@@ -283,7 +286,7 @@
                             </div>
                         </div>
 
-                        <!-- Registration Foem
+                        <!-- Ask your question
            ============================================= -->
                         <div class="col-lg-4">
 
@@ -399,7 +402,7 @@
 
             <!-- App Buttons
         ============================================= -->
-            <div class="section pb-0 my-0 get-app-section" style="background-color: #f9f9f9;">
+            <div class="section my-0 get-app-section" style="background-color: #f9f9f9;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 offset-md-1 offset-0 bottommargin-lg d-flex flex-column align-self-center">

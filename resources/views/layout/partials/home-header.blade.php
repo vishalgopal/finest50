@@ -7,10 +7,10 @@
 			<div class="row justify-content-between">	
 
 					<div class="col-12 px-0 d-md-block d-lg-none">
-						<div class="d-flex justify-content-center">
+						<div class="d-flex justify-content-between">
 						<!-- Top Links
 						============================================= -->
-						<div class="top-links">
+						<div class="top-links ml-5">
 							<ul class="top-links-container">
 								<li class="top-links-item"><a href="#">Become a Member</a></li> 
 								<li class="top-links-item d-none d-sm-inline-block"><a href="#"><i class="icon-download-alt"></i> Download App</a></li>
@@ -23,18 +23,27 @@
 							<li><a href="#" target="_blank" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
 							<li><a href="#" target="_blank" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
-							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91 9898989898</span></a></li>
-							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@finest50.com</span></a></li>
+							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span></a></li>
+							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span></a></li>
 						</ul><!-- #top-social end -->
 
 						@guest
-							<a href="{{ route('login') }}"><div class="btn login-btn mobile-btn">{{ __('Login') }}</div></a>
-						@else
-							<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<a href="{{ route('login') }}"><div class="btn login-btn mobile-btn mr-3">{{ __('Login') }}</div></a>
+						@else					
+							<div class="dropdown d-md-block d-block d-lg-none">
+							<button class="btn btn-link text-dark dropdown-toggle pt-2" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Vishal
+							</button>
+							<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
+								<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+								<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+							</div>
+							</div>
+							<!-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 								<div class="btn login-btn mobile-btn">
 									{{ __('Logout') }}
 								</div>
-							</a>
+							</a> -->
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>
@@ -95,8 +104,8 @@
 							<li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span></a></li>
 							<li><a href="#" class="si-linkedin"><span class="ts-icon"><i class="icon-linkedin"></i></span></a></li>
 							<li><a href="#" class="si-quora"><span class="ts-icon"><i class="icon-quora"></i></span></a></li>
-							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+919898989898</span></a></li>
-							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@finest50.com</span></a></li>
+							<li><a href="tel:+91 9999999999" class="si-call"><span class="ts-icon"><i class="icon-call"></i></a></li>
+							<li><a href="mailto:info@finest50.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span></a></li>
 						</ul><!-- #top-social end -->
 						</div>
 
@@ -108,11 +117,20 @@
 						@guest
 							<a href="{{ route('login') }}"><div class="btn login-btn desktop-btn">{{ __('Login') }}</div></a>
 						@else
-							<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						<div class="dropdown float-left  d-md-none d-none d-lg-block">
+						<button class="btn btn-link text-light dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Vishal
+						</button>
+						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
+							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+						</div>
+						</div>
+							<!-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 								<div class="btn login-btn desktop-btn">
 									{{ __('Logout') }}
 								</div>
-							</a>
+							</a> -->
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>
@@ -162,3 +180,9 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="alert alert-success" role="alert" style="position: absolute; right: 25px; top: 70px; z-index: 4;">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+   You have been signed in successfully!<br>
+   <a href="{{ URL::to('/dashboard') }}"><strong>Go to Dashboard</strong></a>
+</div>
