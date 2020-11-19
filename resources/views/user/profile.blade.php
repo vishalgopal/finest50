@@ -9,7 +9,7 @@
 
 <!-- Page Title
           ============================================= -->
-<section class="search-title">
+{{-- <section class="search-title">
     <div class="container clearfix">
         <div class="col-md-8 offset-md-2">
             <div class="shadow">
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- #page-title end -->
 
 <!-- Content
@@ -364,7 +364,7 @@
                        <div class="modal-dialog">
                            <div class="modal-content">
                                <div class="modal-header">
-                                   <h4 class="modal-title" id="chatFormModalLabel">Chat Now</h4>
+                                   <h4 class="modal-title" id="chatFormModalLabel">Chat Request</h4>
                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                </div>
                                <div class="modal-body">
@@ -372,14 +372,14 @@
                                        onsubmit="return chatformSubmit();" method="post">
                                        <div class="w-100"></div>
                                        <div class="col-12 mb-3">
-                                           <label for="chatform-chat">chat <small>*</small></label>
+                                           <label for="chatform-chat">Question / Reason / Introduction to initiate Chat <small>*</small></label>
                                            <textarea class="required form-control" id="chatform-chat"
                                                name="chatform-chat" rows="6" cols="30"></textarea>
                                        </div>
    
                                        <div class="col-12">
                                            <button class="button button-3d m-0" type="submit" id="chatform-submit"
-                                               name="chatform-submit" value="submit">Initiate Chat</button>
+                                               name="chatform-submit" value="submit">Send Chat Request</button>
                                        </div>
    
                                    </form>
@@ -439,7 +439,14 @@
               ============================================= -->
                 <div class="sidebar col-lg-4 d-block">
                     <div class="sidebar-widgets-wrap">
-
+                        <div class="widget widget_links text-center">
+                            <i class="i-circled icon-chat icon-2x float-none mb-3"></i>
+                            <h4>Start Conversation</h4>
+                            
+                            <div class="btn btn-primary btn-block my-3" data-toggle="modal"
+                            data-target="#chatFormModal">Chat Now</div>
+    
+                            </div>
                         <div class="widget widget_links text-center">
 
                             <h4>Request a Consultation</h4>
@@ -472,13 +479,7 @@
 
                         </div>
 
-                        <!-- <div class="widget widget_links text-center">
-                 <i class="i-circled icon-call icon-2x float-none mb-3"></i>
-                 <h4>Ask  for consultation</h4>
-                 
-                 <div class="btn btn-primary btn-block my-3">Call for details</div>
-
-                </div> -->
+                        
 
 
                         <div class="list-group mt-5">
@@ -537,6 +538,7 @@
         $('#reviewform').parsley();
         $('#questionform').parsley();
         $('#consultationform').parsley();
+        $('#chatform').parsley();
     });
 
     function reviewformSubmit() {
@@ -573,8 +575,7 @@
                         }
                     }
                 });
-                // swal("Thankyou!", "We have recieved your request, someone from our team will contact you shortly!",
-                //     "success");
+
             }
         }
 
@@ -618,6 +619,62 @@
                 });
                 swal("Thankyou!",
                     "You have successfully submitted your Question, We'll notify as soon as Expert answers",
+                    "success");
+            }
+        }
+
+        /* else
+           {
+            swal("Please Fill All The Details");
+           }*/
+
+        return false;
+    }
+
+    function chatformSubmit() {
+        if ($('#chatform').parsley().validate()) {
+            var chat = $("#chatform-chat").val();
+            var member_id = $("#uid").val();
+
+            if (chat != "") {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: APP_URL + '/member/chat',
+                    data: {
+                        body: chat,
+                        to_id: member_id
+
+                    },
+                    success: function (response) {
+                        if (response.status) {
+                            swal({
+                            title: "Chat Submitted!",
+                            text: "Do you want to leave this page and visit Chat page?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.replace("{{ URL::to('/') . '/dashboard/chat' }}");
+
+                            } else {
+                                $('.modal').modal('hide');
+                            }
+                            });
+                            
+                        } else {
+                            swal("Oops!", "Something went wrong, Please try again", "warning");
+                        }
+                    }
+                });
+                swal("Thankyou!",
+                    "You have successfully submitted your chat request, You can see chat in your dashboard",
                     "success");
             }
         }

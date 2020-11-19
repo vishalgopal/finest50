@@ -12,7 +12,9 @@ use Overtrue\LaravelLike\Traits\Liker;
 use Overtrue\LaravelFollow\Followable;
 use Laravel\Scout\Searchable;
 use Laravel\Passport\HasApiTokens;
-
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 /**
  * @property int $id
  * @property int $category_id
@@ -48,7 +50,7 @@ use Laravel\Passport\HasApiTokens;
  * @property Comment[] $comments
  * @property Question[] $questions
  */
-class User extends Authenticatable 
+class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, Notifiable;
     use Sluggable;
@@ -56,6 +58,7 @@ class User extends Authenticatable
     use Liker;
     use Followable;
     use Searchable;
+    use HasMediaTrait;
     public $timestamps = true;
     public $asYouType = true;
     /**
@@ -80,13 +83,22 @@ class User extends Authenticatable
 
         return $array;
     }
+    // Video Thumbnail Generator for medialibrary 
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+                ->width(480)
+                ->height(360)
+                ->nonQueued()
+                ->performOnCollections('videos','photos');
+    }
     // Mutator
     public function getAvatarAttribute($value)
     {
         if ($this->attributes['avatar'] != ''){
             // if not from URL
             if (strpos($this->attributes['avatar'], "http") === false){
-                return env('APP_URL') . "img/square/".$value;
+                return env('APP_URL') . "/public/img/square/".$value;
             }
             else{
                 // if contains URL

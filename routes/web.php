@@ -33,8 +33,15 @@ Route::get('/dashboard/questions', 'DashboardController@questions')->name('dashb
 Route::get('/dashboard/answers', 'DashboardController@answers')->name('dashboard-answers')->middleware('auth');
 Route::get('/dashboard/profile', 'DashboardController@profile')->name('dashboard-profile')->middleware('auth');
 Route::get('/dashboard/followers', 'DashboardController@followers')->name('dashboard-followers')->middleware('auth');
-Route::get('/dashboard/messages', 'DashboardController@messages')->name('dashboard-messages')->middleware('auth');
+Route::get('/dashboard/chat', 'DashboardController@messages')->name('dashboard-chat')->middleware('auth');
 Route::post('/user/flag', 'DashboardController@toggleFlag')->name('toggleflag')->middleware('auth');
+Route::post('ckeditor/upload', 'DashboardController@editorupload')->name('ckeditor.upload');
+Route::post('/dashboard/media', 'DashboardController@storeMedia')->name('dashboard.storeMedia');
+Route::post('/dashboard/storeimage', 'DashboardController@storeimage')->name('dashboard.storeimage');
+Route::post('/dashboard/deletemedia', 'DashboardController@deletemedia')->name('dashboard.deletemedia');
+Route::post('/dashboard/updateavatar', 'DashboardController@updateavatar')->name('dashboard.updateavatar');
+Route::post('/dashboard/storevideo', 'DashboardController@storevideo')->name('dashboard.storevideo');
+Route::post('/dashboard/deletevideo', 'DashboardController@deletevideo')->name('dashboard.deletevideo');
 
 // City / State
 
@@ -94,6 +101,7 @@ Route::get('member/{username}', 'UserController@profile')->name('profile');
 Route::get('member/{username}/blogs', 'BlogController@listMember')->name('memberblogs');
 
 Route::post('member/question', 'UserController@askQuestion')->name('ask.question')->middleware('auth');
+Route::post('member/chat', 'UserController@requestchat')->name('ask.chat')->middleware('auth');
 Route::post('member/consultation', 'UserController@bookConsultation')->name('book.consutation')->middleware('auth');
 Route::post('member/review', 'UserController@rateReview')->name('rate.review')->middleware('auth');
 Route::post('member/follow', 'UserController@userFollow')->middleware('auth');

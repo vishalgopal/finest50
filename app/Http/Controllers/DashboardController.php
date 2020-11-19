@@ -18,6 +18,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\Location;
+use Storage;
 
 class DashboardController extends Controller
 {
@@ -119,7 +120,9 @@ class DashboardController extends Controller
         $user = User::where('id', Auth::id())->first();
         $countries = Country::where('is_active', 1)->get();
         $locations = Location::all();
-        return view('dashboard.profile', compact('user', 'countries','locations'));
+        $images = $user->getMedia('photos');
+        $videos = $user->getMedia('videos');
+        return view('dashboard.profile', compact('user', 'countries','locations','images','videos'));
     }
 
     public function toggleFlag(Request $request){
@@ -170,4 +173,123 @@ class DashboardController extends Controller
         $user = User::where('id', Auth::id())->first();
         return view('dashboard.messages', compact('user'));
     }
+
+    public function editorupload(Request $request)
+    {
+        if($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName.'_'.time().'.'.$extension;
+        
+            $uploadedimage = $request->upload->store('editorimg','public');
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('storage/'.$uploadedimage); 
+            $msg = 'Image uploaded successfully'; 
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+               
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $response;
+        }
+    }
+
+    public function storeMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+    
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('file');
+        $uploadedimage = $request->file->store('tmp','public');
+
+        // $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        // $file->move($path, $name);
+        return response()->json([
+            'name'          => $uploadedimage,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
+    public function storeimage(Request $request)
+    {
+        $user = User::where('id', Auth::id())->first();
+        foreach ($request->input('images', []) as $file) {
+            $user->addMedia(public_path('/storage/'.$file))->toMediaCollection('photos');
+        }
+        return response()->json([
+            'name'          => "stored",
+        ]);
+    }
+
+    public function deletemedia(Request $request, User $user)
+    {
+        $user = User::where('id', Auth::id())->first();
+        $photos = $user->getMedia('photos');
+        foreach ($photos as $photo){
+            if ($photo->id == $request->pic && $photo->model_id == Auth::id()){
+                $photo->delete();
+                return response()->json([
+                    'msg'          => "success",
+                ]);
+            }
+        }
+        return response()->json([
+            'msg'          => "failure",
+        ]);
+    }
+
+    public function storevideo(Request $request)
+    {
+        $user = User::where('id', Auth::id())->first();
+        foreach ($request->input('videos', []) as $file) {
+            $user->addMedia(public_path('/storage/'.$file))->toMediaCollection('videos');
+        }
+        return response()->json([
+            'name'          => "stored",
+        ]);
+    }
+
+    public function deletevideo(Request $request, User $user)
+    {
+        $user = User::where('id', Auth::id())->first();
+        $photos = $user->getMedia('photos');
+        foreach ($photos as $photo){
+            if ($photo->id == $request->pic && $photo->model_id == Auth::id()){
+                $photo->delete();
+                return response()->json([
+                    'msg'          => "success",
+                ]);
+            }
+        }
+        return response()->json([
+            'msg'          => "failure",
+        ]);
+    }
+
+    public function updateavatar(Request $request)
+    {    
+        $file = $request->file('file');
+        $user = User::where('id', Auth::id())->first();
+        $uploadedimage = $request->file->store('users-avatar','public');
+        // https://randomuser.me/api/portraits/men/1.jpg
+        // return response()->json([
+        //     'name'          => $uploadedimage,
+        //     'original_name' => $file->getClientOriginalName(),
+        // ]);
+        $userupdate = User::where('id', Auth::id())
+                        ->update(['avatar' => $uploadedimage]);
+            $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
+            if($userupdate){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log(':causer.name Updated Profile picture');
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+            }
+            return Response()->json($arr);
+    }
+    
+
 }

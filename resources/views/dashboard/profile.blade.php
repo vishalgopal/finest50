@@ -69,11 +69,12 @@
                         </div>
 
                         <div class="card-body pt-0">
-                            <form class="form" id="personal-details">
+                            <form class="form" id="personal-details" method="POST" enctype="multipart/form-data">
                                 <div class="form-group row">
                                     <div class="col-lg-3">
                                         <label class="d-block">Select Your Avatar:</label><br>
-                                        <div class="image-input image-input-outline" id="kt_image_1">
+                                        <div class="image-input image-input-outline dropzone" id="avatar-dropzone">
+                                            {{-- id="kt_image_1" --}}
                                             <div class="image-input-wrapper"
                                             @if ($user->avatar != '')
                                             @if (strpos($user->avatar, "http") === false)
@@ -93,7 +94,7 @@
                                                 data-action="change" data-toggle="tooltip" title=""
                                                 data-original-title="Change avatar">
                                                 <i class="fa fa-pen text-primary"></i>
-                                                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
+                                                {{-- <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" /> --}}
                                                 {{-- <input type="hidden" name="profile_avatar_remove" /> --}}
                                             </label>
 
@@ -478,11 +479,11 @@
                                 <label>Long Description:</label>
                                 <textarea class="ckeditor" name="long_description" id="long_description" >{{ $user->long_description ?? '' }}</textarea>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <input type="file" id="images" name="images[]" data-url="{{ URL::to('/')}}/user/updateimages"  multiple />
                                 <input type="hidden" name="file_ids" id="file_ids" value="">
 
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <div id="userimages"> Drop headers </div>
                             </div>
@@ -499,6 +500,11 @@
                     <!--begin::Row-->
                     <div class="row mb-6">
                         <div class="col-lg-6">
+                            @foreach ($images as $img)
+                                <img class="user-galleryimg" data-pic={{ $img->id }} src="{{ $img->getFullUrl() }}" width="80px" >  
+                            @endforeach
+                            <form action="{{ route("dashboard.storeimage") }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
                                 <div class="card-header border-0 ">
@@ -507,30 +513,47 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    <div class="uppy" id="kt_uppy_1">
-                                        <div class="uppy-dashboard"></div>
-                                        <div class="uppy-progress"></div>
+                                    <div class="form-group">
+                                        {{-- <label for="document">Images</label> --}}
+                                        <div class="dropzone" id="document-dropzone">
+                                
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input class="btn btn-danger" type="submit">
                                     </div>
                                 </div>
                             </div>
                             <!--end::Card-->
+                        </form>
                         </div>
                         <div class="col-lg-6">
+                            @foreach ($videos as $vid)
+                                <img class="user-galleryvid" data-pic={{ $vid->id }} src="{{ $vid->getFullUrl('thumb') }}" width="80px" > 
+                                {{ $vid->name }}
+                            @endforeach
+                            <form action="{{ route("dashboard.storevideo") }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
-                                <div class="card-header border-0">
+                                <div class="card-header border-0 ">
                                     <div class="card-title">
-                                        <h3 class="card-label">Upload Videos</h3>
+                                        <h3 class="card-label">Upload Video</h3>
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    <div class="uppy" id="kt_uppy_2">
-                                        <div class="uppy-dashboard"></div>
-                                        <div class="uppy-progress"></div>
+                                    <div class="form-group">
+                                        <div class="dropzone" id="video-dropzone">
+                                
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input class="btn btn-danger" type="submit">
                                     </div>
                                 </div>
                             </div>
                             <!--end::Card-->
+                        </form>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -554,7 +577,7 @@
         {{-- <script src="{{ asset('js/vendor/jquery.ui.widget.js') }}"></script>
         <script src="{{ asset('js/jquery.iframe-transport.js') }}"></script> --}}
         <script src="{{ asset('js/dropzone.min.js') }}"></script>
-        <script src="{{ asset('js/dropzone-amd-module.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/dropzone-amd-module.min.js') }}"></script> --}}
 
         {{--   <!-- The basic File Upload plugin -->
         <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
@@ -572,104 +595,121 @@
         <script src="{{ asset('js/jquery.fileupload-ui.js') }}"></script> --}}
         <script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
         <script>
-            $.ajaxSetup({
+            // $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     });
+
+                var uploadedDocumentMap = {}
+                Dropzone.options.documentDropzone = {
+                    url: '{{ route('dashboard.storeMedia') }}',
+                    maxFilesize: 5, // MB
+                    addRemoveLinks: true,
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function (file, response) {
+                    $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">')
+                    uploadedDocumentMap[file.name] = response.name
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    var name = ''
+                    if (typeof file.file_name !== 'undefined') {
+                        name = file.file_name
+                    } else {
+                        name = uploadedDocumentMap[file.name]
                     }
-                });
-
-        // File Uploaded
-        // $(function () {
-        //     $('#images').fileupload({
-        //         dataType: 'json',
-        //         add: function (e, data) {
-        //             // $('#loading').text('Uploading...');
-        //             data.submit();
-        //         },
-        //         done: function (e, data) {
-        //             $.each(data.result.files, function (index, file) {
-        //                 // $('<p/>').html(file.name + ' (' + file.size + ' KB)').appendTo($('#files_list'));
-        //                 if ($('#file_ids').val() != '') {
-        //                     $('#file_ids').val($('#file_ids').val() + ',');
-        //                 }
-        //                 $('#file_ids').val($('#file_ids').val() + file.fileID);
-        //             });
-        //             $('#loading').text('');
-        //         }
-        //     });
-        // });
-            Dropzone.autoDiscover = false;
-
-            Dropzone.options.myDropzone = {
-                addRemoveLinks: true,
-            autoProcessQueue: false,
-                url: APP_URL + "/user/updateimages",
-                paramName: "images",
-                maxFiles: 5,
-                thumbnailWidth: null,
-                thumbnailHeight: null,
-                init: function () {
-                    this.on("thumbnail", function (file, dataUrl) {
-                            $('.dz-image').last().find('img').attr({
-                                width: '100%',
-                                height: '100%'
-                            });
-                        }),
-                        this.on("success", function (file) {
-                            $('.dz-image').css({
-                                "width": "100%",
-                                "height": "auto"
-                            });
-                        });
-
-
+                    $('form').find('input[name="images[]"][value="' + name + '"]').remove()
+                    },
+                    init: function () {
+                    @if(isset($project) && $project->document)
+                        var files =
+                        {!! json_encode($project->document) !!}
+                        for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="images[]" value="' + file.file_name + '">')
+                        }
+                    @endif
+                    }
                 }
-            };
-            $("#userimages").dropzone({ url: "/file/post" });
 
-            // var myDropzone = new Dropzone('#userimages');
+                Dropzone.options.videoDropzone = {
+                    url: '{{ route('dashboard.storeMedia') }}',
+                    maxFilesize: 20, // MB
+                    addRemoveLinks: true,
+                    acceptedFiles: ".mp4",
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function (file, response) {
+                    $('form').append('<input type="hidden" name="videos[]" value="' + response.name + '">')
+                    uploadedDocumentMap[file.name] = response.name
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    var name = ''
+                    if (typeof file.file_name !== 'undefined') {
+                        name = file.file_name
+                    } else {
+                        name = uploadedDocumentMap[file.name]
+                    }
+                    $('form').find('input[name="videos[]"][value="' + name + '"]').remove()
+                    },
+                    init: function () {
+                    @if(isset($project) && $project->document)
+                        var files =
+                        {!! json_encode($project->document) !!}
+                        for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="videos[]" value="' + file.file_name + '">')
+                        }
+                    @endif
+                    }
+                }
 
-            // $('.submit-btn').click(function () {
-            //     var category_id = $('#category_id').val();
-            //     var description = $('#description').val();
-            //     var $title = $('#title').val();
-            //     var $image = $('#image').val();
-            //     if (title != "") {
-            //         $.ajaxSetup({
-            //             headers: {
-            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //             }
-            //         });
-            //         $.ajax({
-            //             type: 'post',
-            //             url: APP_URL + '/blog/update',
-            //             data: {
-            //                 category_id: category_id,
-            //                 description: description,
-            //                 title: title,
-            //                 image: image,
-            //             },
-            //             success: function (response) {
-            //                 if (response.status) {
-            //                     swal("Thankyou!",
-            //                         response.msg,
-            //                         "success");
-            //                     if (response.msg == "Removed Flag") {
-            //                         $current.html('<i class="fa fa-flag text-medium"></i>');
-            //                     } else {
-            //                         $current.html('<i class="fa fa-flag text-danger"></i>');
-            //                     }
-            //                 } else {
-            //                     swal("Oops!", "Something went wrong, Please try again", "warning");
-            //                 }
-            //             },
-            //             error: function (response) {
-            //                 swal("Oops!", "Something went wrong, Please try again", "warning");
-            //             }
-            //         });
-            //     }
-            //     return false;
-            // });
+                Dropzone.options.avatarDropzone = {
+                    url: '{{ route('dashboard.updateavatar') }}',
+                    maxFilesize: 5, // MB
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                    addRemoveLinks: false,
+                    maxFiles:1,
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function (file, response) {
+                    $('form').append('<input type="hidden" name="avatar" value="' + response.name + '">')
+                    uploadedDocumentMap[file.name] = response.name
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    var name = ''
+                    if (typeof file.file_name !== 'undefined') {
+                        name = file.file_name
+                    } else {
+                        name = uploadedDocumentMap[file.name]
+                    }
+                    $('form').find('input[name="avatar"][value="' + name + '"]').remove()
+                    },
+                    init: function () {
+                    @if(isset($project) && $project->document)
+                        var files =
+                        {!! json_encode($project->document) !!}
+                        for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="avatar" value="' + file.file_name + '">')
+                        }
+                    @endif
+                    }
+                }
 
             $(document).ready(function (e) {
 
@@ -689,7 +729,19 @@
                     reader.readAsDataURL(this.files[0]);
 
                 });
-
+                $('.user-galleryimg').click(function(){
+                    $.ajax({
+                        url: '{{ route('dashboard.deletemedia') }}',
+                        type: "POST",
+                        // dataType: "json",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {pic: $(this).data('pic')},
+                        success:function(data)
+                        { 
+                            swal(data.msg);
+                        },
+                    });
+                })
                 $('#personal-details').submit(function (e) {
                     e.preventDefault();
                     formid = this.id;

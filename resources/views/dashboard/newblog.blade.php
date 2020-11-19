@@ -126,7 +126,14 @@
             src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js?v=7.1.2') }}">
         </script>
         <script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+        <script type="text/javascript">
+            CKEDITOR.replace('description', {
+                filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
+            });
+        </script>
         <script>
+            
             Dropzone.autoDiscover = false;
 
             Dropzone.options.myDropzone = {

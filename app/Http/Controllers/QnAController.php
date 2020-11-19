@@ -132,7 +132,7 @@ class QnAController extends Controller
             $answer = Answer::find($request->answer_id);
             $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
             if($check){ 
-                activity()
+                activity('stream')
                 ->causedBy(Auth::id())
                 ->performedOn($answer)
                 ->log(':causer.name Modified the answer');

@@ -9,6 +9,7 @@ use App\Review;
 use App\Consultation;
 use App\Question;
 use Auth;
+use Chatify\Facades\ChatifyMessenger as Chatify;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Hash;
 
@@ -59,6 +60,43 @@ class UserController extends Controller
                 ->causedBy(Auth::id())
                 ->performedOn($user)
                 ->log(':causer.name asked a Question');
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+            }
+            return Response()->json($arr);
+        }
+    }
+
+    public function requestchat(Request $request){
+        if (Auth::check())
+        {   
+            $user = User::find($request->to_id); 
+            $messageID = mt_rand(9, 999999999) + time();
+            Chatify::newMessage([
+                'id' => $messageID,
+                'type' => "user",
+                'from_id' => Auth::user()->id,
+                'to_id' => $request['to_id'],
+                'body' => trim(htmlentities($request['body'])),
+                'attachment' => null,
+            ]);
+
+            // fetch message to send it with the response
+            $messageData = Chatify::fetchMessage($messageID);
+
+            // send to user using pusher
+            Chatify::push('private-chatify', 'messaging', [
+                'from_id' => Auth::user()->id,
+                'to_id' => $request['id'],
+                'message' => Chatify::messageCard($messageData, 'default')
+            ]);
+
+
+            $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
+            if($messageData){ 
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($user)
+                ->log(':causer.name Requested Chat');
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
