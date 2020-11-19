@@ -26,6 +26,7 @@
         "overtrue/laravel-follow": "^2.1",
         "overtrue/laravel-like": "^2.0",
         "overtrue/laravel-subscribe": "^1.0",
+        "php-ffmpeg/php-ffmpeg": "^0.16.0",
         "spatie/image": "^1.9",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-medialibrary": "^7.0.0",
