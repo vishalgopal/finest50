@@ -136,8 +136,8 @@ return [
      * thumbnails and have installed the php-ffmpeg/php-ffmpeg composer
      * dependency.
      */
-    'ffmpeg_path' => env('FFMPEG_PATH', '/usr/local/bin/ffmpeg'),
-    'ffprobe_path' => env('FFPROBE_PATH', '/usr/local/bin/ffprobe'),
+    'ffmpeg_path' => env('FFMPEG_PATH', '/usr/bin/ffmpeg'),
+    'ffprobe_path' => env('FFPROBE_PATH', '/usr/bin/ffprobe'),
 
     /*
      * The path where to store temporary files while performing image conversions.
