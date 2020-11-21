@@ -195,41 +195,6 @@ class UserController extends Controller
                 'password' => Hash::make($request->new_password),
             ]);
         }
-        dd($request->images);
-        if(isset($request->images)){
-        $this->validate($request, [
-            'images'=>'required',
-            ]);
-            if($request->hasFile('images'))
-                {
-                $allowedfileExtension=['jpg','png'];
-                $files = $request->file('images');
-                foreach($files as $file){
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $check=in_array($extension,$allowedfileExtension);
-                if($check)
-                    {
-                    // $items= Item::create($request->all());
-                    foreach ($request->images as $image) {
-                        $uploadedimage = $request->image->store('public/images','public');
-                        // $data['image'] = $uploadedimage;
-                        // $filename = $image->store('images');
-                        // ItemDetail::create([
-                        // 'item_id' => $items->id,
-                        // 'filename' => $filename
-                        // ]);
-
-                    }
-                    echo "Upload Successfully";
-                }
-                else
-                {
-                    echo '<div class="alert alert-warning"><strong>Warning!</strong> Sorry Only Upload png , jpg , doc</div>';
-                }
-                }
-                }
-            }
         if (Auth::check()){
             $user = User::find(Auth::id());
             $data = $request->except(['_token','profile_avatar_remove','new_password', 'new_password_confirm']);;

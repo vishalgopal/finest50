@@ -8,6 +8,8 @@ use App\Answer;
 use Auth;
 use DB;
 use App\User;
+use Illuminate\Support\Str;
+
 class QnAController extends Controller
 {
     public function __construct()
@@ -105,16 +107,24 @@ class QnAController extends Controller
             ]);
             $data = $request->all();
             $check = Answer::create($data);
-            $question = Question::where('id', $request->question_id)
+            $questionupdate = Question::where('id', $request->question_id)
                         ->update([
                         'answers_count'=> DB::raw('answers_count+1'), 
                         ]);
+            $question = Question::find($request->question_id);
             $arr = array('msg' => 'Something goes to wrong. Please try again later', 'status' => false);
             if($check){ 
-                activity()
+                activity('timeline')
                 ->causedBy(Auth::id())
                 ->performedOn($check)
-                ->log(':causer.name Answered a Question');
+                ->withProperties([
+                    'slug' => '/question/'.$question->slug,
+                    'useravatar' => Auth::user()->avatar,
+                    'username' => Auth::user()->name,
+                    'userslug' => Auth::user()->slug,
+                    'description' => Str::limit(strip_tags($request->answer), 150, ' ...'),
+                    ])
+                ->log(':causer.name has answered a question - '. $question->title);
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);

@@ -25,6 +25,7 @@
                                 <div>
                                     <!--begin::Section-->
                                     <div class="d-flex align-items-center">
+                                        @if($user->type=="member")
                                         <div class="symbol symbol-45 symbol-light mr-5">
                                             <span class="symbol-label">
                                                 @if ($question->user->avatar != '')
@@ -38,22 +39,35 @@
                                                 @endif
                                             </span>
                                         </div>
+                                        @endif
                                         <!--begin::Text-->
+                                        @if($user->type=="member")
                                         <div class="d-flex flex-column flex-grow-1">
-                                            <a href="#"
-                                                class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{ $question->user->name }}</a>
+                                            <a class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{ $question->user->name }}</a>
                                             <span class="text-muted font-weight-bold">{{ $question->created_at->diffForHumans() }}</span>
                                         </div>
+                                        @endif
+
                                         <div class="d-flex flex-column flex-grow-0">
+                                            @if ($user->type=="member")
                                             <div class="btn btn-secondary float-right reply-btn"
-                                                data-toggle="modal" data-target="#reply-modal" data-qsl="{{ $question->id }}">Reply <i
-                                                    class="fa fa-reply fa-1x"></i></div>
+                                                data-toggle="modal" data-target="#reply-modal" data-qsl="{{ $question->id }}">Reply 
+                                                <i class="fa fa-reply fa-1x"></i>
+                                            </div>
+                                            @endif
                                         </div>
                                         <!--end::Text-->
                                     </div>
                                     <!--end::Section-->
                                     <!--begin::Desc-->
                                     <h6 class="text-dark-75 m-0 pt-5">{{ $question->title }}</h6>
+                                    @if($user->type=="user")
+                                    <div class="d-flex flex-column flex-grow-1">
+                                        <a href="{{ URL::to('question/'.$question->slug)}}" class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">View <i class="fa fa-eye fa-1x"></i></a>
+                                        <span class="text-muted font-weight-bold">{{ $question->created_at->diffForHumans() }}</span>
+                                        <span class="text-muted font-weight-bold">@if ($question->answers_count==0) Not Yet Answered @else {{ $question->answers_count }} Answer(s) @endif </span>
+                                    </div>
+                                    @endif
                                     <!--end::Desc-->
 
                                 </div>
@@ -91,7 +105,7 @@
 						<div class="modal-dialog  modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Submit an Answer</h5>
+									<h5 class="modal-title" id="ModalLabel">Submit an Answer</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<i aria-hidden="true" class="ki ki-close"></i>
 									</button>

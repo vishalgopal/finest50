@@ -143,8 +143,9 @@
                                 <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
-                                <span class="text-dark-75 font-weight-bolder font-size-sm">Followers</span>
-                                <a href="#" class="text-primary font-weight-bolder">{{ $user->follower}}</a>
+                                <span class="font-weight-bolder font-size-sm">Followers</span>
+                                <span class="font-weight-bolder font-size-h5">
+                                    <span class="text-dark-50 font-weight-bold"></span>{{ $user->follower}}</span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -153,39 +154,14 @@
                             <span class="mr-4">
                                 <i class="flaticon-chat-1 display-4 text-muted font-weight-bold"></i>
                             </span>
-                            <div class="d-flex flex-column">
-                                <span class="text-dark-75 font-weight-bolder font-size-sm">{{ $totalcomments}} Comments</span>
-                                <a href="#" class="text-primary font-weight-bolder">View</a>
+                            <div class="d-flex flex-column flex-lg-fill">
+                                <span class="font-weight-bolder font-size-sm">Comments</span>
+                                <span class="font-weight-bolder font-size-h5">
+                                    <span class="text-dark-50 font-weight-bold"></span>{{ $totalcomments}}</span>
                             </div>
                         </div>
                         <!--end::Item-->
-                        <!--begin::Item-->
-                        {{-- <div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
-                            <span class="mr-4">
-                                <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
-                            </span>
-                            <div class="symbol-group symbol-hover">
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle symbol-light">
-                                    <span class="symbol-label font-weight-bold">5+</span>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <!--end::Item-->
+                        
                     </div>
                     <!--begin::Items-->
                 </div>
@@ -215,7 +191,7 @@
                                         <span class="symbol-label">
                                             @if ($comment->avatar != '')
                                                     @if (strpos($comment->avatar, "http") === false)
-                                                    <img src="{{ env('APP_URL') . "img/square/".$comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
+                                                    <img src="{{ env('APP_URL') . "/public/img/square/".$comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
                                                     @else
                                                     <img src="{{ $comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
                                                     @endif

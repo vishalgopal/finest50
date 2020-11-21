@@ -7,6 +7,7 @@ use App\Comment;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 class BlogController extends Controller
 {
@@ -59,11 +60,20 @@ class BlogController extends Controller
             $check = Comment::create($data);
             $comment = Comment::find($check);
             $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
+            $blog = Blog::where('id', $request->blog_id)->first();
             if($check){ 
-            activity()
-            ->causedBy(Auth::id())
-            ->performedOn($comment)
-            ->log('Commented on Blog');
+                activity('timeline')
+                ->causedBy(Auth::id())
+                ->performedOn($check)
+                ->withProperties([
+                    'slug' => '/blog/'.$blog->slug,
+                    'image' => $blog->image,
+                    'description' => Str::limit(strip_tags($blog->description), 150, ' ...'),
+                    'useravatar' => Auth::user()->avatar,
+                    'username' => Auth::user()->name,
+                    'userslug' => Auth::user()->slug
+                    ])
+                ->log(':causer.name commented on the blog - '. $blog->title);
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
@@ -127,11 +137,20 @@ class BlogController extends Controller
             $data = $request->all();
             $data['image'] = $uploadedimage;
             $check = Blog::create($data);
+            $blog = Blog::where('id', $check->id)->first();
             if ($check){
-                activity()
+                activity('timeline')
                 ->causedBy(Auth::id())
                 ->performedOn($check)
-                ->log('New Blog Created');
+                ->withProperties([
+                    'slug' => '/blog/'.$blog->slug,
+                    'image' => $blog->image,
+                    'description' => Str::limit(strip_tags($blog->description), 150, ' ...'),
+                    'useravatar' => Auth::user()->avatar,
+                    'username' => Auth::user()->name,
+                    'userslug' => Auth::user()->slug
+                    ])
+                ->log(':causer.name has written a new blog - :subject.title');
                 $arr = array('msg' => 'Successfully stored', 'status' =>  'Created');
                 return Response()->json($arr);
             }
@@ -165,10 +184,18 @@ class BlogController extends Controller
             $check = Blog::where('id',$blogid)->where('user_id', Auth::id())->update($data);
             $blog = Blog::find($blogid);
             if ($check){
-                activity()
+                activity('timeline')
                 ->causedBy(Auth::id())
                 ->performedOn($blog)
-                ->log('Blog Modified');
+                ->withProperties([
+                    'slug' => '/blog/'.$blog->slug,
+                    'image' => $blog->image,
+                    'description' => Str::limit(strip_tags($blog->description), 150, ' ...'),
+                    'useravatar' => Auth::user()->avatar,
+                    'username' => Auth::user()->name,
+                    'userslug' => Auth::user()->slug
+                    ])
+                ->log(':causer.name has updated the blog - :subject.title');
                 $arr = array('msg' => 'Successfully edited', 'status' =>  'Edited');
                 return Response()->json($arr);
             }

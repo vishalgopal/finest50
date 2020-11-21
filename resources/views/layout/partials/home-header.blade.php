@@ -181,8 +181,8 @@
 		</div>
 	</div>
 
-	<div class="alert alert-success" role="alert" style="position: absolute; right: 25px; top: 70px; z-index: 4;">
+	{{-- <div class="alert alert-success" role="alert" style="position: absolute; right: 25px; top: 70px; z-index: 4;">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
    You have been signed in successfully!<br>
    <a href="{{ URL::to('/dashboard') }}"><strong>Go to Dashboard</strong></a>
-</div>
+</div> --}}

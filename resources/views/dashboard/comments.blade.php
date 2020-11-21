@@ -26,11 +26,12 @@
                                     <!--begin::Section-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Symbol-->
+                                        @if ($user->type=='member')
                                         <div class="symbol symbol-45 symbol-light mr-5">
                                             <span class="symbol-label">
                                                 @if ($comment->avatar != '')
                                                     @if (strpos($comment->avatar, "http") === false)
-                                                    <img src="{{ env('APP_URL') . "img/square/".$comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
+                                                    <img src="{{ env('APP_URL') . "/public/img/square/".$comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
                                                     @else
                                                     <img src="{{ $comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" />
                                                     @endif
@@ -40,18 +41,33 @@
                                             {{-- <img src="{{ $comment->avatar }}" class="h-75 align-self-center" alt="{{ $comment->name }}" /> --}}
                                             </span>
                                         </div>
+                                        @endif
                                         <!--end::Symbol-->
                                         <!--begin::Text-->
+                                        @if($user->type=='member')
                                         <div class="d-flex flex-column flex-grow-1">
                                             <a  class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{ $comment->name }}</a>
                                             <span class="text-muted font-weight-bold"></span>
                                             <small><a href="{{ URL::to('blog/'.$comment->slug) }}">{{ $comment->title }}</a></small>
 
                                         </div>
+                                        @else
+                                        <div class="d-flex flex-column flex-grow-1">
+                                            {{-- <a  class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{ $comment->name }}</a> --}}
+                                            <a href="{{ URL::to('blog/'.$comment->blog->slug) }}" class="text-dark-75 text-hover-primary font-size-sm mb-1">{{ $comment->blog->title }}</a>
+                                            
+                                            <span class="text-muted font-weight-bold"></span>
+                                            <small><a href="{{ URL::to('blog/'.$comment->slug) }}">{{ $comment->title }}</a></small>
+
+                                        </div>
+                                        @endif
+
                                         <div class="d-flex flex-column flex-grow-0">
+                                        @if ($user->type=='member')
                                         <a data-subject = "{{ $comment->id }}" data-type = "comment" class="btn btn-icon btn-light btn-xs mb-1 px-2 py-1 flag-btn">
                                                 <i class="fa fa-flag @if($comment->flagged) text-danger @else text-medium @endif"></i>
                                             </a>
+                                        @endif
                                         @if($comment->user_id == AUTH::id())
                                         <a data-blid = "{{ $comment->id }}" class="delete-btn btn btn-icon btn-light btn-xs mb-1 px-2 py-1">
                                             <i class="flaticon2-trash text-danger "></i>
@@ -68,6 +84,7 @@
                                         <div class="separator separator-solid mt-5 mb-4"></div>
                                         <!--end::Separator-->
                                         <!--begin::Editor-->
+                                        @if ($user->type=='member')
                                         <form class="position-relative border-bottom">
                                             <textarea  id="comment-{{ $comment->id }}" class="form-control border-0 p-0 pr-10" rows="3" placeholder="Reply..."></textarea>
                                             <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
@@ -76,6 +93,7 @@
                                                 </a>
                                             </div>
                                         </form>
+                                        @endif
                                         <!--edit::Editor-->
                                 </div>
                                 <!--end::Item-->

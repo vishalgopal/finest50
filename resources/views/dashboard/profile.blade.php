@@ -183,6 +183,7 @@
                             <!--end::Details-->
                             <div class="separator separator-solid"></div>
                             <!--begin::Items-->
+                            @if($user->type == 'member')
                             <div class="d-flex align-items-center flex-wrap mt-8">
                                 <!--begin::Item-->
                                 <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
@@ -246,34 +247,8 @@
                                     </div>
                                 </div>
                                 <!--end::Item-->
-                                <!--begin::Item-->
-                                {{-- <div class="d-flex align-items-center flex-lg-fill mb-2 float-left">
-                            <span class="mr-4">
-                                <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
-                            </span>
-                            <div class="symbol-group symbol-hover">
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                    <img alt="Pic" src="/assets/media/users/300_25.jpg" />
-                                </div>
-                                <div class="symbol symbol-30 symbol-circle symbol-light">
-                                    <span class="symbol-label font-weight-bold">5+</span>
-                                </div>
                             </div>
-                        </div> --}}
-                                <!--end::Item-->
-                            </div>
+                            @endif
 
                         </div>
                         <!-- / card body -->
@@ -284,7 +259,7 @@
 
             </div>
             <!-- Profile end -->
-
+            @if($user->type == 'member')
             <div class="row">
                 <!-- Professional Details start -->
                 <div class="col-xl-4">
@@ -520,7 +495,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <input class="btn btn-danger" type="submit">
+                                        <input class="btn btn-primary" type="submit">
                                     </div>
                                 </div>
                             </div>
@@ -548,7 +523,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <input class="btn btn-danger" type="submit">
+                                        <input class="btn btn-primary" type="submit">
                                     </div>
                                 </div>
                             </div>
@@ -557,7 +532,7 @@
                         </div>
                     </div>
                     <!--end::Row-->
-
+                @endif
                 </div>
                 <!--end::Container-->
             </div>
@@ -736,6 +711,19 @@
                         // dataType: "json",
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         data: {pic: $(this).data('pic')},
+                        success:function(data)
+                        { 
+                            swal(data.msg);
+                        },
+                    });
+                })
+                $('.user-galleryvid').click(function(){
+                    $.ajax({
+                        url: '{{ route('dashboard.deletevideo') }}',
+                        type: "POST",
+                        // dataType: "json",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {vid: $(this).data('pic')},
                         success:function(data)
                         { 
                             swal(data.msg);
