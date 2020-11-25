@@ -20,6 +20,8 @@ class UserController extends Controller
         $location = NULL;
         $sortby = $request->sortby ?? 'featured';
         $users = User::orderBy($sortby, 'desc')->where('location',$location)->where('type','member')->paginate(20);
+        // $categories = Category::all();
+        // $blogs = Blog::all();
         if (isset($request->categories))
             {
                 $selectedCategories = explode(",",$request->categories);

@@ -116,10 +116,11 @@
 								</div>
 							</a> -->
 							<div class="dropdown d-md-block d-block d-lg-none">
-						<button class="btn btn-link text-dark dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Vishal
-						</button>
+						<a href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-dark dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ Auth::user()->name}}
+						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userdropdownMenu2">
+							<a class="dropdown-item" href="{{ URL::to('/member/'. Auth::user()->slug) }}">Profile</a>
 							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
 							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 						</div>
@@ -221,8 +222,6 @@
 									<ul class="sub-menu-container">
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/') }}"><div><i class="icon-line2-home"></i>Home</div></a>
 										</li>
-										<li class="menu-item"><a class="menu-link" href="{{ URL::to('about') }}"><div><i class="icon-line2-info"></i>About Us</div></a>
-										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/members') }}"><div><i class="icon-line2-users"></i>Members</div></a>
 											{{-- <ul class="sub-menu-container">
 												<li class="menu-item"><a class="menu-link" href="#"><div>Member 1</div></a></li>
@@ -234,11 +233,13 @@
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/blogs') }}"><div><i class="icon-line2-support"></i>Stories</div></a>
 										</li>
-										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/faq') }}"><div><i class="icon-line2-question"></i>FAQs</div></a>
+										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/questions') }}"><div><i class="icon-line2-question"></i>Q&A</div></a>
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/partners') }}"><div><i class="icon-handshake1"></i>Partners</div></a>
 										</li>
-										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/questions') }}"><div><i class="icon-line2-question"></i>Q&A</div></a>
+										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/faq') }}"><div><i class="icon-line2-question"></i>FAQs</div></a>
+										</li>
+										<li class="menu-item"><a class="menu-link" href="{{ URL::to('about') }}"><div><i class="icon-line2-info"></i>About Us</div></a>
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/contact') }}"><div><i class="icon-line2-screen-smartphone"></i>Contact Us</div></a>
 										</li>
@@ -263,10 +264,11 @@
 							<a href="{{ route('login') }}"><div class="btn login-btn desktop-btn">{{ __('Login') }}</div></a>
 						@else
 						<div class="dropdown float-right  d-md-none d-none d-lg-block">
-						<button class="btn btn-link text-dark username- dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Vishal
-						</button>
+						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-dark username- dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ Auth::user()->name}}
+						</a>
 						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
+							<a class="dropdown-item" href="{{ URL::to('/member/'. Auth::user()->slug) }}">Profile</a>
 							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
 							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 						</div>
