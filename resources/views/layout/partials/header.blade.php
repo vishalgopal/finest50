@@ -264,9 +264,12 @@
 							<a href="{{ route('login') }}"><div class="btn login-btn desktop-btn">{{ __('Login') }}</div></a>
 						@else
 						<div class="dropdown float-right  d-md-none d-none d-lg-block">
-						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-dark username- dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							{{ Auth::user()->name}}
-						</a>
+							<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="" type="button">
+								<img src="{{ Auth::user()->avatar }}" class="rounded-circle" alt="{{ Auth::user()->name}}" width="35" height="35">	
+							</a>
+							<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-dark dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								{{ Auth::user()->name}}
+							</a>
 						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
 							<a class="dropdown-item" href="{{ URL::to('/member/'. Auth::user()->slug) }}">Profile</a>
 							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>

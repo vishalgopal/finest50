@@ -8,6 +8,9 @@ use App\Category;
 use App\Review;
 use App\Consultation;
 use App\Question;
+use App\Blog;
+use App\Promotion;
+use Carbon\Carbon;
 use Auth;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -20,19 +23,32 @@ class UserController extends Controller
         $location = NULL;
         $sortby = $request->sortby ?? 'featured';
         $users = User::orderBy($sortby, 'desc')->where('location',$location)->where('type','member')->paginate(20);
-        // $categories = Category::all();
-        // $blogs = Blog::all();
+        // Random Categories
+        // Random Blogs
+        $sidebarCategories = Category::orderBy('created_at', 'desc')->inRandomOrder()->take(10)->get();
+        $sidebarBlogs = Blog::orderBy('created_at', 'desc')->inRandomOrder()->take(10)->get();
         if (isset($request->categories))
             {
                 $selectedCategories = explode(",",$request->categories);
                 $catids = Category::whereIn('slug',$selectedCategories)->select('id')->get();
+                // Categories and subcategories
+                // Category / subcategory related blogs
+                $randomCategories = Category::whereNotIn('parent', $catids->pluck('id'))->inRandomOrder()->take(10)->get();
+                $sidebarCategories = Category::whereIn('parent', $catids->pluck('id'))->inRandomOrder()->take(10)->get();
+                $sidebarCategories = $sidebarCategories->union($randomCategories);
+                $sidebarBlogs = Blog::whereIn('category_id', $catids->pluck('id'))->inRandomOrder()->take(10)->get();
+                $promotions = Promotion::with('user')->where('type','users')->where('start_date', '<=', Carbon::now())->where(function($q) {
+                    $q->where('end_date', '>=', Carbon::now())
+                      ->orWhereNull('end_date');
+                })->inRandomOrder()->take(6)->get();
                 $users = User::whereIn('category_id',$catids->pluck('id'))->where('location',$location)->where('type','member')->orderBy($sortby, 'desc')->paginate(20);
             }
-        return view('user.search', compact('users','selectedCategories'));
+        return view('user.search', compact('users','selectedCategories','sidebarCategories', 'sidebarBlogs','promotions'));
     }
     public function profile(Request $request){
         $user = User::where('slug',$request->username)->first();
         $reviews = Review::where('member_id', $user->id)->with('user','member')->paginate(5);
+        
         return view('user.profile', compact('user', 'reviews'));
     }
 

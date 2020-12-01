@@ -46,7 +46,7 @@
 
                     <!-- Post Content
           ============================================= -->
-                    <div class="postcontent col-12">
+                    <div class="postcontent col-8">
 
                         <!-- Filter Begin -->
                         <div class="search-filter">
@@ -88,9 +88,10 @@
                             </div>
                         </div>
                         
-                        <!-- Shop
+                        <!-- List
            ============================================= -->
                         <div id="shop" class="shop row" data-layout="fitRows">
+                            @php $rec = 0; @endphp
                             @foreach ($users as $user)
                                 <div class="product">
                                     <div class="grid-inner row ">
@@ -142,48 +143,64 @@
                                     </div>
                                 </div>
                                 {{-- Promoted --}}
-                                {{-- <div class="product shadow">
+                                @if($loop->index %4 ==0)
+                                
+                                <div class="product shadow">
                                     <div class="grid-inner row ">
                                         <div class="product-image col-3 col-lg-3 col-xl-2">
-                                            <a href="search-inner.php"><img src="demos/course/images/instructor/4.jpg"
-                                                    alt=""></a>
+                                            <a href="{{ URL::to('member/' . $promotions[$rec]->user->slug) }}"><img src="{{ $promotions[$rec]->user->avatar }}"
+                                                alt="{{ $promotions[$rec]->user->name }}"></a>
                                         </div>
                                         <div class="product-desc col-9 col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-
                                             <div class="sale-flash badge badge-secondary rounded-lg p-2">Promoted <i
-                                                    class="icon-star3 text-warning"></i></div>
+                                                class="icon-star3 text-warning"></i></div>
                                             <div class="product-title">
-                                                <h3><a href="search-inner.php">Desmond Eagle</a></h3>
+                                                <h3><a href="{{ URL::to('member/' . $promotions[$rec]->user->slug) }}">{{ $promotions[$rec]->user->name }}</a>
+                                                </h3>
                                             </div>
-                                            <div class="product-price">Fashion Designer</div>
+                                            <div class="product-price">{{ $promotions[$rec]->user->qualification }}</div>
                                             <div class="product-rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star-half-full"></i>
+                                                {!! $promotions[$rec]->user->rating !!}
                                             </div>
 
-                                            <p class="mt-3 mb-2 d-none d-lg-block">Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit. Accusamus, sit, exercitationem, consequuntur, assumenda
-                                                iusto eos commodi alias.</p>
+                                            <p class="mt-2 mb-2 d-none d-lg-block">{{ $promotions[$rec]->user->short_description }}</p>
                                             <div class="number-section">
                                                 <div>
                                                     <div class="d-flex mb-2">
-                                                        <p class="text-dark my-0"><strong>2342</strong> Followers</p>
+                                                    <p class="text-dark my-0" id="followers-{{ $promotions[$rec]->user->id }}"><strong>{{ $promotions[$rec]->user->follower }}</strong>
+                                                            Followers</p>
                                                         <p class="mx-3 mb-0">|</p>
-                                                        <p class="text-dark my-0"><strong>23</strong> Stories</p>
+                                                        <p class="text-dark my-0">
+                                                            <a href="{{ URL::to('member/' . $promotions[$rec]->user->slug . '/blogs') }}"><strong>{{ $promotions[$rec]->user->stories }}</strong>
+                                                            Blogs</a></p>
+                                                        <p class="mx-3 mb-0">|</p>
+                                                        <p class="text-dark my-0"><strong>{{ $promotions[$rec]->user->answers }}</strong>
+                                                            Answers</p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="search-inner.php">
-                                                        <div class="btn btn-follow">Follow 3.5K</div>
+                                                    @if (Auth::user())
+                                                    <a class="follow-btn" data-uid="{{ $promotions[$rec]->user->id }}">
+                                                    @if (Auth::user()->isFollowing($promotions[$rec]->user))
+                                                        <div class="btn btn-follow mt-0 btn-outline-dark">Unfollow</div>
+                                                    @else 
+                                                        <div class="btn btn-follow mt-0 btn-outline-dark">Follow</div>
+                                                    @endif
                                                     </a>
+                                                @else
+                                                    <a href="{{ URL::to('/login') }}"><div class="btn btn-follow ">Follow</div></a>   
+                                                @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
+                                @php 
+                                if ($rec <  count($promotions)-1) 
+                                $rec++;
+                                else $rec=0;
+                                 @endphp
+                                @endif
                                 {{-- Promoted End --}}
                             @endforeach
                             {{-- Pagination --}}
@@ -193,7 +210,40 @@
 
                     </div><!-- .postcontent end -->
 
+                <!-- Sidebar
+                        ============================================= -->
+                        <div class="sidebar col-lg-4 d-block ">
+                            <div class="sidebar-widgets-wrap related-que shadow-sm">
 
+                                <div class="widget widget_links text-left qwidget">
+
+                                    <h4>Related Categories</h4>
+                                    @foreach ($sidebarCategories as $sidebarCategory)
+                                        <p><a
+                                                href="{{ URL::to('members/' . $sidebarCategory->slug) }}">{{ $sidebarCategory->title }}</a>
+                                        </p>
+                                    @endforeach
+                                </div>
+
+
+                            </div>
+                            <div class="spacer"><br><br></div>
+                            <div class="sidebar-widgets-wrap related-que shadow-sm">
+
+                                <div class="widget widget_links text-left qwidget">
+
+                                    <h4>Related Blogs</h4>
+                                    @foreach ($sidebarBlogs as $sidebarblog)
+                                        <p><a
+                                                href="{{ URL::to('blog/' . $sidebarblog->slug) }}">{{ $sidebarblog->title }}</a>
+                                        </p>
+                                    @endforeach
+                                </div>
+
+
+                            </div>
+                            
+                        </div><!-- .sidebar end -->
                 </div>
 
             </div>
