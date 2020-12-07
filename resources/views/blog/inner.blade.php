@@ -8,7 +8,7 @@
 @section('content')
     <!-- Content
 		============================================= -->
-		<section id="content">
+		<section id="content" class="blog-style">
 			<div class="content-wrap">
 				<div class="container clearfix">
 
@@ -69,7 +69,7 @@
 
 										<!-- Post Single - Share
 										============================================= -->
-										<div class="si-share border-0 d-flex justify-content-between align-items-center">
+										<div class="si-share border-0 d-flex  align-items-center">
 											<span>Share this Post:</span>
 											<div>
 											<a href="https://www.facebook.com/sharer.php?u={{ URL::full() }}" class="social-icon si-borderless si-facebook">
@@ -97,7 +97,7 @@
 										</div><!-- Post Single - Share End -->
 										<!-- Post Single - Like
 										============================================= -->
-										<div class="si-share border-0 d-flex justify-content-between align-items-center">
+										<div class="si-share border-0 d-flex  align-items-center">
 											{{-- <i class="like-icon"></i>
 											<span class="like-txt">liked!</span> --}}
 											@if (Auth::user())
@@ -107,7 +107,7 @@
                                                                     {{ $blog->likers()->count() - 1 }} more <i
                                                                         class="icon-thumbs-up"></i> this</span>
                                                             @else
-                                                                <span id="like-{{ $blog->id }}">you <i
+                                                                <span class="mr-3" id="like-{{ $blog->id }}">you <i
                                                                         class="icon-thumbs-up"></i> this </span>
                                                             @endif
                                                             <button type="button" class="btn btn-sm btn-primary likebtn"
@@ -120,7 +120,7 @@
                                                                     id="like-{{ $blog->id }}">{{ $blog->likers()->count() }}
                                                                     <i class="icon-thumbs-up"></i></span>
                                                             @else
-                                                                <span id="like-{{ $blog->id }}">Be the first one to <i
+                                                                <span class="mr-3" id="like-{{ $blog->id }}">Be the first one to <i
                                                                         class="icon-thumbs-up"></i> this</span>
                                                             @endif
                                                             <button type="button"
@@ -146,7 +146,7 @@
 
 								<!-- Post Navigation
 								============================================= -->
-								<div class="row justify-content-between col-mb-30 post-navigation">
+								<div class="row justify-content-between mt-4 col-mb-30 post-navigation">
 									<div class="col-12 col-md-auto text-center">
 										@if($prev)
 										<a href="{{ URL::to('blog/'. $prev->slug)}}">&lArr; {{ $prev->title }}</a>
@@ -160,7 +160,7 @@
 									</div>
 								</div><!-- .post-navigation end -->
 
-								<div class="line"></div>
+								<div class="line my-3"></div>
 
 								<!-- Post Author Info
 								============================================= -->
@@ -174,14 +174,16 @@
 									</div>
 								</div><!-- Post Single - Author End -->
 
-								<div class="line"></div>
+								<div class="line my-3"></div>
 
+								
 								<h4>Related Posts:</h4>
 
 								<div class="related-posts row posts-md col-mb-30">
 									@foreach ($relatedblogs as $related)
-									<div class="entry col-12 col-md-6">
-										<div class="grid-inner row align-items-center gutter-20">
+									<div class="col-12 col-md-6 mb-3">
+										<div class="grid-inner align-items-center">
+										<div class="row">
 											<div class="col-4">
 												<div class="entry-image">
 													<a href="{{ URL::to('blog/'. $related->slug)}}"><img src="{{ asset('img/medium/'.$related->image) }}" alt="{{ $related->title }}"></a>
@@ -198,10 +200,10 @@
 													</ul>
 												</div>
 											</div>
+											</div>
 										</div>
 									</div>
-									@endforeach
-									
+									@endforeach								
 
 									
 
@@ -371,7 +373,7 @@
 												<div class="posts-sm row col-mb-30" id="popular-post-list-sidebar">
 													@foreach ($popularblogs as $popular)
 													<div class="entry col-12">
-														<div class="grid-inner row no-gutters">
+														<div class="row no-gutters">
 															<div class="col-auto">
 																<div class="entry-image">
 																	<a href="{{ $popular->slug }}"><img class="" src="{{ asset('img/small/'.$popular->image) }}" alt="{{ $popular->title }}"></a>
@@ -397,7 +399,7 @@
 												<div class="posts-sm row col-mb-30" id="recent-post-list-sidebar">
 													@foreach ($recentblogs as $recent)
 													<div class="entry col-12">
-														<div class="grid-inner row no-gutters">
+														<div class="row no-gutters">
 															<div class="col-auto">
 																<div class="entry-image">
 																	<a href="{{ $recent->slug }}"><img class="" src="{{ asset('img/small/'.$recent->image) }}" alt="{{ $recent->title }}"></a>

@@ -37,7 +37,7 @@
 
     <!-- Content
       ============================================= -->
-    <section id="content">
+    <section id="content"  class="member-style">
         <div class="content-wrap">
 
             <div class="container clearfix">
@@ -46,7 +46,7 @@
 
                     <!-- Post Content
           ============================================= -->
-                    <div class="postcontent col-8">
+                    <div class="postcontent col-12 col-lg-8">
 
                         <!-- Filter Begin -->
                         <div class="search-filter">

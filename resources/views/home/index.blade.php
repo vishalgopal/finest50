@@ -8,12 +8,12 @@
     <!-- Content
       ============================================= -->
     <section id="content">
-        <div class="content-wrap" style="overflow: visible;">
+        <div class="content-wrap mob-pt-0" style="overflow: visible;">
           
 
             <!-- Members Section
         ============================================= -->
-        <div class="section bg-transparent mt-0">
+        <div class="section bg-transparent mt-0 mb-0">
                 <div class="container">
 
                     <div class="heading-block border-bottom-0 mb-5 center">
@@ -81,13 +81,17 @@
                     </div>
                 </div>
             </div>
+
+            <div class="container text-center">
+                <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="" class="w-100">
+            </div>            
             
 <!-- Categories -->
             
             <div class="section pop-stories-bg">
             <div class="container">
 
-                <div class="heading-block border-bottom-0 my-4 center">
+                <div class="heading-block border-bottom-0 my-4 mob-my center">
                     <h3>Popular Categories</h3>
                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
                         Voluptatibus, perspiciatis placeat.</span>
@@ -117,7 +121,7 @@
 
             <!-- Popular Stories
         ============================================= -->
-            <div class="section topmargin-lg parallax">
+            <div class="section topmargin-lg parallax mb-0">
 
 
                 <div class="container">
@@ -172,9 +176,13 @@
 
             </div>
 
+            <div class="container text-center">
+                <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="" class="w-100">
+            </div>  
+
             <!-- Featues Section
         ============================================= -->
-            <div class="section mt-5 mb-0 min-vh-100 d-flex align-items-center" style="padding: 80px 0; background-color:#f9f9f9">
+            <div class="section mb-0 min-vh-100 d-flex align-items-center" style="padding: 80px 0; background-color:#f9f9f9">
 
 
                 <div class="container">
@@ -409,14 +417,14 @@
                             <h2 class="card-title font-weight-bold ls0">Get the FINEST50 App</h2>
                             <span>Lorem ipsum dolor sierr met areas</span>
                             <div class="mt-3 row">
-                                <div class="col-8 col-lg-9 col-xl-auto">
+                                <div class="col-6 col-lg-9 col-xl-6">
                                     <a href="#"
                                         class="button btn-block button-small button-rounded button-desc font-weight-normal ls1 clearfix"><i
                                             class="icon-apple"></i>
                                         <div><span>Download App</span>App Store</div>
                                     </a>
                                 </div>
-                                <div class="col-8 col-lg-9 col-xl-auto">
+                                <div class="col-6 col-lg-9 col-xl-6">
                                     <a href="#"
                                         class="button btn-block button-small button-rounded button-desc font-weight-normal ls1 clearfix"><i
                                             class="icon-googleplay"></i>
