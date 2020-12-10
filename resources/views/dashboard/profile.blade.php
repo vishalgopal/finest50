@@ -47,6 +47,32 @@
   background: white;
   color: black;
 }
+.ph-img{
+    position: relative;
+    margin: 10px;
+}
+.ph-img img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.ph-img a{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    -webkit-box-shadow: 0 9px 16px 0 rgba(24,28,50,.25)!important;
+    box-shadow: 0 9px 16px 0 rgba(24,28,50,.25)!important;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background-color: #fff;
+    border-color: #fff;
+    text-align:center;
+}
+.ph-img a i{
+    font-size:11px;
+    vertical-align: middle;
+}
 </style>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid pt-10" id="kt_content">
@@ -65,7 +91,7 @@
                 <div class="col-12">
                     <div class="card card-custom gutter-b">
                         <div class="card-header border-0">
-                            <h3 class="card-title">Personal Details</h3>
+                            <h3 class="card-title">Personal Details</h3> 
                         </div>
 
                         <div class="card-body pt-0">
@@ -475,9 +501,11 @@
                     <!--begin::Row-->
                     <div class="row mb-6">
                         <div class="col-lg-6">
+                            <div class="d-flex">
                             @foreach ($images as $img)
-                                <img class="user-galleryimg" data-pic={{ $img->id }} src="{{ $img->getFullUrl() }}" width="80px" >  
+                                <div class="ph-img"><a href="#"><i class="fa fa-trash text-primary"></i></a><img class="user-galleryimg" data-pic={{ $img->id }} src="{{ $img->getFullUrl() }}" width="80px" >  </div>
                             @endforeach
+                            </div>
                             <form action="{{ route("dashboard.storeimage") }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             <!--begin::Card-->
@@ -503,10 +531,12 @@
                         </form>
                         </div>
                         <div class="col-lg-6">
+                            <div class="d-flex">
                             @foreach ($videos as $vid)
-                                <img class="user-galleryvid" data-pic={{ $vid->id }} src="{{ $vid->getFullUrl('thumb') }}" width="80px" > 
+                            <div class="ph-img"><a href="#"><i class="fa fa-trash text-primary"></i></a><img class="user-galleryvid" data-pic={{ $vid->id }} src="{{ $vid->getFullUrl('thumb') }}" width="80px" > </div>
                                 {{ $vid->name }}
                             @endforeach
+                            </div>
                             <form action="{{ route("dashboard.storevideo") }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             <!--begin::Card-->

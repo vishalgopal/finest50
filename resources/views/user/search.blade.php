@@ -49,7 +49,7 @@
                     <div class="postcontent col-12 col-lg-8">
 
                         <!-- Filter Begin -->
-                        <div class="search-filter">
+                        <div class="search-filter mb-3">
 
                             <a href="Javascript:void(0);" class="badge badge-pill badge-light" id="btn-apply-filter"
                                 onclick="$('.all-filters').toggle()">Change Category<i
@@ -69,7 +69,7 @@
                         <!-- Filter End -->
 
                         <div class="page-title">
-                            <h2>Members</h2>
+                            <h2 class="mb-3">Members</h2>
                             <div class="from-group">
                                 <button class="btn btn-sm btn-outline-dark dropdown-toggle"
                                     type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -213,6 +213,10 @@
                 <!-- Sidebar
                         ============================================= -->
                         <div class="sidebar col-lg-4 d-block ">
+                        
+                        <!-- <img src="{{ asset('images/Eagleish-banner-400.jpg') }}" alt="Ad" class="img-width">
+                        <div class="spacer"><br></div> -->
+
                             <div class="sidebar-widgets-wrap related-que shadow-sm">
 
                                 <div class="widget widget_links text-left qwidget">
@@ -227,7 +231,7 @@
 
 
                             </div>
-                            <div class="spacer"><br><br></div>
+                            <div class="spacer"><br><img src="{{ asset('images/Eagleish-banner---400x400.jpg') }}" alt="Ad" class="img-width"></div><br>
                             <div class="sidebar-widgets-wrap related-que shadow-sm">
 
                                 <div class="widget widget_links text-left qwidget">

@@ -83,7 +83,8 @@
             </div>
 
             <div class="container text-center">
-                <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="" class="w-100">
+                <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="Ad" class="img-width m-auto d-none d-sm-block">
+                <img src="{{ asset('images/Eagleish-banner-400.jpg') }}" alt="Ad" class="img-width m-auto d-block d-sm-none">
             </div>            
             
 <!-- Categories -->
@@ -177,7 +178,8 @@
             </div>
 
             <div class="container text-center">
-                <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="" class="w-100">
+            <img src="{{ asset('images/Eagleish-banner-1.jpg') }}" alt="Ad" class="img-width m-auto d-none d-sm-block">
+                <img src="{{ asset('images/Eagleish-banner-400.jpg') }}" alt="Ad" class="img-width m-auto d-block d-sm-none">
             </div>  
 
             <!-- Featues Section

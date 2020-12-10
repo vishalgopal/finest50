@@ -1420,6 +1420,11 @@ input:-internal-autofill-selected {
 .member-style .qwidget p{
     margin: 5px 0;
 }
+.img-width{
+    max-width: 1050px;
+    width: 100%;
+}
+
 
 @media(max-width: 1024px){
 .home-searchbar .select2-container{
