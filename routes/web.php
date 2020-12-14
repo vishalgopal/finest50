@@ -99,6 +99,7 @@ Route::post('answer/answeredit', 'QnAController@answerEdit')->middleware('auth')
 
 // Users
 Route::get('members/{categories?}', 'UserController@search')->name('members');
+Route::get('categories', 'UserController@categories')->name('categories');
 Route::get('member/{username}', 'UserController@profile')->name('profile');
 Route::get('member/{username}/blogs', 'BlogController@listMember')->name('memberblogs');
 

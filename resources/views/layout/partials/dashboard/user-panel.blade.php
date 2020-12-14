@@ -19,7 +19,7 @@
             </div>
             <div class="d-flex flex-column">
                 <a class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ $user->name }}</a>
-                @if($user->designation!="" && $user->type=='member')
+                @if($user->designation!="" && ($user->type=='member' || $user->type=='business'))
                 <div class="text-muted mt-1">{{ $user->designation }}</div>
                 @endif
                 <div class="navi mt-2">
@@ -55,17 +55,46 @@
         <!--begin::Nav-->
         <div class="navi navi-spacer-x-0 p-0">
             <!--begin::Item-->
-            <a href="{{ URL::to('dashboard/profile')}}" class="navi-item">
+            <a href="{{ URL::to('/member/'. $user->slug)}}" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">
-                            <span class="svg-icon svg-icon-md svg-icon-success">
+                            <span class="svg-icon svg-icon-md svg-icon-primary">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
                                         <path d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z" fill="#000000" />
                                         <circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>
+                        </div>
+                    </div>
+                    <div class="navi-text">
+                        <div class="font-weight-bold">View My Profile</div>
+                        <div class="text-muted">View Profile as another user</div>
+                    </div>
+                </div>
+            </a>
+            <!--end:Item-->
+            <!--begin::Item-->
+            <a href="{{ URL::to('dashboard/profile')}}" class="navi-item">
+                <div class="navi-link">
+                    <div class="symbol symbol-40 bg-light mr-3">
+                        <div class="symbol-label">
+                            <span class="svg-icon svg-icon-md svg-icon-success">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Stockholm-icons / Design / Edit</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Stockholm-icons-/-Design-/-Edit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" id="Path-11" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "></path>
+                                        <rect id="Rectangle" fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
@@ -133,7 +162,7 @@
             </a>
             <!--end:Item-->
             <!--begin::Item-->
-            @if($user->type == 'member')
+            @if($user->type == 'member'|| $user->type=='business')
             <a href="{{ URL::to('dashboard/blog') }}" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">

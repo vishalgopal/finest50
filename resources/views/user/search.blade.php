@@ -101,6 +101,11 @@
                                             <!-- <div class="sale-flash badge badge-secondary p-2">Out of Stock</div> -->
                                         </div>
                                         <div class="product-desc col-9 col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
+                                            @if ($user->type == 'business')
+                                            <div class="sale-flash badge badge-secondary rounded-lg p-2">Business <i
+                                                class="icon-check text-light"></i>
+                                            </div>
+                                            @endif
                                             <div class="product-title">
                                                 <h3><a href="{{ URL::to('member/' . $user->slug) }}">{{ $user->name }}</a>
                                                 </h3>
@@ -223,7 +228,9 @@
 
                                     <h4>Related Categories</h4>
                                     @foreach ($sidebarCategories as $sidebarCategory)
-                                        <p><a
+                                        <p>
+                                            <img src="img/small/{{ $sidebarCategory->image }}" />
+                                            <a
                                                 href="{{ URL::to('members/' . $sidebarCategory->slug) }}">{{ $sidebarCategory->title }}</a>
                                         </p>
                                     @endforeach
@@ -238,10 +245,26 @@
 
                                     <h4>Related Blogs</h4>
                                     @foreach ($sidebarBlogs as $sidebarblog)
-                                        <p><a
-                                                href="{{ URL::to('blog/' . $sidebarblog->slug) }}">{{ $sidebarblog->title }}</a>
-                                        </p>
-                                    @endforeach
+                                        <div class="entry col-12">
+                                            <div class="row no-gutters">
+                                                <div class="col-auto">
+                                                    <div class="entry-image">
+                                                        <a href="{{ $sidebarblog->slug }}"><img class="" src="{{ asset('img/small/'.$sidebarblog->image) }}" alt="{{ $sidebarblog->title }}"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col pl-3">
+                                                    <div class="entry-title">
+                                                        <h4><a href="{{ $sidebarblog->slug }}">{{ $sidebarblog->title }}</a></h4>
+                                                    </div>
+                                                    <div class="entry-meta">
+                                                        <ul>
+                                                            <li><i class="icon-comments-alt"></i> {{ $sidebarblog->comment_count }} Comments</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                 </div>
 
 

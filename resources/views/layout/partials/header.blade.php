@@ -17,7 +17,7 @@
 							<div class="form-group mb-0 category-select d-none d-lg-block">
 							<select id="type" name="type" class="form-control select2-single">
 								<option value="all" selected>All</option>
-								<option value="member">Members</option>
+								<option value="member">Professionals</option>
 								<option value="category">Categories</option>
 								<option value="blog">Blogs</option>
 								<option value="question">Questions</option>
@@ -122,6 +122,7 @@
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userdropdownMenu2">
 							<a class="dropdown-item" href="{{ URL::to('/member/'. Auth::user()->slug) }}">Profile</a>
 							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+							<a class="dropdown-item" href="{{ URL::to('/dashboard/timeline') }}">Timeline</a>
 							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 						</div>
 						</div>
@@ -273,6 +274,7 @@
 						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
 							<a class="dropdown-item" href="{{ URL::to('/member/'. Auth::user()->slug) }}">Profile</a>
 							<a class="dropdown-item" href="{{ URL::to('/dashboard') }}">Dashboard</a>
+							<a class="dropdown-item" href="{{ URL::to('/dashboard/timeline') }}">Timeline</a>
 							<a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 						</div>
 						</div>

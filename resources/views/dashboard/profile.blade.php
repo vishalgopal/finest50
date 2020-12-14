@@ -98,7 +98,11 @@
                             <form class="form" id="personal-details" method="POST" enctype="multipart/form-data">
                                 <div class="form-group row">
                                     <div class="col-lg-3">
-                                        <label class="d-block">Select Your Avatar:</label><br>
+                                        @if ($user->type=='business')
+                                            <label class="d-block">Select Your Logo:</label><br>
+                                        @else
+                                            <label class="d-block">Select Your Avatar:</label><br>
+                                        @endif
                                         <div class="image-input image-input-outline dropzone" id="avatar-dropzone">
                                             {{-- id="kt_image_1" --}}
                                             <div class="image-input-wrapper"
@@ -503,7 +507,7 @@
                         <div class="col-lg-6">
                             <div class="d-flex">
                             @foreach ($images as $img)
-                                <div class="ph-img"><a href="#"><i class="fa fa-trash text-primary"></i></a><img class="user-galleryimg" data-pic={{ $img->id }} src="{{ $img->getFullUrl() }}" width="80px" >  </div>
+                                <div class="ph-img"><a href="#" class="user-galleryimg" data-pic={{ $img->id }} ><i class="fa fa-trash text-primary"></i></a><img src="{{ $img->getFullUrl() }}" width="80px" >  </div>
                             @endforeach
                             </div>
                             <form action="{{ route("dashboard.storeimage") }}" method="POST" enctype="multipart/form-data">
@@ -533,8 +537,8 @@
                         <div class="col-lg-6">
                             <div class="d-flex">
                             @foreach ($videos as $vid)
-                            <div class="ph-img"><a href="#"><i class="fa fa-trash text-primary"></i></a><img class="user-galleryvid" data-pic={{ $vid->id }} src="{{ $vid->getFullUrl('thumb') }}" width="80px" > </div>
-                                {{ $vid->name }}
+                            <div class="ph-img"><a href="#" class="user-galleryvid" data-pic={{ $vid->id }} ><i class="fa fa-trash text-primary"></i></a><img src="{{ $vid->getFullUrl('thumb') }}" width="80px" > </div>
+                                {{-- {{ $vid->name }} --}}
                             @endforeach
                             </div>
                             <form action="{{ route("dashboard.storevideo") }}" method="POST" enctype="multipart/form-data">

@@ -36,12 +36,16 @@ class BlogController extends Controller
 
     public function single(Request $request){
         $blog = Blog::where('slug', $request->blogslug)->with('category','user')->first();
-        $popularblogs = Blog::where('status','published')->withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
+        $peers = Category::where('id', $blog->category->id)->first();
+        views($blog)->record();
+        //$popularblogs = Blog::where('status','published')->withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
+        $popularblogs = Blog::where('status','published')->whereIn('category_id', $peers->peers)->where('id','<>',$blog->id)->withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
         $next = Blog::where('id','>',$blog->id)->where('status','published')->orderBy('id')->first();
         $prev = Blog::where('id','<',$blog->id)->where('status','published')->orderBy('id','desc')->first();
-        $recentblogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(5)->get();
+        // $recentblogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(5)->get();
+        $recentblogs = Blog::where('status','published')->whereIn('category_id', $peers->peers)->where('id','<>',$blog->id)->orderBy('created_at', 'desc')->take(5)->get();
         $comments = Comment::where('blog_id', $blog->id)->where('parent_id',NULL)->with('children')->paginate(5);
-        $relatedblogs = Blog::where('category_id', $blog->category_id)->where('status','published')->where('id','!=',$blog->id)->inRandomOrder()->take(4)->get();
+        $relatedblogs = Blog::where('user_id', $blog->user_id)->where('status','published')->where('id','!=',$blog->id)->inRandomOrder()->take(4)->get();
         return view('blog.inner', compact('blog','relatedblogs','comments','popularblogs','recentblogs','next','prev'));
     }
 

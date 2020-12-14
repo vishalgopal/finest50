@@ -27,7 +27,10 @@ class Category extends Model
      * @var array
      */
     protected $fillable = ['title', 'slug', 'parent', 'description', 'image', 'created_at', 'updated_at'];
-
+    protected $appends = ['peers'];
+    protected $casts = [
+        'peers' => 'array',
+    ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -58,5 +61,18 @@ class Category extends Model
    
     public function parent() {
         return $this->belongsTo(Category::class,'parent');
+    }
+
+    public function getPeersAttribute($value)
+    {
+        if ($this->attributes['parent'] == 0){
+            $categories = Category::where('parent', $this->attributes['id'])->select('id')->get();
+            return ($categories->pluck('id'))->push($this->attributes['id']);
+        }
+        else{
+            $categories = Category::where('parent', $this->attributes['parent'])->select('id')->get();
+            return ($categories->pluck('id'))->push($this->attributes['parent']);
+        }
+        
     }
 }

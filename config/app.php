@@ -180,6 +180,7 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         \Chatify\ChatifyServiceProvider::class,
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
     ],
 
     /*

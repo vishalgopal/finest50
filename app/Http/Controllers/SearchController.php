@@ -20,7 +20,11 @@ class SearchController extends Controller
             $selectedCategories = [];
             
             $sortby = $request->sortby ?? 'featured';
-            $users = User::search($query)->where('location',$location)->where('type','member')->orderBy($sortby, 'desc')->paginate(20);
+            $users = User::search($query)->where('location',$location)
+            ->where(function($query) {
+                return $query->where('type','member')
+                    ->orWhere('type','business');
+            })->orderBy($sortby, 'desc')->paginate(20);
             // $categories = Category::search($query)->get();
             // if($categories){
             //    $selectedCategories = $categories->pluck('slug')->toArray();
@@ -47,7 +51,11 @@ class SearchController extends Controller
             return view('search.categories', compact('query','categories'));
         }
         if ($type=='all'){
-            $users = User::search($query)->where('location',$location)->where('type','member')->take(12)->get();
+            $users = User::search($query)->where('location',$location)
+            ->where(function($query) {
+                return $query->where('type','member')
+                    ->orWhere('type','business');
+            })->take(12)->get();
             $categories = Category::search($query)->get();
             // $userscategory = User::whereIn('category_id',$categories->pluck('id'))->take(12)->get();
             // $users = $users->merge($userscategory);

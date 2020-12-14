@@ -15,6 +15,8 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 /**
  * @property int $id
  * @property int $category_id
@@ -50,7 +52,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property Comment[] $comments
  * @property Question[] $questions
  */
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, Viewable
 {
     use HasApiTokens, Notifiable;
     use Sluggable;
@@ -59,6 +61,7 @@ class User extends Authenticatable implements HasMedia
     use Followable;
     use Searchable;
     use HasMediaTrait;
+    use InteractsWithViews;
     public $timestamps = true;
     public $asYouType = true;
     /**

@@ -22,9 +22,17 @@ class UserController extends Controller
         $selectedCategories = [];
         $location = NULL;
         $sortby = $request->sortby ?? 'featured';
-        $users = User::orderBy($sortby, 'desc')->where('location',$location)->where('type','member')->paginate(20);
+        $users = User::orderBy($sortby, 'desc')->where('location',$location)
+        ->where(function($query) {
+            return $query->where('type','member')
+                ->orWhere('type','business');
+        })->paginate(20);
         // Random Categories
         // Random Blogs
+        $promotions = Promotion::with('user')->where('type','users')->where('start_date', '<=', Carbon::now())->where(function($q) {
+            $q->where('end_date', '>=', Carbon::now())
+              ->orWhereNull('end_date');
+        })->inRandomOrder()->take(6)->get();
         $sidebarCategories = Category::orderBy('created_at', 'desc')->inRandomOrder()->take(10)->get();
         $sidebarBlogs = Blog::orderBy('created_at', 'desc')->inRandomOrder()->take(10)->get();
         if (isset($request->categories))
@@ -41,14 +49,18 @@ class UserController extends Controller
                     $q->where('end_date', '>=', Carbon::now())
                       ->orWhereNull('end_date');
                 })->inRandomOrder()->take(6)->get();
-                $users = User::whereIn('category_id',$catids->pluck('id'))->where('location',$location)->where('type','member')->orderBy($sortby, 'desc')->paginate(20);
+                $users = User::whereIn('category_id',$catids->pluck('id'))->where('location',$location)
+                ->where(function($query) {
+                    return $query->where('type','member')
+                        ->orWhere('type','business');
+                })->orderBy($sortby, 'desc')->paginate(20);
             }
-        return view('user.search', compact('users','selectedCategories','sidebarCategories', 'sidebarBlogs','promotions'));
+        return view('user.search', compact('promotions','users','selectedCategories','sidebarCategories', 'sidebarBlogs'));
     }
     public function profile(Request $request){
         $user = User::where('slug',$request->username)->first();
         $reviews = Review::where('member_id', $user->id)->with('user','member')->paginate(5);
-        
+        views($user)->record();
         return view('user.profile', compact('user', 'reviews'));
     }
 
@@ -269,5 +281,9 @@ class UserController extends Controller
         // }
         }
         }
+    }
+    public function categories(){
+        $categories = Category::paginate(60);
+        return view('user.categories', compact('categories'));
     }
 }

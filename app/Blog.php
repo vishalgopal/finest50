@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 /**
  * @property int $id
  * @property int $category_id
@@ -20,12 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Category $category
  * @property Comment[] $comments
  */
-class Blog extends Model
+class Blog extends Model implements Viewable
 {
     use Likeable;
     use Searchable;
     use Sluggable;
     use SoftDeletes;
+    use InteractsWithViews;
     
     protected $touches = ['category'];
     // public $asYouType = true;

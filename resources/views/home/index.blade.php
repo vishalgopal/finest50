@@ -46,7 +46,7 @@
                                                         class="text-dark">{{ $member->name }}</a><br>
                                                         <small class="subtitle nott color"><a href="{{ URL::to('members/' . $member->category->slug) }}">{{ $member->category->title }}</a></small>
                                                 </h3>
-                                                <p class="text-dark"><strong>{{ $member->follower }}</strong> Followers</p>
+                                                <p class="text-dark" id="{{ $member->id }}-follower"><strong>{{ $member->follower }}</strong> Followers</p>
                                             <p class="text-dark mt-0"><a href="{{ URL::to('member/' . $member->slug . '/blogs') }}"><strong>{{ $member->stories }}</strong> Stories</a>
                                                 </p>
                                                 @if (Auth::user())
@@ -114,7 +114,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class="row justify-content-center">
-                    <a href="#" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
+                    <a href="{{ URL::to('categories') }}" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">View All</a>
                 </div>
 
             </div>
@@ -537,8 +537,10 @@
             },
             success: function (response) {
                 if (response.status) {
+                    $('#' + $member_id + '-follower').html('<strong>' +response.count+' </strong> Followers');
                     $(currentbtn).html('<div class="btn btn-follow ">Unfollow</div>');
                 } else {
+                    $('#' + $member_id + '-follower').html('<strong>' +response.count+' </strong> Followers');
                     $(currentbtn).html('<div class="btn btn-follow ">Follow</div>');
                 }
                 // $('#like-' + $answerid).html(response.likecpy);

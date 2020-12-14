@@ -5,7 +5,12 @@
 									<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
 										<!--begin::Header Nav-->
 										<ul class="menu-nav">
-											@if($user->type=='member')
+											<li class="menu-item">
+												<a href="{{ URL::to('/')}}" class="menu-link">
+													<span class="menu-text">Main Site</span>
+												</a>
+											</li>
+											@if($user->type=='member' || $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard')}}" class="menu-link">
 													<span class="menu-text">Dashboard</span>
@@ -17,7 +22,7 @@
 													<span class="menu-text">Timeline</span>
 												</a>
 											</li>	
-											@if($user->type=='member')
+											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='blogs') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/blogs')}}" class="menu-link">
 													<span class="menu-text">Blogs</span>
@@ -29,7 +34,7 @@
 													<span class="menu-text">Comments</span>
 												</a>
 											</li>
-											@if($user->type=='member')
+											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='reviews') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/reviews')}}" class="menu-link">
 													<span class="menu-text">Reviews</span>
@@ -41,7 +46,7 @@
 													<span class="menu-text">Questions</span>
 												</a>
 											</li>
-											@if($user->type=='member')
+											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='answers') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/answers')}}" class="menu-link">
 													<span class="menu-text">Answers</span>
@@ -53,7 +58,7 @@
 													<span class="menu-text">Chat</span>
 												</a>
 											</li>
-											@if($user->type=='member')
+											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='followers') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/followers')}}" class="menu-link">
 													<span class="menu-text">Followers</span>
@@ -82,6 +87,14 @@
 							<!--end::Left-->
 							<!--begin::Topbar-->
 							<div class="topbar">
+								<!--begin::ViewProfile-->
+								<div class="topbar-item mr-5">
+									{{-- <div class="btn btn-icon btn-clean btn-primary btn-lg" data-toggle="modal" data-target="#kt_chat_modal"  style="position: fixed; bottom: 10px; right: 10px;"> --}}
+									<a class="btn btn-icon btn-primary btn-lg" href="{{URL::to('/member/'. $user->slug) }}" style="position: fixed; bottom: 10px; right: 60px;">
+										<i class="flaticon-eye"></i>
+									</a>
+								</div>
+								<!--end::ViewProfile-->
 								<!--begin::Chat-->
 								<div class="topbar-item mr-5">
 									{{-- <div class="btn btn-icon btn-clean btn-primary btn-lg" data-toggle="modal" data-target="#kt_chat_modal"  style="position: fixed; bottom: 10px; right: 10px;"> --}}
@@ -93,6 +106,7 @@
 								<!--begin::User-->
 								<div class="topbar-item">
 									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+										
 										<div class="d-flex flex-column text-right">
 											<!-- <span class="text-muted font-weight-bold font-size-base d-none d-md-inline">Jason Muller</span>
 											<span class="text-dark-75 font-weight-bolder font-size-base d-none d-md-inline">PR Manager</span> -->

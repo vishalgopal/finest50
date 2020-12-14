@@ -3,7 +3,7 @@
     <!--begin::Brand-->
     <div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-4 py-lg-8">
         <!--begin::Logo-->
-        <a href="{{ URL::to("/dashboard") }}">
+        <a href="{{ URL::to("/") }}">
             <img alt="Logo" src="{{ asset('assets/media/logos/Finest50-logo.svg') }}" class="max-h-30px" />
         </a>
         <!--end::Logo-->
@@ -14,7 +14,7 @@
         <!--begin::Nav-->
         <ul class="nav flex-column">
             <!--begin::Item-->
-            @if($user->type=='member')
+            @if($user->type=='member'|| $user->type=='business')
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Dashboard">
                 <a href="{{ URL::to('dashboard')}}" class="nav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='') btn-clean active @endif">
                     <i class="flaticon2-protection icon-lg"></i>
@@ -30,7 +30,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            @if($user->type=='member')
+            @if($user->type=='member'|| $user->type=='business')
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Blogs">
                 <a href="{{ URL::to('dashboard/blogs')}}" class="nav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='blogs') btn-clean active @endif">
                     <i class="flaticon2-list-3 icon-lg"></i>
@@ -46,7 +46,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            @if($user->type=='member')
+            @if($user->type=='member'|| $user->type=='business')
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Reviews">
                 <a href="{{ URL::to('dashboard/reviews')}}" class="nav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='reviews') btn-clean active @endif">
                     <i class="flaticon2-file-1 icon-lg"></i>
@@ -62,7 +62,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            @if($user->type=='member')
+            @if($user->type=='member'|| $user->type=='business')
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Answers">
                 <a href="{{ URL::to('dashboard/answers')}}" class="nnav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='answers') btn-clean active @endif">
                     <i class="flaticon-chat-1 icon-lg"></i>
@@ -71,7 +71,7 @@
             @endif
             <!--end::Item-->
             <!--begin::Item-->
-            @if($user->type=='member')
+            @if($user->type=='member'|| $user->type=='business')
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Followers">
                 <a href="{{ URL::to('dashboard/followers')}}" class="nav-link btn btn-icon btn-icon-white btn-hover-text-white btn-lg @if(Request::segment(2)=='followers') btn-clean active @endif">
                     <i class="flaticon-network icon-lg"></i>
