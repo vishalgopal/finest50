@@ -57,7 +57,7 @@
 
 								<div class="widget widget_links clearfix">
 
-									<h4>Blog Categories</h4>
+									<h4>Story Categories</h4>
 									<ul>
                                         @foreach ($categories as $category)
                                             <li><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></li>

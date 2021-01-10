@@ -77,7 +77,7 @@ class BlogController extends Controller
                     'username' => Auth::user()->name,
                     'userslug' => Auth::user()->slug
                     ])
-                ->log(':causer.name commented on the blog - '. $blog->title);
+                ->log(':causer.name commented on a story - '. $blog->title);
             $arr = array('msg' => 'Successfully stored', 'status' => true);
             }
             return Response()->json($arr);
@@ -93,7 +93,7 @@ class BlogController extends Controller
                 activity()
                 ->causedBy(Auth::id())
                 ->performedOn($blog)
-                ->log(':causer.name Liked the Blog - :subject.title');
+                ->log(':causer.name liked a story - :subject.title');
             if ($blog->likers()->count() > 1){
                 
                 $total = $blog->likers()->count() - 1;
@@ -154,7 +154,7 @@ class BlogController extends Controller
                     'username' => Auth::user()->name,
                     'userslug' => Auth::user()->slug
                     ])
-                ->log(':causer.name has written a new blog - :subject.title');
+                ->log(':causer.name has written a new story - :subject.title');
                 $arr = array('msg' => 'Successfully stored', 'status' =>  'Created');
                 return Response()->json($arr);
             }
@@ -199,7 +199,7 @@ class BlogController extends Controller
                     'username' => Auth::user()->name,
                     'userslug' => Auth::user()->slug
                     ])
-                ->log(':causer.name has updated the blog - :subject.title');
+                ->log(':causer.name has updated a story - :subject.title');
                 $arr = array('msg' => 'Successfully edited', 'status' =>  'Edited');
                 return Response()->json($arr);
             }
@@ -219,7 +219,7 @@ class BlogController extends Controller
                 activity()
                 ->causedBy(Auth::id())
                 ->performedOn($blog)
-                ->log('Blog Deleted');
+                ->log('Story Deleted');
                 $arr = array('msg' => 'Successfully deleted', 'status' =>  'Deleted');
                 return Response()->json($arr);
             }

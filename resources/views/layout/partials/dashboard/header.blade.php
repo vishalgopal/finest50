@@ -5,11 +5,11 @@
 									<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
 										<!--begin::Header Nav-->
 										<ul class="menu-nav">
-											<li class="menu-item">
+											{{-- <li class="menu-item">
 												<a href="{{ URL::to('/')}}" class="menu-link">
 													<span class="menu-text">Main Site</span>
 												</a>
-											</li>
+											</li> --}}
 											@if($user->type=='member' || $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard')}}" class="menu-link">
@@ -25,7 +25,7 @@
 											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='blogs') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/blogs')}}" class="menu-link">
-													<span class="menu-text">Blogs</span>
+													<span class="menu-text">Stories</span>
 												</a>
 											</li>
 											@endif
@@ -62,6 +62,11 @@
 											<li class="menu-item @if(Request::segment(2)=='followers') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/followers')}}" class="menu-link">
 													<span class="menu-text">Followers</span>
+												</a>
+											</li>
+											<li class="menu-item @if(Request::segment(2)=='followings') menu-item-active @endif">
+												<a href="{{ URL::to('dashboard/followings')}}" class="menu-link">
+													<span class="menu-text">Followings</span>
 												</a>
 											</li>
 											@else	

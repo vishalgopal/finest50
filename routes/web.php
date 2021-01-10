@@ -128,3 +128,4 @@ Route::delete('comment/delete/{commentid}', 'BlogController@deletecomment')->mid
 
 Route::get('search/{type}/{query}', 'SearchController@ajaxcall')->name('search');
 
+include "admin.php";

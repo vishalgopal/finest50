@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function search(Request $request){
+        
         $selectedCategories = [];
         $location = NULL;
         $sortby = $request->sortby ?? 'featured';
@@ -54,6 +55,7 @@ class UserController extends Controller
                     return $query->where('type','member')
                         ->orWhere('type','business');
                 })->orderBy($sortby, 'desc')->paginate(20);
+                // return $promotions;
             }
         return view('user.search', compact('promotions','users','selectedCategories','sidebarCategories', 'sidebarBlogs'));
     }
@@ -203,7 +205,7 @@ class UserController extends Controller
             $member2 = User::find($request->member_id);
             $member1->toggleFollow($member2); 
             $userupdate = User::where('id', $request->member_id)
-            ->update(['follower' => $member2->followers()->count()]);
+            ->update(['follower' => $member2->followers()->count(),'following' => $member2->followings()->count()]);
             $count = thousandsCurrencyFormat($member2->followers()->count());
             $arr = array('msg' => 'Success', 'status' =>  $member1->isFollowing($member2), 'count'=> $count);
             return Response()->json($arr);

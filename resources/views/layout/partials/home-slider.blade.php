@@ -21,9 +21,9 @@
 										<div class="form-group mb-0 category-select d-none d-lg-block">
 										<select id="type" name="type" class="form-control select2-single">
 											<option value="all" selected>All</option>
-											<option value="member">Professionals</option>
+											<option value="member">Members</option>
 											<option value="category">Categories</option>
-											<option value="blog">Blogs</option>
+											<option value="blog">Stories</option>
 											<option value="question">Questions</option>
 											<!-- <option value="ke">Accountant</option> -->
 										</select>
@@ -38,7 +38,7 @@
 											<option value="all">All</option>
 											<option value="members" selected>Members</option>
 											<option value="category" selected>Categories</option>
-											<option value="blog">Blogs</option>
+											<option value="blog">Stories</option>
 											<option value="question">Questions</option>
 										</select>
 										</div> 

@@ -67,7 +67,7 @@ class User extends Authenticatable implements HasMedia, Viewable
     /**
      * @var array
      */
-    protected $fillable = ['latitude','longitude','response_time', 'response_rate', 'responses','display_mobile','display_email', 'images', 'videos','designation', 'company_name', 'qualification' ,'category_id', 'name', 'slug', 'email', 'mobile', 'otp_mobile', 'otp_email', 'email_verified_at', 'mobile_verified_at', 'password', 'avatar', 'provider', 'provider_id', 'access_token', 'remember_token', 'follower', 'stories', 'answers', 'country', 'state', 'city', 'pincode', 'address1', 'address2', 'short_description', 'long_description', 'created_at', 'updated_at'];
+    protected $fillable = ['latitude','longitude','response_time', 'response_rate', 'responses','display_mobile','display_email', 'images', 'videos','designation', 'company_name', 'qualification' ,'category_id', 'name', 'slug', 'email', 'mobile', 'otp_mobile', 'otp_email', 'email_verified_at', 'mobile_verified_at', 'password', 'avatar', 'provider', 'provider_id', 'access_token', 'remember_token', 'follower', 'stories', 'answers', 'country', 'state', 'city', 'pincode', 'address1', 'address2', 'short_description', 'long_description', 'created_at', 'updated_at','following'];
     
     /**
      * The attributes that should be hidden for arrays.
@@ -116,6 +116,11 @@ class User extends Authenticatable implements HasMedia, Viewable
     }
 
     public function getFollowerAttribute($value)
+    {
+        return thousandsCurrencyFormat($value);
+    }
+
+    public function getFollowingAttribute($value)
     {
         return thousandsCurrencyFormat($value);
     }

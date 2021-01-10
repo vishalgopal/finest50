@@ -167,7 +167,7 @@
                                 @endif
                                 @if(count($blogs)>0)
                                 <div class="page-title">
-                                    <h2>Blogs</h2>
+                                    <h2>Stories</h2>
                                     <a href="{{ URL::to('search/blog/'.$query)}}">
                                         <div class="btn btn-follow mt-0">View All</div>
                                     </a>

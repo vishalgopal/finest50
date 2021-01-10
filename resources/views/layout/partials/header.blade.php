@@ -17,7 +17,7 @@
 							<div class="form-group mb-0 category-select d-none d-lg-block">
 							<select id="type" name="type" class="form-control select2-single">
 								<option value="all" selected>All</option>
-								<option value="member">Professionals</option>
+								<option value="member">Members</option>
 								<option value="category">Categories</option>
 								<option value="blog">Blogs</option>
 								<option value="question">Questions</option>

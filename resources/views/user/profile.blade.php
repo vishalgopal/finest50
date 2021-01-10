@@ -97,7 +97,7 @@
 
                                     <p class="text-dark my-0"><strong>{{ $user->answers }}</strong> Questions Answered
                                     </p>
-                                <p class="text-dark my-0"><a href="{{ URL::to('member/' . $user->slug  .'/blogs') }}"><strong>{{ $user->stories }}</strong> Blogs</a></p>
+                                <p class="text-dark my-0"><a href="{{ URL::to('member/' . $user->slug  .'/blogs') }}"><strong>{{ $user->stories }}</strong> Stories</a></p>
 
 
                                     <div class="btns">

@@ -122,9 +122,12 @@
                                                     <p class="text-dark my-0" id="followers-{{ $user->id }}"><strong>{{ $user->follower }}</strong>
                                                             Followers</p>
                                                         <p class="mx-3 mb-0">|</p>
+                                                        <p class="text-dark my-0" id="following-{{ $user->following }}"><strong>{{ $user->following }}</strong>
+                                                            Following</p>
+                                                        <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0">
                                                             <a href="{{ URL::to('member/' . $user->slug . '/blogs') }}"><strong>{{ $user->stories }}</strong>
-                                                            Blogs</a></p>
+                                                            Stories</a></p>
                                                         <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0"><strong>{{ $user->answers }}</strong>
                                                             Answers</p>
@@ -144,12 +147,38 @@
                                                 @endif
                                                 </div>
                                             </div>
+                                                <!-- Post Single - Share
+										============================================= -->
+										<div class="si-share border-0 d-flex  align-items-center">
+											<div>
+											<a href="https://www.facebook.com/sharer.php?u={{ URL::to('member/' . $user->slug) }}" class="social-icon si-borderless si-facebook">
+													<i class="icon-facebook"></i>
+													<i class="icon-facebook"></i>
+												</a>
+												<a href="https://twitter.com/share?url={{ URL::to('member/' . $user->slug) }}&text={{ $user->name }}" class="social-icon si-borderless si-twitter">
+													<i class="icon-twitter"></i>
+													<i class="icon-twitter"></i>
+												</a>
+												<a href="whatsapp://send?text={{ URL::to('member/' . $user->slug) }}
+												" class="social-icon si-borderless si-spotify">
+													<i class="icon-whatsapp"></i>
+													<i class="icon-whatsapp"></i>
+												</a>
+												
+												<a href="https://www.linkedin.com/shareArticle?url={{ URL::to('member/' . $user->slug) }}&title={{ $user->name }}" class="social-icon si-borderless si-linkedin">
+													<i class="icon-linkedin"></i>
+													<i class="icon-linkedin"></i>
+												</a>
+											</div>
+										</div><!-- Post Single - Share End -->
                                         </div>
                                     </div>
                                 </div>
                                 {{-- Promoted --}}
+
                                 @if($loop->index %4 ==0)
                                 
+                                @if (count($promotions)>0)
                                 <div class="product shadow">
                                     <div class="grid-inner row ">
                                         <div class="product-image col-3 col-lg-3 col-xl-2">
@@ -172,15 +201,19 @@
                                             <div class="number-section">
                                                 <div>
                                                     <div class="d-flex mb-2">
-                                                    <p class="text-dark my-0" id="followers-{{ $promotions[$rec]->user->id }}"><strong>{{ $promotions[$rec]->user->follower }}</strong>
+                                                        <p class="text-dark my-0" id="followers-{{ $promotions[$rec]->user->id }}"><strong>{{ $promotions[$rec]->user->follower }}</strong>
                                                             Followers</p>
+                                                        <p class="mx-3 mb-0">|</p>
+                                                        <p class="text-dark my-0" id="followers-{{ $promotions[$rec]->user->id }}"><strong>{{ $promotions[$rec]->user->following }}</strong>
+                                                            Following</p>
                                                         <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0">
                                                             <a href="{{ URL::to('member/' . $promotions[$rec]->user->slug . '/blogs') }}"><strong>{{ $promotions[$rec]->user->stories }}</strong>
-                                                            Blogs</a></p>
+                                                            Stories</a></p>
                                                         <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0"><strong>{{ $promotions[$rec]->user->answers }}</strong>
                                                             Answers</p>
+                                                            
                                                     </div>
                                                 </div>
                                                 <div>
@@ -206,6 +239,7 @@
                                 else $rec=0;
                                  @endphp
                                 @endif
+                                @endif 
                                 {{-- Promoted End --}}
                             @endforeach
                             {{-- Pagination --}}
@@ -243,7 +277,7 @@
 
                                 <div class="widget widget_links text-left qwidget">
 
-                                    <h4>Related Blogs</h4>
+                                    <h4>Related Stories</h4>
                                     @foreach ($sidebarBlogs as $sidebarblog)
                                         <div class="entry col-12">
                                             <div class="row no-gutters">

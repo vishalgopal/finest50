@@ -80,8 +80,11 @@
 													<i class="icon-twitter"></i>
 													<i class="icon-twitter"></i>
 												</a>
-												<a href="https://pinterest.com/pin/create/bookmarklet/?media={{ asset('img/original/'. $blog->image)}}&url{{ URL::full() }}&description={{ $blog->title }}
-												" class="social-icon si-borderless si-pinterest">
+												<a href="whatsapp://send?text={{ URL::full() }}" class="social-icon si-borderless si-spotify">
+													<i class="icon-whatsapp"></i>
+													<i class="icon-whatsapp"></i>
+												</a>
+												<a href="https://pinterest.com/pin/create/bookmarklet/?media={{ asset('img/original/'. $blog->image)}}&url{{ URL::full() }}&description={{ $blog->title }}" class="social-icon si-borderless si-pinterest">
 													<i class="icon-pinterest"></i>
 													<i class="icon-pinterest"></i>
 												</a>
@@ -93,6 +96,7 @@
 													<i class="icon-linkedin"></i>
 													<i class="icon-linkedin"></i>
 												</a>
+												
 											</div>
 										</div><!-- Post Single - Share End -->
 										<!-- Post Single - Like
@@ -219,7 +223,7 @@
 									============================================= -->
 									<ol class="commentlist clearfix">
 										@foreach ($comments as $comment)
-										<li class="comment even thread-even depth-1" id="li-comment-1">
+										<li class="comment even thread-even depth-1" id="li-comment-{{$comment->id}}">
 											<div id="comment-1" class="comment-wrap clearfix">
 												<div class="comment-meta">
 													<div class="comment-author vcard">
@@ -231,9 +235,12 @@
 													<div class="comment-author">{{ $comment->userinfo->name}}<span>{{ Carbon\Carbon::parse($comment->created_at)->format('M d, Y - h:i A') }}</span></div>
 													<p>{!!  strip_tags($comment->comment, '<b><i><strong><p>') !!}</p>
 														@if(Auth::user())
-															<a class='comment-reply-link' href='javascript:openmodal({{$comment->id}})'><i class="icon-reply"></i></a>
+															<a class='comment-reply-link' href='javascript:openmodal({{$comment->id}})'><i class="icon-reply"></i> Reply</a>
 														@else
-															<a class='comment-reply-link' href='{{ URL::to('login') }}'><i class="icon-reply"></i></a>
+															<a class='comment-reply-link' href='{{ URL::to('login') }}'><i class="icon-reply"></i> Reply</a>
+														@endif
+														@if ($comment->userinfo->id == Auth::id())	
+															<a class='comment-delete-link' data-cid="{{$comment->id}}"><i class="icon-trash"></i></a>
 														@endif
 												</div>
 												<div class="clear"></div>
@@ -241,7 +248,7 @@
 											@if (count($comment->children)>0)
 											<ul class='children'>
 												@foreach ($comment->children as $child)
-												<li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+												<li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-{{$child->id}}">
 													<div id="comment-3" class="comment-wrap clearfix">
 														<div class="comment-meta">
 															<div class="comment-author vcard">
@@ -252,6 +259,9 @@
 														<div class="comment-content clearfix">
 															<div class="comment-author">{{ $child->userinfo->name}}<span>{{ Carbon\Carbon::parse($child->created_at)->format('M d, Y - h:i A') }}</span></div>
 															<p>{!!  strip_tags($child->comment, '<b><i><strong><p>') !!}</p>
+															@if ($child->userinfo->id == Auth::id())	
+															<a class='comment-delete-link' data-cid='{{$child->id}}'><i class="icon-trash"></i></a>
+															@endif
 														</div>
 														<div class="clear"></div>
 													</div>
@@ -459,8 +469,13 @@
 @section('js')
     <script src="{{ asset('js/readmore.min.js') }}"></script>
     <script>
+		
 		$( document ).ready(function() {
-
+			$.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 		$('#show-filter').click(function(){
 			$('.sidebar').toggleClass('show-sidebar');
 			$('.sidebar').toggle();
@@ -476,6 +491,46 @@
   			speed: 75,
   			lessLink: '<a href="#">Read less</a>'
 		});
+
+			// Delete Start
+			$('.comment-delete-link').click(function (e) {
+                    e.preventDefault();
+                    swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this comment!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                        type: 'DELETE',
+                        url: APP_URL + '/comment/delete/' + $(this).data('cid'),
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+                            $('#li-comment-' + $(this).data('cid')).fadeOut( "slow", function() {
+                                $('#li-comment-' + $(this).data('cid')).remove();
+                            });
+                        swal(data.msg, { icon: "success", });
+                        },
+                        error: function (reject) {
+                            var errors = $.parseJSON(reject.responseText);
+                            $.each(errors.errors, function (key, val) {
+                                console.log(key + " - - " + val);
+                                $("#" + key + "_error").text(val);
+                            });
+                        }
+                    });
+                    }
+                    });
+                    
+                });
+                // Delete End
+
+
 function openmodal(val){
 	$('#Commentform-val').val(val);
 	$("#CommentFormModal").modal()

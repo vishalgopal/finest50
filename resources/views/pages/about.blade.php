@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-stretch">
+            {{-- <div class="row align-items-stretch">
 
                 <div class="col-md-6 col-padding min-vh-75"
                     style="background: url('{{ asset ("images/about-us/ceo.jpg") }}') center center no-repeat; background-size: cover;">
@@ -151,9 +151,9 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
-            <div class="row align-items-stretch">
+            {{-- <div class="row align-items-stretch">
 
                 <div class="col-md-6 col-padding min-vh-75 order-md-last"
                     style="background: url('{{ asset ("images/about-us/co-founder.jpg") }}') center center no-repeat; background-size: cover;">
@@ -195,7 +195,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
     </section><!-- #content end -->
 

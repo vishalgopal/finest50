@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Dashboard - Blogs')
+@section('title', 'Dashboard - Profile')
 @section ('css')
 <link rel="stylesheet" href="{{ asset('css/basic.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}" />

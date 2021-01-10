@@ -146,9 +146,9 @@ class DashboardController extends Controller
 
     public function followings(){
         $user = User::where('id', Auth::id())->first();
-        if ($user->type !='user'){
-            return redirect('dashboard');
-        }
+        // if ($user->type !='user'){
+        //     return redirect('dashboard');
+        // }
         $followings = $user->followings;
         return view('dashboard.followings', compact('user','followings'));
     }

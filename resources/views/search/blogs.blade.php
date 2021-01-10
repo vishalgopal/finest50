@@ -88,7 +88,7 @@
 						
 								@if(count($blogs)>0)
                                 <div class="page-title">
-                                    <h2>Blogs</h2>
+                                    <h2>Stories</h2>
                                 </div>
 								@endif
 								<!-- Posts ============================================= -->

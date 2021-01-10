@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Dashboard - Blogs')
+@section('title', 'Dashboard - Stories')
 
 @section('content')
 <style>
@@ -33,7 +33,7 @@
                 <div class="col-12">
                     <div class="card card-custom gutter-b">
                         <div class="card-header">
-                            <h3 class="card-title">Blogs</h3>
+                            <h3 class="card-title">Stories</h3>
                             <div class="card-toolbar">
                                 <a href="{{ URL::to('dashboard/blog/create')}}" class="btn btn-sm btn-primary font-weight-bold">
                                 <i class="flaticon-plus"></i>Create New</a>
@@ -289,7 +289,7 @@
                     e.preventDefault();
                     swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this blog!",
+                    text: "Once deleted, you will not be able to recover this story!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

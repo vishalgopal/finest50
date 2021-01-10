@@ -157,9 +157,35 @@
                                         <div class="badge alert-warning"><a
                                                 href="{{ URL::to('/blogs/' . $blog->category->slug) }}"
                                                 class="text-black-50">{{ $blog->category->title }}</a></div>
-                                        <a href="{{ URL::to('/blog/' . $blog->slug) }}"
+                                        
+                                            <!-- Post Single - Share
+										============================================= -->
+										<div class="si-share border-0 d-flex  align-items-center">
+											<div>
+											<a href="https://www.facebook.com/sharer.php?u={{ URL::to('/blogs/' . $blog->slug) }}" class="social-icon si-borderless si-facebook">
+													<i class="icon-facebook"></i>
+													<i class="icon-facebook"></i>
+												</a>
+												<a href="https://twitter.com/share?url={{ URL::to('/blogs/' . $blog->slug) }}&text={{ $blog->title }}" class="social-icon si-borderless si-twitter">
+													<i class="icon-twitter"></i>
+													<i class="icon-twitter"></i>
+												</a>
+												<a href="whatsapp://send?text={{ URL::to('/blogs/' . $blog->slug) }}
+												" class="social-icon si-borderless si-spotify">
+													<i class="icon-whatsapp"></i>
+													<i class="icon-whatsapp"></i>
+												</a>
+												
+												<a href="https://www.linkedin.com/shareArticle?url={{ URL::to('/blogs/' . $blog->slug) }}&title={{ $blog->title }}" class="social-icon si-borderless si-linkedin">
+													<i class="icon-linkedin"></i>
+													<i class="icon-linkedin"></i>
+												</a>
+											</div>
+										</div><!-- Post Single - Share End -->
+                                        
+                                            {{-- <a href="{{ URL::to('/blog/' . $blog->slug) }}"
                                             class="text-dark position-relative"><i class="icon-line2-user"></i> <span
-                                                class="author-number">{{ $blog->likes }}</span></a>
+                                                class="author-number">{{ $blog->likes }}</span></a> --}}
                                     </div>
                                 </div>
                             </div>

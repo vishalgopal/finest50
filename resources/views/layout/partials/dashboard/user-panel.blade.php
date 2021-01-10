@@ -181,8 +181,8 @@
                         </div>
                     </div>
                     <div class="navi-text">
-                        <div class="font-weight-bold">My Blogs</div>
-                        <div class="text-muted">Create / Edit or Delete Blogs</div>
+                        <div class="font-weight-bold">My Stories</div>
+                        <div class="text-muted">Create / Edit or Delete Stories</div>
                     </div>
                 </div>
             </a>

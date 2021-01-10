@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Dashboard - Blogs')
+@section('title', 'Dashboard - Stories')
 
 @section('content')
 <style>
@@ -33,10 +33,10 @@
                 <div class="col-12">
                     <div class="card card-custom gutter-b">
                         <div class="card-header">
-                            <h3 class="card-title">Update Blog</h3>
+                            <h3 class="card-title">Update Story</h3>
                             <div class="card-toolbar">
                                 <a href="{{ URL::to('dashboard/blogs')}}" class="btn btn-sm btn-primary font-weight-bold">
-                                <i class="flaticon2-back"></i>Back to Blogs</a>
+                                <i class="flaticon2-back"></i>Back to Stories</a>
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 mb-5">
                                         <div class="form-group">
-                                            <h6>Blog Title</h6>
+                                            <h6>Story Title</h6>
                                             <input type="text" class="form-control" placeholder="Enter Blog Title"
                                         name="title" id="title" value="{{ old('title') ?? $blog->title ?? 'My Blog Title' }}
                                         ">
@@ -77,7 +77,7 @@
                                         <span id="image_error"></span> 
 
 
-                                        <h6 class="mt-5">Blog Content</h6>
+                                        <h6 class="mt-5">Story Content</h6>
                                         <textarea class="ckeditor" name="description" id="description">{{ old('description') ?? $blog->description ?? 'Blog Description' }}</textarea>
                                         <span id="description_error"></span>
                                     </div>
