@@ -35,7 +35,7 @@ class Blog extends Model implements Viewable
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'status', 'user_id', 'title', 'slug','image', 'description', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'trending', 'featured', 'status', 'user_id', 'title', 'slug','image', 'description', 'created_at', 'updated_at'];
     protected $appends = array('comment_count');
 
         /**

@@ -22,7 +22,9 @@ class BlogController extends Controller
             $blogs = Blog::with('category')->where('status','published')->paginate(18);
         }
         $categories = Category::all();
-        return view('blog.list', compact('blogs','categories','catid'));
+        $featuredblogs = Blog::where('featured',1)->inRandomOrder()->take(10)->get();
+        $trendingblogs = Blog::where('trending',1)->inRandomOrder()->take(10)->get();
+        return view('blog.list', compact('blogs','categories','catid','featuredblogs','trendingblogs'));
     }
 
     public function listMember(Request $request){

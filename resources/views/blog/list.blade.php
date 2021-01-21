@@ -56,30 +56,93 @@
 							<div class="sidebar-widgets-wrap related-que">
 
 								<div class="widget widget_links clearfix">
+                                    <div class="tabs mb-0 clearfix" id="sidebar-tabs">
 
-									<h4>Blog Categories</h4>
+										<ul class="tab-nav clearfix">
+											<li><a href="#trending-tab">Trending</a></li>
+											<li><a href="#featured-tab">Featured</a></li>
+										</ul>
+
+										<div class="tab-container">
+
+											<div class="tab-content clearfix" id="trending-tab">
+												<div class="posts-sm row col-mb-30" id="trending-post-list-sidebar">
+													@foreach ($trendingblogs as $trending)
+													<div class="entry col-12">
+														<div class="row no-gutters">
+															<div class="col-auto">
+																<div class="entry-image">
+																	<a href="{{ $trending->slug }}"><img class="" src="{{ asset('img/small/'.$trending->image) }}" alt="{{ $trending->title }}"></a>
+																</div>
+															</div>
+															<div class="col pl-3">
+																<div class="entry-title">
+																	<h4><a href="{{ $trending->slug }}">{{ $trending->title }}</a></h4>
+																</div>
+																<div class="entry-meta">
+																	<ul>
+																		<li><i class="icon-comments-alt"></i> {{ $trending->comment_count }} Comments</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+													@endforeach
+													
+												</div>
+											</div>
+											<div class="tab-content clearfix" id="featured-tab">
+												<div class="posts-sm row col-mb-30" id="featured-post-list-sidebar">
+													@foreach ($featuredblogs as $featured)
+													<div class="entry col-12">
+														<div class="row no-gutters">
+															<div class="col-auto">
+																<div class="entry-image">
+																	<a href="{{ $featured->slug }}"><img class="" src="{{ asset('img/small/'.$featured->image) }}" alt="{{ $featured->title }}"></a>
+																</div>
+															</div>
+															<div class="col pl-3">
+																<div class="entry-title">
+																	<h4><a href="{{ $featured->slug }}">{{ $featured->title }}</a></h4>
+																</div>
+																<div class="entry-meta">
+																	<ul>
+																		<li><i class="icon-comments-alt"></i> {{ $featured->comment_count }} Comments</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+													@endforeach
+												</div>
+											</div>
+
+										</div>
+
+                                    </div>
+                                </div>
+                                <div class="widget widget_links clearfix">    
+                                <h4>Blog Categories</h4>
 									<!-- <ul> -->
                                         @foreach ($categories as $category)
-                                            <!-- <li><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></li> -->
-
-                                            <div class="row posts-sm no-gutters mb-3">
-                                                <div class="col-auto">
-                                                    <div class="entry-image">
-                                                        <a href="test-blog"><img class="" src="img/small/{{ $category->image }}" alt=""></a>
+                                            @if ($category->parent == 0)
+                                                <div class="row posts-sm no-gutters mb-3">
+                                                    <div class="col-auto">
+                                                        <div class="entry-image">
+                                                            <a href="test-blog"><img class="" src="img/small/{{ $category->image }}" alt=""></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col pl-3">
+                                                        <div class="entry-title">
+                                                            <h4><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></h4>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col pl-3">
-                                                    <div class="entry-title">
-                                                        <h4><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            @endif
                                         @endforeach
 									<!-- </ul> -->
-
+                                </div>
 								</div>
-
 							</div>
 						</div><!-- .sidebar end -->
 

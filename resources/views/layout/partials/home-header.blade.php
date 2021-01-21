@@ -82,7 +82,7 @@
 											@endif
 										</li>
 										@endforeach
-								<li class="menu-item" style=""><a class="menu-link" href="#"><div><i class="icon-line-grid"></i> All Category</div></a></li>
+								<li class="menu-item" style=""><a class="menu-link" href="{{ URL::to('categories') }}"><div><i class="icon-line-grid"></i> All Category</div></a></li>
 									</ul>
 								</li>
 							</ul>

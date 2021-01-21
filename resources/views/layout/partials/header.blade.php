@@ -190,7 +190,9 @@
 								<li class="menu-item"><a class="menu-link" href="#" class="pl-0"><div><i class="icon-line-grid"></i>All Categories</div></a>
 									<ul class="sub-menu-container">
 										@foreach ($categories as $category)
-										<li class="menu-item"><a class="menu-link" href="{{ URL::to('members/'. $category->slug)}}"><div><i class="icon-line2-user"></i>{{ $category->title }}</div></a>
+										@if ($category->parent == 0)
+											<li class="menu-item"><a class="menu-link" href="{{ URL::to('members/'. $category->slug)}}"><div><i class="icon-line2-user"></i>{{ $category->title }}</div></a>
+										@endif
 											@if (count($category->children)>0)
 											<ul class="sub-menu-container">
 												{{-- <li class="menu-item"><a class="menu-link" href="#"><div>All Teacher Training</div></a>
@@ -205,7 +207,7 @@
 											@endif
 										</li>
 										@endforeach
-								<li class="menu-item" style=""><a class="menu-link" href="#"><div><i class="icon-line-grid"></i> All Category</div></a></li>
+								<li class="menu-item" style=""><a class="menu-link" href="{{ URL::to('categories') }}"><div><i class="icon-line-grid"></i> All Category</div></a></li>
 										
 									</ul>
 								</li>

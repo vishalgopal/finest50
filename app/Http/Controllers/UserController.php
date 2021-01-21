@@ -285,7 +285,8 @@ class UserController extends Controller
         }
     }
     public function categories(){
-        $categories = Category::paginate(60);
-        return view('user.categories', compact('categories'));
+        $categories = Category::with('children')->get();
+        $parentCategories = Category::where('parent',0)->get();
+        return view('user.categories', compact('parentCategories','categories'));
     }
 }
