@@ -38,43 +38,45 @@
     <!-- Content
       ============================================= -->
     <section id="content"  class="member-style">
-        <div class="content-wrap">
+        <div class="content-wrap pt-4">
 
             <div class="container clearfix">
 
-                <div class="row gutter-40 col-mb-80">
-
-                    <!-- Post Content
-          ============================================= -->
-                    <div class="postcontent col-12 col-lg-8">
+            <div class="row">
+                <div class="col-12 col-lg-9">
 
                         <!-- Filter Begin -->
                         <div class="search-filter mb-3">
 
                             <a href="Javascript:void(0);" class="badge badge-pill badge-light" id="btn-apply-filter"
-                                onclick="$('.all-filters').toggle()">Change Category<i
+                                onclick="$('.filters-item').toggle()">Change Category<i
                                     class="icon-angle-down1 ml-2"></i></a>
-
-                            <ul class="all-filters" style="display: none;">
+                                    <div class="filters-item" style="display: none;">
+                                    <div class="filter-height">
+                            <ul class="all-filters ml-0">
                                 @foreach ($categories as $category)
                                     <li class="custom-control custom-checkbox">
                                         <input type="checkbox" name="categories" value="{{ $category->slug }}" class="custom-control-input categories" @if(in_array($category->slug,$selectedCategories)) checked @endif id="category{{$category->id}}">
                                         <label class="custom-control-label" for="category{{$category->id}}">{{ $category->title }}</label>
                                     </li>
                                 @endforeach
-                                <div class="btn btn-follow float-right filter">Apply</div>
                             </ul>
+                            </div>
+                            <!-- /filter height -->
                             
+                            <div class="btn btn-follow float-right filter">Apply</div>
+
+                            </div>
                         </div>
                         <!-- Filter End -->
 
                         <div class="page-title">
                             <h2 class="mb-3">Members</h2>
                             <div class="from-group">
-                                <button class="btn btn-sm btn-outline-dark dropdown-toggle"
+                                <button class="btn btn-sm btn-outline-dark dropdown-toggle sort-btn"
                                     type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-share"></i> Sort By @if(Request::has('sortby')){{ "- " . ucwords(Request::get('sortby')) }} @endif </button>
+                                    <i class="icon-sort-alpha-down mr-2"></i> Sort By @if(Request::has('sortby')){{ "- " . ucwords(Request::get('sortby')) }} @endif </button>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{ Request::url() }}">None</a>
@@ -87,6 +89,15 @@
 
                             </div>
                         </div>
+                </div>
+            </div>
+
+                <div class="row gutter-40 col-mb-80">
+
+                    <!-- Post Content
+          ============================================= -->
+                    <div class="postcontent col-12 col-lg-9">
+
                         
                         <!-- List
            ============================================= -->
@@ -115,7 +126,7 @@
                                                 {!! $user->rating !!}
                                             </div>
 
-                                            <p class="mt-2 mb-2 d-none d-lg-block">{{ $user->short_description }}</p>
+                                            <p class="mt-0 mb-0 d-none d-lg-block">{{ $user->short_description }}</p>
                                             <div class="number-section">
                                                 <div>
                                                     <div class="d-flex mb-2">
@@ -143,7 +154,7 @@
                                                     @endif
                                                     </a>
                                                 @else
-                                                    <a href="{{ URL::to('/login') }}"><div class="btn btn-follow ">Follow</div></a>   
+                                                    <a href="{{ URL::to('/login') }}"><div class="btn btn-follow mt-0">Follow</div></a>   
                                                 @endif
                                                 </div>
                                             </div>
@@ -251,35 +262,61 @@
 
                 <!-- Sidebar
                         ============================================= -->
-                        <div class="sidebar col-lg-4 d-block ">
+                        <div class="sidebar col-lg-3 d-block ">
                         
                         <!-- <img src="{{ asset('images/Eagleish-banner-400.jpg') }}" alt="Ad" class="img-width">
                         <div class="spacer"><br></div> -->
 
-                            <div class="sidebar-widgets-wrap related-que shadow-sm">
+                            <div class="sidebar-widgets-wrap related-que">
 
                                 <div class="widget widget_links text-left qwidget">
 
                                     <h4>Related Categories</h4>
                                     @foreach ($sidebarCategories as $sidebarCategory)
-                                        <p>
-                                            <img src="img/small/{{ $sidebarCategory->image }}" />
-                                            <a
-                                                href="{{ URL::to('members/' . $sidebarCategory->slug) }}">{{ $sidebarCategory->title }}</a>
-                                        </p>
+                                    <div class="row posts-sm no-gutters mb-3">
+                                                <div class="col-auto">
+                                                    <div class="entry-image">
+                                                        <a href="test-blog"><img class="" src="img/small/{{ $sidebarCategory->image }}" alt=""></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col pl-3">
+                                                    <div class="entry-title">
+                                                        <h4><a
+                                                href="{{ URL::to('members/' . $sidebarCategory->slug) }}">{{ $sidebarCategory->title }}</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     @endforeach
                                 </div>
 
 
                             </div>
                             <div class="spacer"><br><img src="{{ asset('images/Eagleish-banner---400x400.jpg') }}" alt="Ad" class="img-width"></div><br>
-                            <div class="sidebar-widgets-wrap related-que shadow-sm">
+                            <div class="sidebar-widgets-wrap related-que">
 
                                 <div class="widget widget_links text-left qwidget">
 
                                     <h4>Related Stories</h4>
                                     @foreach ($sidebarBlogs as $sidebarblog)
-                                        <div class="entry col-12">
+                                    <div class="row posts-sm no-gutters mb-3">
+                                                <div class="col-auto">
+                                                    <div class="entry-image">
+                                                        <a href="{{ $sidebarblog->slug }}"><img class="" src="{{ asset('img/small/'.$sidebarblog->image) }}" alt="{{ $sidebarblog->title }}"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col pl-3">
+                                                    <div class="entry-title">
+                                                    <h4><a href="{{ $sidebarblog->slug }}">{{ $sidebarblog->title }}</a></h4>
+                                                    </div>
+                                                    <div class="entry-meta">
+                                                        <ul>
+                                                            <li><i class="icon-comments-alt"></i> {{ $sidebarblog->comment_count }} Comments</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <!-- <div class="entry col-12">
                                             <div class="row no-gutters">
                                                 <div class="col-auto">
                                                     <div class="entry-image">
@@ -297,7 +334,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         @endforeach
                                 </div>
 
@@ -316,6 +353,7 @@
 
 @section('js')
     <script src="{{ asset('js/readmore.min.js') }}"></script>
+<script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <script>
         $(document).ready(function() {
 
@@ -329,6 +367,13 @@
 
             });
         });
+
+            // custome scroll
+    $(function () {
+        $(window).on("load", function () {
+            $(".filter-height").mCustomScrollbar();
+        });
+    });
 
         $('.cat-filter').readmore({
             speed: 75,

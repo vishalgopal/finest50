@@ -13,13 +13,13 @@
 
             <!-- Members Section
         ============================================= -->
-        <div class="section bg-transparent mt-0 mb-0">
+        <div class="section bg-transparent pt-0 mt-0 mb-0">
                 <div class="container">
 
                     <div class="heading-block border-bottom-0 mb-5 center">
                         <h3>Most Popular Members</h3>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
-                            Voluptatibus, perspiciatis placeat.</span>
+                        <!-- <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
+                            Voluptatibus, perspiciatis placeat.</span> -->
                     </div>
 
                     <div class="clear"></div>
@@ -94,8 +94,8 @@
 
                 <div class="heading-block border-bottom-0 my-4 mob-my center">
                     <h3>Popular Categories</h3>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
-                        Voluptatibus, perspiciatis placeat.</span>
+                    <!-- <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
+                        Voluptatibus, perspiciatis placeat.</span> -->
                 </div>
 
                 <div class="row course-categories clearfix mb-4">
@@ -122,25 +122,31 @@
 
             <!-- Popular Stories
         ============================================= -->
-            <div class="section topmargin-lg parallax mb-0">
+            <div class="section topmargin-lg parallax pt-0 mb-0">
 
 
                 <div class="container">
 
                     <div class="heading-block border-bottom-0 mb-5 center">
                         <h3>Popular Stories</h3>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
-                            Voluptatibus, perspiciatis placeat.</span>
+                        <!-- <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus mollitia ipsum.
+                            Voluptatibus, perspiciatis placeat.</span> -->
                     </div>
 
                     <div class="clear"></div>
 
                     <div class="row mt-2">
-
+                        <div class="col-12">
                         <!-- Categories 
            ============================================= -->
+           
+                        <!-- carousel begin -->
+                        <div class="Stories-slider owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30"
+                                data-center="false" data-loop="true" data-autoplay="5000" data-nav="true" data-pagi="true"
+                                data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-lg="3" data-items-xl="3">
                         @foreach ($blogs as $blog)
-                            <div class="col-md-4 mb-5">
+                                                                    <div class="oc-item">
+                            <div class="mb-2">
                                 <div class="card course-card hover-effect border-0 h-100">
                                     <a href="{{ URL::to('/blog/' . $blog->slug) }}"><img class="card-img-top"
                                             src="img/large/{{ $blog->image }}" alt="Card image cap"></a>
@@ -189,9 +195,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- // -->
+                            </div><!-- oc item -->
                         @endforeach
+                            </div><!-- owl carousel -->
 
-
+                            </div>
                         <!-- Course End -->
 
                     </div>
@@ -210,7 +219,7 @@
 
             <!-- Featues Section
         ============================================= -->
-            <div class="section mb-0 min-vh-100 d-flex align-items-center" style="padding: 80px 0; background-color:#f9f9f9">
+            <!-- <div class="section mb-0 min-vh-100 d-flex align-items-center" style="padding: 80px 0; background-color:#f9f9f9">
 
 
                 <div class="container">
@@ -320,11 +329,11 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Ask your question
            ============================================= -->
-                        <div class="col-lg-4">
+                        <!-- <div class="col-lg-4">
 
                             <div class="card shadow ask-form" data-animate="shake" style="opacity: 1 !important">
                                 <div class="card-body">
@@ -410,7 +419,7 @@
                 </div>
 
 
-            </div>
+            </div> -->
 
             <!-- Promo Section
         ============================================= -->

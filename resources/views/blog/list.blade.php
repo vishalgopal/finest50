@@ -53,16 +53,30 @@
 						<!-- Sidebar
 						============================================= -->
 						<div class="sidebar col-lg-3">
-							<div class="sidebar-widgets-wrap">
+							<div class="sidebar-widgets-wrap related-que">
 
 								<div class="widget widget_links clearfix">
 
 									<h4>Blog Categories</h4>
-									<ul>
+									<!-- <ul> -->
                                         @foreach ($categories as $category)
-                                            <li><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></li>
+                                            <!-- <li><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></li> -->
+
+                                            <div class="row posts-sm no-gutters mb-3">
+                                                <div class="col-auto">
+                                                    <div class="entry-image">
+                                                        <a href="test-blog"><img class="" src="img/small/{{ $category->image }}" alt=""></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col pl-3">
+                                                    <div class="entry-title">
+                                                        <h4><a href="{{ URL::to('blogs/'.$category->slug) }}">{{ $category->title }}</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         @endforeach
-									</ul>
+									<!-- </ul> -->
 
 								</div>
 

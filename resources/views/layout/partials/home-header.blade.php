@@ -82,6 +82,7 @@
 											@endif
 										</li>
 										@endforeach
+								<li class="menu-item" style=""><a class="menu-link" href="#"><div><i class="icon-line-grid"></i> All Category</div></a></li>
 									</ul>
 								</li>
 							</ul>
@@ -120,10 +121,10 @@
 							<a href="{{ route('login') }}"><div class="btn login-btn desktop-btn">{{ __('Login') }}</div></a>
 						@else
 						<div class="dropdown float-left  d-md-none d-none d-lg-block">
-						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="" type="button">
+						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="" type="">
 							<img src="{{ Auth::user()->avatar }}" class="rounded-circle" alt="{{ Auth::user()->name}}" width="35" height="35">	
 						</a>
-						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-light dropdown-toggle" type="button" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a  href="{{ URL::to('/member/'. Auth::user()->slug) }}" class="btn btn-link text-light dropdown-toggle" type="" id="userdropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ Auth::user()->name}}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="userdropdownMenu2">
@@ -161,8 +162,8 @@
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/blogs') }}"><div><i class="icon-line2-support"></i>Stories</div></a>
 										</li>
-										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/questions') }}"><div><i class="icon-line2-question"></i>Q&A</div></a>
-										</li>
+										<!-- <li class="menu-item"><a class="menu-link" href="{{ URL::to('/questions') }}"><div><i class="icon-line2-question"></i>Q&A</div></a>
+										</li> -->
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/partners') }}"><div><i class="icon-handshake1"></i>Partners</div></a>
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/faq') }}"><div><i class="icon-line2-question"></i>FAQs</div></a>

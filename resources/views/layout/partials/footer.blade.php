@@ -81,11 +81,11 @@
 								<form id="widget-newsletter-form" onsubmit="return add_newsletter();"  method="post"  class="mb-0">
 									<div class="input-group mx-auto">
 										<div class="input-group-prepend">
-											<div class="input-group-text"><i class="icon-email2"></i></div>
+											<div class="input-group-text bg-primary text-light"><i class="icon-email2"></i></div>
 										</div>
 										<input type="email" data-parsley-type="email" data-parsley-trigger="change" id="widget-subscribe-form-email" name="widget-subscribe-form-email" required class="form-control" placeholder="Enter your Email">
 										<div class="input-group-append">
-											<button class="btn btn-warning" type="submit">Subscribe</button>
+											<button class="btn btn-primary" type="submit">Subscribe</button>
 										</div>
 									</div>
 								</form>
@@ -107,6 +107,19 @@
 											<i class="icon-rss"></i>
 										</a>
 										<a href="#"><small style="display: block; margin-top: 3px;"><strong>Follow Us</strong><br>on Twitter</small></a>
+									</div>
+								</div>
+								<div class="row col-mb-30 mt-4">
+									<div class="col-6 col-sm-6 col-md-12 col-lg-6 clearfix">
+										<a href="#" class="mb-0" style="margin-right: 10px;">
+											<img src="{{ asset('images/google-play.png') }}" alt="">
+										</a>
+									</div>
+
+									<div class="col-6 col-sm-6 col-md-12 col-lg-6 clearfix">
+										<a href="#" class="" style="margin-right: 10px;">
+										<img src="{{ asset('images/app-store.png') }}" alt="">
+										</a>
 									</div>
 								</div>
 							</div>

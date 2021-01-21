@@ -60,18 +60,19 @@
                                         @if(Auth::user())
                                         <a href="#" class="position-relative follow-btn">
                                             @if (Auth::user()->isFollowing($user))
-                                                <div class="btn btn-follow followbtn mr-2">Unfollow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
+                                                <div class="btn btn-dark followbtn mt-3 mr-2">Unfollow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
                                             @else 
-                                                <div class="btn btn-follow followbtn mr-2">Follow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
+                                                <div class="btn btn-dark followbtn mt-3 mr-2">Follow <span class="badge badge-light p-1">{{ $user->follower }}</span></div>
                                             @endif
                                             </a> 
                                         @else
                                             <a href="{{ URL::to('login') }}"
                                                 class="position-relative">
-                                                <div class="btn btn-follow followbtn mr-2">Follow {{ $user->follower }}</div>
+                                                <div class="btn btn-dark followbtn mt-3 mr-2">Follow {{ $user->follower }}</div>
                                             </a>
                                         @endif
-                                        @if(Auth::user())
+
+                                        <!-- @if(Auth::user())
                                             <a href="" data-toggle="modal" data-target="#questionFormModal"
                                                 class="btn btn-follow"><i class="icon-question-sign"></i> Ask a
                                                 Question</a>
@@ -79,7 +80,7 @@
                                             <a href="{{ URL::to('login') }}"
                                                 class="btn btn-follow"><i class="icon-question-sign"></i> Ask a
                                                 Question</a>
-                                        @endif
+                                        @endif -->
                                     </div>
 
 
@@ -104,7 +105,7 @@
                                         <a class="btn btn-primary text-light" data-toggle="modal" data-target="#reviewFormModal"><i
                                                 class="icon-star3"></i> Write a Review</a>
                                         <!-- <button type="button" class="btn btn-outline-dark"><i class="icon-camera"></i> Add a Photo</button> -->
-                                        <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                        <!-- <button class="btn btn-outline-dark dropdown-toggle" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             <i class="icon-share"></i> Share</button>
@@ -118,7 +119,32 @@
                                                 href="https://wa.me/?text={{ Request::url() }}">Whatsapp</a>
                                             <a class="dropdown-item" target="_blank"
                                                 href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ Request::url() }}&amp;title={{ $user->name }}">Linkedin</a>
-                                        </div>
+                                        </div> -->
+                                        <!-- Post Single - Share
+										============================================= -->
+										<div class="si-share border-0 d-flex  align-items-center">
+											<div>
+											<a href="https://www.facebook.com/sharer.php?u={{ URL::to('member/' . $user->slug) }}" class="social-icon si-borderless si-facebook">
+													<i class="icon-facebook"></i>
+													<i class="icon-facebook"></i>
+												</a>
+												<a href="https://twitter.com/share?url={{ URL::to('member/' . $user->slug) }}&text={{ $user->name }}" class="social-icon si-borderless si-twitter">
+													<i class="icon-twitter"></i>
+													<i class="icon-twitter"></i>
+												</a>
+												<a href="whatsapp://send?text={{ URL::to('member/' . $user->slug) }}
+												" class="social-icon si-borderless si-spotify">
+													<i class="icon-whatsapp"></i>
+													<i class="icon-whatsapp"></i>
+												</a>
+												
+												<a href="https://www.linkedin.com/shareArticle?url={{ URL::to('member/' . $user->slug) }}&title={{ $user->name }}" class="social-icon si-borderless si-linkedin">
+													<i class="icon-linkedin"></i>
+													<i class="icon-linkedin"></i>
+												</a>
+											</div>
+                                        </div><!-- Post Single - Share End -->
+                                        
                                         {{-- <button type="button" class="btn btn-outline-dark"><i class="icon-bookmark"></i>
                                             Save</button> --}}
                                     </div>
