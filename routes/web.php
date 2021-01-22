@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/about', function () {
     return view('pages.about');
 });
-Route::get('/timeline', function (){
-	return view('pages.timeline');
-});
+
 Route::get('/contact', function () {
     return view('pages.contact');
 });
@@ -38,6 +36,7 @@ Route::get('/dashboard/followers', 'DashboardController@followers')->name('dashb
 Route::get('/dashboard/followings', 'DashboardController@followings')->name('dashboard.followings')->middleware('auth');
 Route::get('/dashboard/chat', 'DashboardController@messages')->name('dashboard.chat')->middleware('auth');
 Route::get('/dashboard/timeline', 'DashboardController@timeline')->name('dashboard.timeline')->middleware('auth');
+Route::get('/dashboard/activity', 'DashboardController@activities')->name('dashboard.activities')->middleware('auth');
 Route::post('/user/flag', 'DashboardController@toggleFlag')->name('toggleflag')->middleware('auth');
 Route::post('ckeditor/upload', 'DashboardController@editorupload')->name('ckeditor.upload');
 Route::post('/dashboard/media', 'DashboardController@storeMedia')->name('dashboard.storeMedia');
@@ -81,6 +80,7 @@ Route::post('sendOtp', 'OtpAuthController@sendOtp');
 
 // Home
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/timeline', 'HomeController@timeline')->name('timeline');
 include ('image.php');
 
 // Forms

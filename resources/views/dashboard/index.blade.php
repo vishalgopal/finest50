@@ -456,7 +456,7 @@
                                 <!--end::Item-->
                             </div>
                             <!--end::Timeline-->
-                            <div class="text-right"><a href="" class="btn btn-primary">View All</a></div>
+                            <div class="text-right"><a href="{{ URL::to('dashboard/activity')}}" class="btn btn-primary">View All</a></div>
                         </div>
                         <!--end: Card Body-->
                     </div>

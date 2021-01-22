@@ -52,7 +52,11 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('user','comments','reviews','totalcomments','followers','blogs','activites'));
     }
 
-
+    public function activities(){
+        $user = User::where('id', Auth::id())->first();
+        $activites = Activity::where('causer_id',Auth::id())->orderBy('id','desc')->paginate(20);
+        return view('dashboard.activity', compact('activites','user'));
+    }
     public function blogs(){
         $user = User::where('id', Auth::id())->first();
         if ($user->type !='member'){
