@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/about', function () {
     return view('pages.about');
 });
-
+Route::get('/timeline', function (){
+	return view('pages.timeline');
+});
 Route::get('/contact', function () {
     return view('pages.contact');
 });
