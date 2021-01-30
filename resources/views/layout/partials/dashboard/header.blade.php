@@ -41,17 +41,17 @@
 												</a>
 											</li>
 											@endif
-											<li class="menu-item @if(Request::segment(2)=='questions') menu-item-active @endif">
+											{{-- <li class="menu-item @if(Request::segment(2)=='questions') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/questions')}}" class="menu-link">
 													<span class="menu-text">Questions</span>
 												</a>
-											</li>
+											</li> --}}
 											@if($user->type=='member'|| $user->type=='business')
-											<li class="menu-item @if(Request::segment(2)=='answers') menu-item-active @endif">
+											{{-- <li class="menu-item @if(Request::segment(2)=='answers') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/answers')}}" class="menu-link">
 													<span class="menu-text">Answers</span>
 												</a>
-											</li>
+											</li> --}}
 											@endif
 											<li class="menu-item @if(Request::segment(2)=='chat') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/chat')}}" class="menu-link">

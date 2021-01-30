@@ -84,7 +84,7 @@
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=reviews' }}">Most Reviewed</a>
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=follower' }}">Followers</a>
                                     <a class="dropdown-item" href="{{ Request::url().'?sortby=stories' }}">Blogs</a>
-                                    <a class="dropdown-item" href="{{ Request::url().'?sortby=answers' }}">Answers</a>
+                                    {{-- <a class="dropdown-item" href="{{ Request::url().'?sortby=answers' }}">Answers</a> --}}
                                 </div>
 
                             </div>
@@ -139,9 +139,9 @@
                                                         <p class="text-dark my-0">
                                                             <a href="{{ URL::to('member/' . $user->slug . '/blogs') }}"><strong>{{ $user->stories }}</strong>
                                                             Stories</a></p>
-                                                        <p class="mx-3 mb-0">|</p>
-                                                        <p class="text-dark my-0"><strong>{{ $user->answers }}</strong>
-                                                            Answers</p>
+                                                        {{-- <p class="mx-3 mb-0">|</p> --}}
+                                                        {{-- <p class="text-dark my-0"><strong>{{ $user->answers }}</strong>
+                                                            Answers</p> --}}
                                                     </div>
                                                 </div>
                                                 <div>
@@ -221,9 +221,9 @@
                                                         <p class="text-dark my-0">
                                                             <a href="{{ URL::to('member/' . $promotions[$rec]->user->slug . '/blogs') }}"><strong>{{ $promotions[$rec]->user->stories }}</strong>
                                                             Stories</a></p>
-                                                        <p class="mx-3 mb-0">|</p>
+                                                        {{-- <p class="mx-3 mb-0">|</p>
                                                         <p class="text-dark my-0"><strong>{{ $promotions[$rec]->user->answers }}</strong>
-                                                            Answers</p>
+                                                            Answers</p> --}}
                                                             
                                                     </div>
                                                 </div>

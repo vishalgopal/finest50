@@ -55,19 +55,19 @@
             @endif
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Questions">
+            {{-- <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Questions">
                 <a href="{{ URL::to('dashboard/questions')}}" class="nnav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='questions') btn-clean active @endif">
                     <i class="flaticon-questions-circular-button icon-lg"></i>
                 </a>
-            </li>
+            </li> --}}
             <!--end::Item-->
             <!--begin::Item-->
             @if($user->type=='member'|| $user->type=='business')
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Answers">
+            {{-- <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Answers">
                 <a href="{{ URL::to('dashboard/answers')}}" class="nnav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='answers') btn-clean active @endif">
                     <i class="flaticon-chat-1 icon-lg"></i>
                 </a>
-            </li>
+            </li> --}}
             @endif
             <!--end::Item-->
             <!--begin::Item-->

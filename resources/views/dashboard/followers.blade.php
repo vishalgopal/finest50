@@ -33,6 +33,7 @@
                                                 <div class="font-size-sm text-muted font-weight-bold mt-1">{{ $follower->created_at->diffForHumans() }}</div>
                                             </div>
                                         </div>
+                                        <a data-followerid="{{ $follower->id }}" href="#" class="block btn btn-danger">Block</a>
                                     </div>
                                     @endforeach
                                     <!--end::Item-->
@@ -56,6 +57,33 @@
 @section('js')
 
 <script>
-    
+    $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    $('.block').click(function(){
+            console.log("sds");
+            var followerid = $(this).data("followerid");       
+            var $current = $(this);
+                    $.ajax({
+                        type: 'post',
+                        url: APP_URL + '/dashboard/rejectfollow',
+                        data: {
+                            followerid: followerid,
+                        },
+                        success: function(response) {
+                                swal("Thankyou!",
+                                response.msg,
+                                    "success");
+                                    $current.html(''); 
+                        },
+                        error: function(response) {
+                            swal("Oops!", "Something went wrong, Please try again", "warning");
+                        }
+                    });
+                    window.location.reload(true);    
+            // return false;
+        });
 </script>
 @endsection

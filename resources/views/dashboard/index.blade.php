@@ -102,7 +102,7 @@
                     <!--begin::Items-->
                     <div class="d-flex align-items-center flex-wrap mt-8">
                         <!--begin::Item-->
-                        <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                        {{-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
                             <span class="mr-4">
                                 <i class="flaticon-questions-circular-button display-4 text-muted font-weight-bold"></i>
                             </span>
@@ -111,7 +111,7 @@
                                 <span class="font-weight-bolder font-size-h5">
                                 <span class="text-dark-50 font-weight-bold"></span>{{ $user->answers}}</span>
                             </div>
-                        </div>
+                        </div> --}}
                         <!--end::Item-->
                         <!--begin::Item-->
                         <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
@@ -203,6 +203,8 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column flex-grow-1">
+                                        <a href="{{ URL::to('blog/'.$comment->slug) }}" class="text-dark-75 text-hover-primary font-size-sm mb-1">{{ $comment->title}}</a>
+                                        
                                         <a href="#" class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{ $comment->name }}</a>
                                         <span class="text-muted font-weight-bold">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</span>
                                     </div>

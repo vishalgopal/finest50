@@ -105,7 +105,7 @@
                                 <img class="card-img" src="img/small/{{ $category->image }}" alt="Card image">
                                 <a href="{{ URL::to('/members/' . $category->slug) }}" class="card-img-overlay rounded p-0"
                                     style="background-color: rgba({{ rand(1, 251) }},{{ rand(1, 251) }},{{ rand(1, 251) }},0.8);">
-                                    <span><i class="icon-music1"></i>{{ $category->title }}</span>
+                                    <span><i class="icon-star1"></i>{{ $category->title }}</span>
                                 </a>
                             </div>
                         </div>

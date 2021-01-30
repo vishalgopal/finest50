@@ -92,7 +92,7 @@
 						============================================= -->
 						<div class="top-links">
 							<ul class="top-links-container">
-								<li class="top-links-item"><a href="#">Become a Member</a></li> 
+								<li class="top-links-item"><a href="{{ URL::to('/become-a-member')}}">Become a Member</a></li> 
 								<li class="top-links-item d-none d-sm-inline-block"><a href="{{ URL::to('registration')}}"><i class="icon-download-alt"></i> Download App</a></li>
 							</ul>
 						</div><!-- .top-links end -->
@@ -141,7 +141,7 @@
 						============================================= -->
 						<div class="top-links">
 							<ul class="top-links-container">
-								<li class="top-links-item"><a href="#">Become a Member</a></li> 
+								<li class="top-links-item"><a href="{{ URL::to('/become-a-member')}}">Become a Member</a></li> 
 								<li class="top-links-item d-none d-sm-inline-block"><a href="{{ URL::to('registration')}}"><i class="icon-download-alt"></i> Download App</a></li>
 							</ul>
 						</div><!-- .top-links end -->
@@ -191,7 +191,7 @@
 									<ul class="sub-menu-container">
 										@foreach ($categories as $category)
 										@if ($category->parent == 0)
-											<li class="menu-item"><a class="menu-link" href="{{ URL::to('members/'. $category->slug)}}"><div><i class="icon-line2-user"></i>{{ $category->title }}</div></a>
+											<li class="menu-item"><a class="menu-link" href="{{ URL::to('members/'. $category->slug)}}"><div><i class="icon-star1"></i>{{ $category->title }}</div></a>
 										@endif
 											@if (count($category->children)>0)
 											<ul class="sub-menu-container">
@@ -237,6 +237,8 @@
 											</ul> --}}
 										</li>
 										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/blogs') }}"><div><i class="icon-line2-support"></i>Stories</div></a>
+										</li>
+										<li class="menu-item"><a class="menu-link" href="{{ URL::to('/timeline') }}"><div><i class="icon-line2-support"></i>Timeline</div></a>
 										</li>
 										<!-- <li class="menu-item"><a class="menu-link" href="{{ URL::to('/questions') }}"><div><i class="icon-line2-question"></i>Q&A</div></a>
 										</li> -->

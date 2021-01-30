@@ -31,11 +31,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = User::where('id', Auth::id())->first();
-        if ($user){
-            return redirect('/timeline');
-        }
-        // return Blog::search('& method')->get();
-        // return $position = \Location::get(\Request::ip());
+        // if ($user){
+        //     return redirect('/timeline');
+        // }
         $blogs = Blog::with('user', 'category')->where('status','published')->where('featured',1)->take(6)->get();
         $members = User::with('category')->where('featured',1)->take(10)->get();
         $recentQAs = Question::with('user')->OrderBy('id','desc')->take(4)->get();

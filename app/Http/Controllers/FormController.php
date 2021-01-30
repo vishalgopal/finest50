@@ -9,6 +9,7 @@ use App\Lead;
 use App\Country;
 use App\State;
 use App\City;
+use App\Enquiry;
 
 
 class FormController extends Controller
@@ -88,5 +89,31 @@ class FormController extends Controller
         $states = State::where('state',$req->state)->first();
         $cities = City::where('state_id',$states->id)->get();
         return $cities;
+    }
+
+    public function enquiry(Request $request){
+        request()->validate([
+            'email' => 'required|email',
+            'phone' => 'regex:/[0-9]{10}/',
+            'name' => 'required',
+            'address' => 'required',
+            'document_of_experience' => 'file|mimes:pdf,doc,docx|max:5048',
+            'certificate' => 'file|mimes:pdf,doc,docx|max:5048',
+            ]);
+            $data = $request->all();
+            if ($request->file('document_of_experience')) {
+                $uploaded_document_of_experience = $request->document_of_experience->store('document_of_experience','public');
+                $data['document_of_experience'] = $uploaded_document_of_experience;
+            }
+            if ($request->file('certificate')) {
+                $uploaded_certificate = $request->certificate->store('certificate','public');
+                $data['certificate'] = $uploaded_certificate;
+            }
+            $check = Enquiry::create($data);
+            $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
+            if($check){ 
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+            }
+            return Response()->json($arr);
     }
 }

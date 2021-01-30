@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="widget widget_links clearfix">    
-                                <h4>Blog Categories</h4>
+                                <h4>Story Categories</h4>
 									<!-- <ul> -->
                                         @foreach ($categories as $category)
                                             @if ($category->parent == 0)

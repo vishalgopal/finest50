@@ -17,6 +17,10 @@ Route::get('/about', function () {
     return view('pages.about');
 });
 
+Route::get('/become-a-member', function () {
+    return view('pages.become-member');
+});
+
 Route::get('/contact', function () {
     return view('pages.contact');
 });
@@ -45,6 +49,7 @@ Route::post('/dashboard/deletemedia', 'DashboardController@deletemedia')->name('
 Route::post('/dashboard/updateavatar', 'DashboardController@updateavatar')->name('dashboard.updateavatar');
 Route::post('/dashboard/storevideo', 'DashboardController@storevideo')->name('dashboard.storevideo');
 Route::post('/dashboard/deletevideo', 'DashboardController@deletevideo')->name('dashboard.deletevideo');
+Route::post('/dashboard/rejectfollow', 'DashboardController@rejectuser')->middleware('auth');
 
 // City / State
 
@@ -87,6 +92,7 @@ include ('image.php');
 Route::post('home/submit', 'FormController@storeHomeQnA');
 Route::post('home/newsletter', 'FormController@storeNewsletter');
 Route::post('contact/submit', 'FormController@contactFrom');
+Route::post('become-a-member', 'FormController@enquiry');
 
 
 // QnA

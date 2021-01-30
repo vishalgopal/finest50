@@ -36,8 +36,9 @@ class DashboardController extends Controller
         // $comments = Comment::whereIn('blog_id', $blogids)->where('parent_id',NULL)->orderBy('id', 'desc')->take(3)->get();
         $comments = DB::table('comments')->whereIn('blog_id', $blogids->pluck('id'))->where('parent_id', NULL)
             ->join('users', 'comments.user_id', '=', 'users.id')
+            ->join('blogs', 'comments.blog_id', '=', 'blogs.id')
             ->leftjoin('flags', 'comments.id', '=', 'flags.subject_id')
-            ->select('comments.*', 'users.name', 'users.avatar', DB::raw('IF(STRCMP(flags.type,"comment") = 0, TRUE, FALSE) as flagged'))
+            ->select('comments.*', 'users.name', 'users.avatar','blogs.slug', 'blogs.title',DB::raw('IF(STRCMP(flags.type,"comment") = 0, TRUE, FALSE) as flagged'))
             ->orderBy('comments.id', 'desc')->take(3)->get();
         $totalcomments = Comment::whereIn('blog_id', $blogids->pluck('id'))->count();
         $followers =  $user->followers->take(12);
@@ -368,5 +369,14 @@ class DashboardController extends Controller
             return Response()->json($arr);
     }
     
-
+    public function rejectuser(Request $request){
+        $user = User::where('id', Auth::id())->first();
+        $follower =  User::where('id', $request->followerid)->first();
+        $user->rejectFollowRequestFrom($follower);
+        activity()
+                ->causedBy(Auth::id())
+                ->performedOn($follower)
+                ->log(':causer.name Rejected Follow Request');
+            $arr = array('msg' => 'Successfully stored', 'status' => true);
+    }
 }

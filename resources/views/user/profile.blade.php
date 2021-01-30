@@ -96,9 +96,9 @@
 
                                     <p class="mt-3 mb-2 d-none d-lg-block">{{ $user->short_description }}</p>
 
-                                    <p class="text-dark my-0"><strong>{{ $user->answers }}</strong> Questions Answered
-                                    </p>
-                                <p class="text-dark my-0"><a href="{{ URL::to('member/' . $user->slug  .'/blogs') }}"><strong>{{ $user->stories }}</strong> Stories</a></p>
+                                    {{-- <p class="text-dark my-0"><strong>{{ $user->answers }}</strong> Questions Answered
+                                    </p> --}}
+                                <h4 class="text-dark my-0"><a href="{{ URL::to('member/' . $user->slug  .'/blogs') }}"><strong>{{ $user->stories }}</strong> Stories</a></h4>
 
 
                                     <div class="btns">
