@@ -17,6 +17,8 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Overtrue\LaravelFavorite\Traits\Favoriter;
+
 /**
  * @property int $id
  * @property int $category_id
@@ -62,6 +64,7 @@ class User extends Authenticatable implements HasMedia, Viewable
     use Searchable;
     use HasMediaTrait;
     use InteractsWithViews;
+    use Favoriter;
     public $timestamps = true;
     public $asYouType = true;
     /**

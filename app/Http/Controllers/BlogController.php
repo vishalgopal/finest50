@@ -84,6 +84,29 @@ class BlogController extends Controller
             }
             return Response()->json($arr);
     }
+    public function favoriteBlog(Request $request){
+        if (Auth::check())
+        {
+            $user = User::find(Auth::id());
+            $blog = Blog::find($request->blogid);
+            $user->toggleFavorite($blog); 
+            if (Auth::user()->hasFavorited($blog)){
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($blog)
+                ->log(':causer.name Saved a blog  - :subject.title');
+        }
+            else{
+                activity()
+                ->causedBy(Auth::id())
+                ->performedOn($blog)
+                ->log(':causer.name remove Blog from saved list - :subject.title');
+            }
+
+            $arr = array('msg' => 'Successfully stored', 'status' =>  $user->hasFavorited($blog), 'count'=> $blog->favorites()->count());
+            return Response()->json($arr);
+        }
+    }
 
     public function likeBlog(Request $request){
         if (Auth::check())

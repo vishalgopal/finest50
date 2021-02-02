@@ -31,12 +31,17 @@
             <!--end::Item-->
             <!--begin::Item-->
             @if($user->type=='member'|| $user->type=='business')
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Stories">
+            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="My Stories">
                 <a href="{{ URL::to('dashboard/blogs')}}" class="nav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='blogs') btn-clean active @endif">
                     <i class="flaticon2-list-3 icon-lg"></i>
                 </a>
             </li>
             @endif
+            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Saved Stories">
+                <a href="{{ URL::to('dashboard/savedblogs')}}" class="nav-link btn btn-icon btn-icon-white btn-lg @if(Request::segment(2)=='savedblogs') btn-clean active @endif">
+                    <i class="flaticon-interface-3 icon-lg"></i>
+                </a>
+            </li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Comments">

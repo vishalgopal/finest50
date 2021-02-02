@@ -66,6 +66,12 @@ class DashboardController extends Controller
         $blogs  = Blog::where('user_id', Auth::id())->with('user', 'comments')->orderBy('id', 'desc')->paginate(21);
         return view('dashboard.blog', compact('user','blogs'));
     }
+
+    public function savedblogs(){
+        $user = User::where('id', Auth::id())->first();
+        $blogs = $user->getFavoriteItems(Blog::class)->paginate(21);
+        return view('dashboard.blog-saved', compact('user','blogs'));
+    }
     
     public function newblog(){
         $user = User::where('id', Auth::id())->first();

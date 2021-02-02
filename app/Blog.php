@@ -9,6 +9,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
+
+
 /**
  * @property int $id
  * @property int $category_id
@@ -28,6 +31,7 @@ class Blog extends Model implements Viewable
     use Sluggable;
     use SoftDeletes;
     use InteractsWithViews;
+    use Favoriteable;
     
     protected $touches = ['category'];
     // public $asYouType = true;

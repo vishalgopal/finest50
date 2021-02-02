@@ -29,6 +29,7 @@ Route::get('/contact', function () {
 
 Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard')->middleware('auth');
 Route::get('/dashboard/blogs', 'DashboardController@blogs')->name('dashboard.blogs')->middleware('auth');
+Route::get('/dashboard/savedblogs', 'DashboardController@savedblogs')->name('dashboard.savedblogs')->middleware('auth');
 Route::get('/dashboard/blog/create', 'DashboardController@newblog')->name('dashboard.newblog')->middleware('auth');
 Route::get('/dashboard/blog/edit/{slug}', 'DashboardController@editblog')->name('dashboard.editblog')->middleware('auth');
 Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments')->middleware('auth');
@@ -128,6 +129,7 @@ Route::post('blog/like', 'BlogController@likeBlog')->middleware('auth');
 Route::post('blog/save', 'BlogController@saveblog')->middleware('auth');
 Route::post('blog/update/{blogid}', 'BlogController@updateblog')->middleware('auth');
 Route::delete('blog/delete/{blogid}', 'BlogController@deleteblog')->middleware('auth');
+Route::post('blog/favorite', 'BlogController@favoriteBlog')->middleware('auth');
 
 Route::post('comment/submit', 'BlogController@storeComment');
 Route::delete('comment/delete/{commentid}', 'BlogController@deletecomment')->middleware('auth');

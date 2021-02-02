@@ -25,10 +25,15 @@
 											@if($user->type=='member'|| $user->type=='business')
 											<li class="menu-item @if(Request::segment(2)=='blogs') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/blogs')}}" class="menu-link">
-													<span class="menu-text">Stories</span>
+													<span class="menu-text">My Stories</span>
 												</a>
 											</li>
 											@endif
+											<li class="menu-item @if(Request::segment(2)=='savedblogs') menu-item-active @endif">
+												<a href="{{ URL::to('dashboard/savedblogs')}}" class="menu-link">
+													<span class="menu-text">Saved Stories</span>
+												</a>
+											</li>
 											<li class="menu-item @if(Request::segment(2)=='comments') menu-item-active @endif">
 												<a href="{{ URL::to('dashboard/comments')}}" class="menu-link">
 													<span class="menu-text">Comments</span>

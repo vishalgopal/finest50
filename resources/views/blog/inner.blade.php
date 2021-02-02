@@ -140,11 +140,22 @@
                                                             href="{{ URL::to('login') }}"><i class="icon-thumbs-up"></i>
                                                             Like</a>
                                                     @endif
-											<div>
-											
-											</div>
-										</div><!-- Post Single - Like End -->
-
+											<div> &nbsp; &nbsp; </div>
+										<!-- Post Single - Like End -->
+										{{-- POST SAVE --}}
+										@if (Auth::user())
+												<a class="save-btn" data-blogid="{{ $blog->id }}">
+												@if (Auth::user()->hasFavorited($blog))
+													<div class="btn btn-sm btn-primary">Save</div>
+												@else 
+													<div class="btn btn-sm btn-outline-dark">Save</div>
+												@endif
+												</a>
+											@else
+												<a href="{{ URL::to('/login') }}"><div class="btn btn-sm btn-outline-dark">save</div></a>   
+											@endif
+										{{-- POST SAVE --}}
+									</div>
 									</div>
 								</div><!-- .entry end -->
 
@@ -614,6 +625,34 @@ function openmodal(val){
                         $btnLike.addClass("btn-outline-dark").removeClass("btn-primary");
                     }
                     $('#like-' + $blogid).html(response.likecpy);
+                }
+            });
+        });
+
+		// Like Button
+
+		$('.save-btn').click(function() {
+            $blogid = $(this).data('blogid');
+            $btnsave = $(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: APP_URL + '/blog/favorite',
+                data: {
+                    blogid: $blogid
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $btnsave.removeClass("btn-outline-dark").addClass("btn-primary");
+                    } else {
+                        $btnsave.addClass("btn-outline-dark").removeClass("btn-primary");
+
+                    }
+                    // $('#like-' + $blogid).html(response.likecpy);
                 }
             });
         });
