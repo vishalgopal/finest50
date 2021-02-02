@@ -89,7 +89,7 @@
             
 <!-- Categories -->
             
-            <div class="section pop-stories-bg">
+            <div class="section pop-stories-bg pt-1">
             <div class="container">
 
                 <div class="heading-block border-bottom-0 my-4 mob-my center">
@@ -437,7 +437,7 @@
                             <p class="mb-2">Lorem ipsum dolor sierr met areas and cross-unit deliverables.</p>
                             <p>Consectetur adipisicing elit. Voluptate incidunt dolorum perferendis accusamus nesciunt et
                                 est consequuntur placeat, dolor quia.</p>
-                            <a href="#" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">Join
+                            <a href="{{ URL::to('/become-a-member') }}" class="button button-rounded button-xlarge ls0 ls0 nott font-weight-bold m-0">Join
                                 Finest50</a>
                         </div>
 

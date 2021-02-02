@@ -1324,9 +1324,9 @@
 #search {
   align-items: center;
   /* background: #e8f0ff; */
-  background: url(http://finest50.com/finest50/public/images/search-bg.jpg);
+  background: url(http://finest50.com/finest50/public/images/search-bg-.jpg);
   background-size: cover;
-
+  background-position: bottom center;
   height: 0;
   display: flex;
   justify-content: center;

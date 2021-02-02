@@ -76,18 +76,18 @@
 										</div>
 
 										{{-- <div class="w-100"></div> --}}
-                                        <div class="col-md-6 form-group">
+                                        
                                             <div class="col-md-12 form-group">
                                                 <label for="address">Address</label>
                                                 <textarea id="address" name="address" class="required form-control"></textarea>
                                                 <span id="address_error"></span> 
                                             </div>
-                                        </div>
+                                        
 
-										<div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="document_of_experience">Document of Experience</label>
-                                                <br><input type="file" id="document_of_experience" name="document_of_experience" />
+                                                <br>
+												<input type="file" id="document_of_experience" name="document_of_experience" />
                                                 <span id="document_of_experience_error"></span> 
                                             </div>
                                             <div class="col-md-6 form-group">
@@ -95,7 +95,7 @@
                                                 <br><input type="file" id="certificate" name="certificate" />
                                                 <span id="certificate_error"></span> 
                                             </div>
-                                        </div>  
+                                         
 
 										
 
@@ -103,7 +103,7 @@
 											<input type="text" id="contactform-botcheck" name="contactform-botcheck" class="form-control" />
 										</div>
 
-										<div class="col-12 form-group">
+										<div class="col-12 form-group mt-4">
 											<button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d m-0">Submit</button>
 										</div>
 									</div>
@@ -121,7 +121,7 @@
 					</div>
 				</div>	
 				
-				<div class="container-fluid contact-footer">
+				<div class="container-fluid contact-footer d-none">
 <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
                                         <path class="elementor-shape-fill" d="M0,6V0h1000v100L0,6z"></path>
                                         </svg> -->
